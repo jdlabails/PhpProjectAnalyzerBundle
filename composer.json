@@ -1,5 +1,5 @@
 {
-    "name" : "jdlabails/PhpProjectAnalyzerBundle",
+    "name" : "jdlabails/php-project-analyzer-bundle",
     "description" : "Bundle for PhpProjectAnalyzer",
     "type" : "symfony-bundle",    
     "homepage": "https://github.com/jdlabails/PhpProjectAnalyzerBundle",

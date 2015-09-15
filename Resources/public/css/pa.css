@@ -1,0 +1,91 @@
+body{
+    font-size: 13px
+}
+
+h3{
+    margin-top: 0;
+}
+
+#encartResultat{
+    border-radius: 0.25em;
+    color: #fff;
+    font-size: 75%;
+    font-weight: 700;
+    line-height: 1.5;
+    white-space: nowrap;
+    padding:10px 30px
+}
+
+#encartResultat table{
+    width: 100%;
+    border-collapse: collapse;
+}
+
+ul.metricDetail {
+    margin-top: 9px;
+    padding-left: 20px;
+    display: none;
+}
+
+#encartResultat table td{
+    padding: 2px;
+}
+
+.popover {
+    color:grey;
+    max-width: 350px;
+    width:350px
+}
+
+.popover-title{
+    font-size: 18px;
+}
+
+.popover-content{
+    font-weight: normal;
+}
+
+ul.metrics .list-group-item > .badge {
+    padding: 6px 7px;
+    float: none;
+    width: 12%;
+}
+
+ul.metrics .list-group-item label {
+    width:79%;
+    font-weight: normal
+}
+
+ul.metrics .list-group-item .optionsTool {
+    border: medium none;
+    margin: 0 0 5px 2px;
+    padding: 0;
+    width: 18px;
+}
+
+ ul.metrics .list-group-item{
+    padding-right: 3px;
+}
+
+.optionsTool .dropdown-menu .glyphicon{
+    margin-right: 10px
+}
+
+ul.metrics .list-group-item span.value {
+    width:12%;
+    float: none
+}
+
+#detailTest span.badge{
+    width:19%;
+    float: none
+}
+
+.badge.outil{
+    float: right;
+    cursor: pointer;
+}
+
+.detail{
+    display: none;
+}

@@ -1,0 +1,28 @@
+{
+    "name" : "jdlabails/PhpProjectAnalyzerBundle",
+    "description" : "Bundle for PhpProjectAnalyzer",
+    "type" : "symfony-bundle",    
+    "homepage": "https://github.com/jdlabails/PhpProjectAnalyzerBundle",
+    "license" : ["MIT"],
+    "keywords" : ["Php Project Analyzer"],
+    "authors" : [{
+        "name" : "Jean-David Labails",
+        "email" : "jd.labails@gmail.com"
+    }],
+    "require" : {        
+        "php": ">=5.3.2",
+        "symfony/framework-bundle": "~2.3",
+        "symfony/twig-bundle": "~2.3",
+        "ext-xdebug": ">=2.1.4"
+    },
+    "autoload" : {
+        "psr-0" : {
+            "jdlabails\\PhpProjectAnalyzerBundle" : ""
+        }
+    },
+    "extra" : {
+        "branch-alias" : {
+            "dev-master" : "some_version-dev"
+        }
+    }
+}

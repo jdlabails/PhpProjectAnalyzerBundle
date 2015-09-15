@@ -1,0 +1,40 @@
+<div class="panel panel-info">
+    <div class="panel-heading">
+        <h3>            
+            <span class="glyphicon glyphicon-link"></span>
+            {% trans %}link.link{%endtrans%}
+        </h3>
+        <div style=" font-size: 75%;color: #777;">
+            {% trans %}link.tools{%endtrans%}
+        </div>
+    </div>
+    <div class="panel-body" style="line-height: 30px">
+        <a href="ppaReports/reports/TEST/phpUnitReport/dashboard.html" target="_blank">
+            {% trans %}link.coverageReport{%endtrans%}
+        </a>
+        <br>
+
+        {% if projectAnalyser.isEnable('docs') %}
+        <a href="ppaReports/reports/DOCS/index.html" target="_blank">
+            {% trans %}link.phpDoc{%endtrans%}
+        </a>
+        {% endif %}
+
+        {% if projectAnalyser.isEnable('histo', true) %}
+        <br>
+        <a href="histo.php" target="_blank">
+            {% trans %}link.histo{%endtrans%}
+        </a>
+        {% endif %}
+
+        <br>
+        <a href="{{path ('jd_php_project_analyzer_phpinfo')}}" target="_blank">
+            {% trans %}link.phpinfo{%endtrans%}
+        </a>
+        <hr>
+        <a href="{{ params['gitlabURL']}}" target="_blank">
+            {% trans %}link.gitLabAccess{%endtrans%}
+        </a>
+        <br>
+    </div>
+</div>

@@ -1,0 +1,103 @@
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3>
+            <span class="glyphicon glyphicon-list"></span>
+            {% trans %}quantity.quantity{%endtrans %}
+            <span class="dropdown optionsTool" style="float: right; display: none">
+                <button class="btn btn-default dropdown-toggle optionsTool" style="border:none" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+                    <span class="glyphicon glyphicon-option-vertical"></span>
+                </button>
+                <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+                    <li role="presentation">
+                        <a role="menuitem" tabindex="-1" href="#">
+                            <span class="glyphicon glyphicon-fullscreen" ></span>Voir les rapports
+                        </a>
+                    </li>
+                    <li role="presentation">
+                        <a role="menuitem" tabindex="-1" href="#">
+                            <span class="glyphicon glyphicon-repeat" ></span> Relancer la compta
+                        </a>
+                    </li>
+                </ul>
+            </span>
+        </h3>
+        <div style=" font-size: 75%;color: #777;">
+            {% trans %}quantity.srcContent{%endtrans %}
+        </div>
+    </div>
+    <div class="panel-body">
+        <ul class="list-group">
+            
+            {% if projectAnalyser.isEnable('loc') %}
+            
+            <li class="list-group-item">
+                <span class="badge alert-info">{{ a.loc}}</span>
+                {% trans %}quantity.codeLines{%endtrans %}
+            </li>
+            
+            <li class="list-group-item">
+                <span class="badge alert-info">{{a.nbClasses}}</span>
+                {% trans %}quantity.classes{%endtrans %}
+            </li>
+
+            <li class="list-group-item">
+                <span class="badge alert-info">{{a.nbMethod}}</span>
+                {% trans %}quantity.methods{%endtrans %}
+            </li>
+
+            <li class="list-group-item">
+                <span class="badge alert-info">{{a.nbNamespace}}</span>
+                {% trans %}quantity.namespaces{%endtrans %}
+            </li>
+
+            {% endif %}
+
+            {% if projectAnalyser.isEnable('count') %}
+
+            <li class="list-group-item">
+                <span class="badge alert-info">{{a.nbBundles}}</span>
+                {% trans %}quantity.bundles{%endtrans %}
+            </li>
+            <li class="list-group-item">
+                <span class="badge alert-info">{{a.nbDir}}</span>
+                {% trans %}quantity.directories{%endtrans %}
+            </li>
+            <li class="list-group-item">
+                <span class="badge alert-info">{{a.nbfile}}</span>
+                {% trans %}quantity.files{%endtrans %}    
+                <span class="badge outil">
+                    <span class="glyphicon glyphicon-search" onclick="$('#listeNbFile').toggle()"></span>
+                </span>
+                <ul id="listeNbFile" class="metricDetail">
+                    <li class="list-group-item">
+                        <span class="badge">{{a.nbPhpFile}}</span>
+                        {% trans %}quantity.PHP{%endtrans %}
+                    </li>
+                    <li class="list-group-item">
+                        <span class="badge">{{a.nbCSSFile}}</span>
+                        {% trans %}quantity.CSS{%endtrans %}
+                    </li>
+                    <li class="list-group-item">
+                        <span class="badge alert-warning">{{a.nbCSSLib}}</span>
+                        {% trans %}quantity.libCSS{%endtrans %}
+                    </li>
+                    <li class="list-group-item">
+                        <span class="badge">{{a.nbJSFile}}</span>
+                        {% trans %}quantity.JS{%endtrans %}
+                    </li>
+                    <li class="list-group-item">
+                        <span class="badge alert-warning">{{a.nbJSLib}}</span>
+                        {% trans %}quantity.libJS{%endtrans %}
+                    </li>
+                    <li class="list-group-item">
+                        <span class="badge">{{a.nbTwig}}</span>
+                        {% trans %}quantity.twig{%endtrans %}
+                    </li>
+                </ul>
+            </li>
+
+            {% endif %}
+            
+        </ul>
+    </div>
+</div>

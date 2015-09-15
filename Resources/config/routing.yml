@@ -1,0 +1,11 @@
+jd_php_project_analyzer_homepage:
+    path:     /ppa
+    defaults: { _controller: JDPhpProjectAnalyzerBundle:Main:index }
+
+jd_php_project_analyzer_phpinfo:
+    path:     /ppa/phpinfo
+    defaults: { _controller: JDPhpProjectAnalyzerBundle:Main:phpinfo }
+
+jd_php_project_analyzer_analyze:
+    path:     /ppa/analyze
+    defaults: { _controller: JDPhpProjectAnalyzerBundle:Main:analyze }

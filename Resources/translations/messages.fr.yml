@@ -1,0 +1,82 @@
+
+# header
+lastAnalyze: Dernière analyse
+duration: Durée
+seconds: secondes
+a: à
+
+# score
+score.note: Note
+score.popTitle: Comment la note est-elle calculée ?
+score.popContent.begin: "Ce score est basé sur des éléments quantitatifs et qualitatifs :"
+score.popContent.sizeProject: Taille du projet
+score.popContent.fitWeighting: Vous pouvez adapter la pondération de ces éléments dans le param.yml.
+score.popContent.currentSet: "Vous êtes paramétrés comme suit :"
+score.popContent.csWeight: Pondération de code sniffer
+score.popContent.testWeight: Pondération des tests
+score.popContent.sizeWeight: Pondération de la taille
+score.popContent.scale: Echelle du projet
+
+# quantite
+quantity.quantity: Quantité
+quantity.srcContent: Contenu du dossier src uniquement
+quantity.bundles: Bundles
+quantity.directories: Dossiers
+quantity.files: Fichiers
+quantity.PHP: PHP
+quantity.CSS: CSS (hors lib)
+quantity.libCSS: Lib CSS
+quantity.JS: JS (hors lib)
+quantity.libJS: Lib JS
+quantity.twig: TWIG
+quantity.namespaces: Namespaces
+quantity.classes: Classes
+quantity.methods: Méthodes
+quantity.codeLines: Lignes de code
+
+# qualite
+quality.quality: Qualité
+quality.baseline: Robustesse et maintenabilité
+quality.testsTitle: Tests unitaires et fonctionnels
+quality.tests: Tests
+quality.assertions: Assertions
+quality.coverage: Couverture
+quality.messDetector: Mess Detector
+quality.cc10: Nb méthode avec CC* > 10
+quality.ccMethod: CC* / Nb Méthodes
+quality.copyPaste: Copy-Paste
+quality.codeSniffer: Code Sniffer
+quality.defineCC: "*CC : Complexité Cyclomatique"
+
+# lien
+link.link: Liens
+link.tools: Outils associés ou générés
+link.coverageReport: Rapport de code coverage
+link.phpDoc: Documentation générée
+link.gitLabAccess: Accès GitLab
+link.phpinfo: Php Info
+link.histo: Historique
+
+# lanceur
+launcher.launcher: Lanceur
+launcher.baseline: Analyser votre code
+launcher.generateDoc: Générer la doc
+launcher.generateCoverage: Générer le code coverage
+launcher.launch: Lancer l'analyse
+launcher.analyzeInProgress: Analyse en cours. Veuillez patienter...
+launcher.analyzeFinished: Analyse terminée, rafraîchissez la page.
+launcher.refresh: Rafraîchir la page
+
+# details
+details.see: Voir tous les rapports
+details.generatedOn: Généré le
+details.notGenerated: Non généré
+details.emptyReport: Rapport vide
+details.noReport: Aucun report généré
+
+#outil
+outil.detail: Voir le rapport
+outil.reparer: Réparer
+outil.cmd.lancee: Commande lancée 
+outil.cmd.manuelle: Commande de lancement manuel
+outil.relancer: Relancer

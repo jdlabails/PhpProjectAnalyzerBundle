@@ -1,0 +1,19 @@
+{% for idAnalyse, title in tabAvailableAnalysis %}
+    {% if projectAnalyser.isEnable(idAnalyse, true) %}        
+        {% if idAnalyse == 'test' %}
+            {% set report = _testInfo%}
+        {% else %}
+            {% set report = _reportInfo[idAnalyse|upper] %}
+        {% endif %}
+        
+        {% include 'JDPhpProjectAnalyzerBundle:Main:blockReportDetail.html.twig' %}
+        
+        {% include 'JDPhpProjectAnalyzerBundle:Main:Modal/rapport.html.twig' %}
+        {% include 'JDPhpProjectAnalyzerBundle:Main:Modal/cmd.html.twig' %}
+        {% include 'JDPhpProjectAnalyzerBundle:Main:Modal/cmdManuelle.html.twig' %}
+        
+        {% if idAnalyse == 'cs' %}
+            {% include 'JDPhpProjectAnalyzerBundle:Main:Modal/cmdRep.html.twig' %}
+        {% endif %}
+    {% endif %}
+{% endfor %}

@@ -1,0 +1,68 @@
+<div class="col-md-8">
+    <h1>
+        Project Analyzer : {{ params['title'] }}
+        <br>
+        <small>{{ params['description'] }}</small>
+    </h1>
+</div>
+<div class="col-md-4" style="margin-top:23px; font-size:20px">
+    <div class="label-{% if a.getTuSuccess() %}success{% else %}danger{%endif%}" id="encartResultat">
+        <table>
+            <tr>
+              <td>{% trans %}lastAnalyze{%endtrans%}</td>
+                <td>{{ a.getReadableDateTime }}</td>
+            </tr>
+            <tr>
+                <td>{% trans %}duration{%endtrans %}</td>
+                <td>{{ a.getReadableExecTime }}</td>
+            </tr>
+            {% if projectAnalyser.isScoreEnable %}
+            <tr>
+                <td>{% trans %}score.note{%endtrans %}</td>
+                <td {% if a.getReadableDateTime() != _testInfo['dateTimeCC'] and a.getTuSuccess() %} style="color: red;font-weight: normal" {% endif %} >
+                {{ _note }} / 20
+                <img
+                    src="{{ asset('bundles/jdphpprojectanalyzer/img/question.png') }}"
+                    class="help"
+                    data-toggle="popover"
+                    data-trigger="focus"
+                    data-placement="left"
+                    tabindex="0"
+                    style="margin-left: 20px"
+                    title="{% trans %}score.popTitle{%endtrans %}"
+                    data-content="
+                    {% trans %}score.popContent.begin{%endtrans %}
+
+                    <ul>
+                    <li>Code Sniffer score</li>
+                    <li>Tests status X code coverage</li>
+                    <li>{% trans %}score.popContent.sizeProject{%endtrans %}</li>
+                    </ul>
+                    {% trans %}score.popContent.fitWeighting{%endtrans %}
+                    <hr>
+                    {% trans %}score.popContent.currentSet{%endtrans %}
+                    <ul>
+                        <li>
+                            {% trans %}score.popContent.csWeight{%endtrans %} :
+                            {{ projectAnalyser.getScoreWeightParam('csWeight')}}
+                        </li>
+                        <li>
+                            {% trans %}score.popContent.testWeight{%endtrans %} :
+                            {{ projectAnalyser.getScoreWeightParam('testWeight')}}
+                        </li>
+                        <li>
+                            {% trans %}score.popContent.sizeWeight{%endtrans %} :
+                            {{ projectAnalyser.getScoreWeightParam('locWeight') }}
+                        </li>
+                        <li>
+                            {% trans %}score.popContent.scale{%endtrans %} :
+                            {{ projectAnalyser.getParam('score', 'projectSize') }}
+                        </li>
+                    </ul>
+                    ">
+                </td>
+            </tr>
+            {% endif %}
+        </table>
+    </div>
+</div>

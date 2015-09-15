@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Php Project Analyser</title>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        
+        
+{% block stylesheets %}
+    {% stylesheets
+        '@JDPhpProjectAnalyzerBundle/Resources/public/css/bootstrap.min.css'
+        '@JDPhpProjectAnalyzerBundle/Resources/public/css/pa.css'
+    %}
+    <link href="{{asset_url}}" type="text/css" rel="stylesheet"/>
+    {% endstylesheets %}
+{% endblock %}
+
+{% block javascripts %}
+    {% javascripts
+        '@JDPhpProjectAnalyzerBundle/Resources/public/js/jquery-2.1.0.min.js'
+        '@JDPhpProjectAnalyzerBundle/Resources/public/js/tooltip.js'
+        '@JDPhpProjectAnalyzerBundle/Resources/public/js/bootstrap.min.js'
+        '@JDPhpProjectAnalyzerBundle/Resources/public/js/pa.js'
+    %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+{% endblock %}
+
+        <link rel="icon" href="assets/img/favicon.ico" />
+        
+    </head>
+    <body>
+        <div class="container-fluid">
+          <div class="row">{% include 'JDPhpProjectAnalyzerBundle:Main:header.html.twig' %}</div>
+            <br>
+            <div class="row">
+                <div class="col-md-4">{% include 'JDPhpProjectAnalyzerBundle:Main:quantite.html.twig' %}</div>
+
+                <div class="col-md-4">{% include 'JDPhpProjectAnalyzerBundle:Main:qualite.html.twig' %}</div>
+
+                <div class="col-md-2">
+                    {% include 'JDPhpProjectAnalyzerBundle:Main:lanceur.html.twig' %}
+                    {% include 'JDPhpProjectAnalyzerBundle:Main:btnDetail.html.twig' %}
+                </div>
+                 <div class="col-md-2">
+                    {% include 'JDPhpProjectAnalyzerBundle:Main:lien.html.twig' %}
+                </div>
+            </div>
+
+            <div class="row">
+                {% include 'JDPhpProjectAnalyzerBundle:Main:detail.html.twig' %}
+            </div>
+        </div>
+    </body>
+
+    {% if isAnalyzeInProgress %} 
+        <script>
+        var urlLanceur = "{{path('jd_php_project_analyzer_analyze')}}";
+        $('document').ready(function () {
+            refreshLanceur();
+        });
+        </script>
+    {% endif %}
+    
+    <script>
+        var urlLanceur = "{{path('jd_php_project_analyzer_analyze')}}";
+    </script>
+</html>

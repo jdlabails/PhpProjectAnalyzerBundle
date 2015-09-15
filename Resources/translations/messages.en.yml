@@ -1,0 +1,83 @@
+
+# header
+lastAnalyze: Last analysis
+duration: Duration
+seconds: seconds
+a: at
+
+# score
+score.note: Score
+score.popTitle: How score is calculated ?
+score.popContent.begin: "This score is based on quantitative and qualitative elements:"
+score.popContent.sizeProject: Project Size
+score.popContent.fitWeighting: You can adjust the weighting of these elements in the param.yml.
+score.popContent.currentSet: "You are currently set as:"
+score.popContent.weight: weight
+score.popContent.csWeight: Code sniffer weight
+score.popContent.testWeight: Tests weight
+score.popContent.sizeWeight: Size weight
+score.popContent.scale: Project scale
+
+# quantite
+quantity.quantity: Quantity
+quantity.srcContent: src directory content only
+quantity.bundles: Bundles
+quantity.directories: Directories
+quantity.files: Files
+quantity.PHP: PHP
+quantity.CSS: CSS (excluding lib)
+quantity.libCSS: Lib CSS
+quantity.JS: JS (excluding lib)
+quantity.libJS: Lib JS
+quantity.twig: TWIG
+quantity.namespaces: Namespaces
+quantity.classes: Classes
+quantity.methods: Methods
+quantity.codeLines: Lines of Code
+
+# qualite
+quality.quality: Quality
+quality.baseline: Robustness and maintainability
+quality.testsTitle: Unit and functional tests
+quality.tests: Tests
+quality.assertions: Assertions
+quality.coverage: Coverage
+quality.messDetector: Mess Detector
+quality.cc10: Nb methods with CC* > 10
+quality.ccMethod: CC* / Nb Methods
+quality.copyPaste: Copy-Paste
+quality.codeSniffer: Code Sniffer
+quality.defineCC: "*CC : Cyclomatic Complexity"
+
+# lien
+link.link: Links
+link.tools: Associated and generated tools
+link.coverageReport: Code coverage report
+link.phpDoc: Generated documentation
+link.gitLabAccess: GitLab Access
+link.phpinfo: Php Info
+link.histo: History
+
+# lanceur
+launcher.launcher: Scan
+launcher.baseline: Scan your code
+launcher.generateDoc: Generate  doc
+launcher.generateCoverage: Generate  code coverage
+launcher.launch: Start Scan
+launcher.analyzeInProgress: Analysis in progress. Please wait...
+launcher.analyzeFinished: Analysis is complete, refresh the page.
+launcher.refresh: Refresh the page
+
+# details
+details.see: See detailed reports
+details.generatedOn: Generated on
+details.notGenerated: Not generated
+details.emptyReport: Empty report
+details.noReport: No generated report
+
+#outil
+outil.detail: See report
+outil.reparer: Fix
+outil.cmd.lancee: Launched command
+outil.cmd.manuelle: Manual Launch Command
+outil.relancer: Re-scan

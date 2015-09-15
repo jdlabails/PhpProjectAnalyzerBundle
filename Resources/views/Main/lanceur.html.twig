@@ -1,0 +1,49 @@
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <h3>            
+            <span class="glyphicon glyphicon-cog"></span>
+            {% trans %}launcher.launcher{% endtrans %}
+        </h3>
+        <div style=" font-size: 75%;color: white;">
+            {% trans %}launcher.baseline{% endtrans %}
+        </div>
+    </div>
+    <div class="panel-body">
+        <div id="formLanceur" style="display: {% if projectAnalyser.isAnalyzeInProgress() %}none{% else %} block {%endif%}" >
+            <form action="index.php" onsubmit="return lancerAnalyse();">
+                {% if projectAnalyser.isEnable('docs') %}
+                <div class="checkbox">
+                    <label>
+                      <input type="checkbox" name="genDoc" id="genDoc" value="1">
+                      {% trans %}launcher.generateDoc{% endtrans %}
+                    </label>
+                </div>
+                {% endif %}
+
+                <div class="checkbox">
+                    <label>
+                      <input type="checkbox" name="genCC" id="genCC" value="1">
+                      {% trans %}launcher.generateCoverage{% endtrans %}
+                    </label>
+                </div>
+                <button type="submit" class="btn btn-primary">
+                    {% trans %}launcher.launch{% endtrans %}
+                </button>
+                <div id="resAnalyse" style="float: right"></div>
+            </form>
+        </div>
+        <div id="refreshLanceur" style="text-align:center;display: {% if projectAnalyser.isAnalyzeInProgress() %} block {% else %} none {% endif %}">
+            <div style="float:left;margin: 10% 0;width: 155px;">
+                {% trans %}launcher.analyzeInProgress{% endtrans %}
+            </div>
+            <img src="{{ asset('bundles/jdphpprojectanalyzer/img/loading.gif') }}" style="width:100px;float: right;margin:10px 24px" >
+        </div>
+        <div id="rechargePage" style="text-align:center;display: none">
+            {% trans %}launcher.analyzeFinished{% endtrans %}
+            <br><br>
+            <button onclick="javascript:location.reload();" class="btn btn-success">
+                {% trans %}launcher.refresh{% endtrans %}
+            </button>
+        </div>
+    </div>
+</div>

@@ -2,12 +2,12 @@
 
 namespace JD\PhpProjectAnalyzerBundle\Traits;
 
-trait ParamManager
+trait ParamManagerTrait
 {
-
     /**
      * Va chercher les param du fichier yml
      * @param string $name cle du param
+     * @param string $attr sous cle du param
      * @return string value du param
      */
     function getParam($name, $attr = '')

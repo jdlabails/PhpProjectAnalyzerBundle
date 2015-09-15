@@ -2,8 +2,8 @@
 
 namespace JD\PhpProjectAnalyzerBundle\Manager;
 
-use JD\PhpProjectAnalyzerBundle\Traits\ParamManager;
-use JD\PhpProjectAnalyzerBundle\Traits\ScriptBuilder;
+use JD\PhpProjectAnalyzerBundle\Traits\ParamManagerTrait;
+use JD\PhpProjectAnalyzerBundle\Traits\ScriptBuilderTrait;
 
 /**
  * scriptManager s'occupe de générer et de lancer le script d'analyse
@@ -19,7 +19,7 @@ class ScriptManager
     private $tplShDirPath;
     private $phpDirPath;
 
-    use ScriptBuilder, ParamManager;
+    use ScriptBuilderTrait, ParamManagerTrait;
 
     /**
      * Le constructeur initialise les variables necessaire à la génération du script
@@ -79,17 +79,17 @@ class ScriptManager
 
         // on gere les options
         if (filter_input(INPUT_POST, 'genDoc') == 1) {
-            $cmd.=' -d ';
+            $cmd .= ' -d ';
             $txt .= ' avec génération de doc ';
         }
 
         if (filter_input(INPUT_POST, 'genCC') == 1) {
-            $cmd.=' -c ';
+            $cmd .= ' -c ';
             $txt .= 'avec code coverage';
         }
 
         // on lance l'analyse, c'est à dire le sh
-        exec('nohup '.$cmd. ' > '.$this->dirRoot.'/jetons/output.log 2> '.$this->dirRoot.'/jetons/error.log &');
+        exec('nohup '.$cmd.' > '.$this->dirRoot.'/jetons/output.log 2> '.$this->dirRoot.'/jetons/error.log &');
 
         return $txt.' lancée ('.$cmd.')';
     }

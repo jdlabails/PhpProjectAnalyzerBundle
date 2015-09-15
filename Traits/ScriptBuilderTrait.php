@@ -7,7 +7,7 @@ namespace JD\PhpProjectAnalyzerBundle\Traits;
  *
  * @author jd
  */
-trait ScriptBuilder
+trait ScriptBuilderTrait
 {
     private $header         = '';
 
@@ -49,7 +49,7 @@ trait ScriptBuilder
                         $cbfContent = file_get_contents($this->tplShDirPath.'/cbf.tpl.sh');
                         $std = 'PSR2';
                         if (strpos($param['standard'], 'PSR') !== null &&
-                            strlen($param['standard']) < 8
+                            strlen($param['standard']) < 10
                             ) {
                             $std = $this->parameters['cs']['standard'];
                         }
@@ -83,12 +83,12 @@ trait ScriptBuilder
 
     private function getMDRuleSet()
     {
-        $availableRule = array('cleancode', 'codesize', 'controversial', 'design', 'naming', 'unusedcode');
-        $tabRule=[];
+        $availableRule = ['cleancode', 'codesize', 'controversial', 'design', 'naming', 'unusedcode'];
+        $tabRule = [];
 
         foreach ($availableRule as $r) {
             if ($this->parameters['md']['rules'][$r] == 'true') {
-                $tabRule[]=$r;
+                $tabRule[] = $r;
             }
         }
 

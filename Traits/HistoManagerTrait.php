@@ -5,7 +5,7 @@ namespace JD\PhpProjectAnalyzerBundle\Traits;
 /*
  * Regroupement des fonctions liées à la fonctionnalité historique du project analyzer
  */
-trait HistoManager
+trait HistoManagerTrait
 {
     /**
      * Retourne les analyses par lecture des json
@@ -21,7 +21,7 @@ trait HistoManager
         foreach ($tab as $t) {
             $a = new analyze();
             $a->setFromArray($t);
-            $res []=$a;
+            $res[] = $a;
         }
 
         return $res;
@@ -53,6 +53,10 @@ trait HistoManager
         }
     }
 
+    /**
+     * inutial
+     * @return string
+     */
     public function getTabJS4HistoGraph()
     {
         $res = '';
@@ -87,16 +91,16 @@ trait HistoManager
 
         $res .= 'successPart = '.$successPart.';';
 
-        $res .= $dataLoc . '];';
-        $res .= $dataFile . '];';
-        $res .= $dataPhp . '];';
-        $res .= $dataJS . '];';
-        $res .= $dataCSS . '];';
-        $res .= $dataClasse . '];';
-        $res .= $dataCs . '];';
-        $res .= $dataTu . '];';
-        $res .= $dataNote . '];';
-        $res .= $dataCov . '];';
+        $res .= $dataLoc.'];';
+        $res .= $dataFile.'];';
+        $res .= $dataPhp.'];';
+        $res .= $dataJS.'];';
+        $res .= $dataCSS.'];';
+        $res .= $dataClasse.'];';
+        $res .= $dataCs.'];';
+        $res .= $dataTu.'];';
+        $res .= $dataNote.'];';
+        $res .= $dataCov.'];';
 
         return $res;
     }

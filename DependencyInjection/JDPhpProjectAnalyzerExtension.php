@@ -24,11 +24,11 @@ class JDPhpProjectAnalyzerExtension extends Extension
 
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.yml');
-        
+
         $this->addConfigToParameter('jd.ppa', $config, $container);
         $container->setParameter('jd.ppa.global', $config);
     }
-    
+
     private function addConfigToParameter($prefix, array $config, ContainerBuilder $container)
     {
         foreach ($config as $k => $v) {

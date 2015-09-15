@@ -10,8 +10,12 @@ namespace JD\PhpProjectAnalyzerBundle\Traits;
  *
  * @author jd.labails
  */
-trait ScoreManager
+trait ScoreManagerTrait
 {
+    /**
+     * Return true if score is enable by the config file
+     * @return type
+     */
     public function isScoreEnable()
     {
         return $this->getParam('score', 'enable') == 'true';
@@ -19,22 +23,21 @@ trait ScoreManager
 
     /**
      * 20/20 serait donné à un projet de 100kLoc tester à 100% avec CS ok
-     * @param type $t_info
-     * @todo les pondérations pourraient être en param.yml, notament celle sur loc
+     * @param array $testInfo test information
      * @return type
      */
-    function getNote($t_info)
+    public function getNote($testInfo)
     {
         if (! $this->isScoreEnable()) {
             return 0;
         }
 
         $loc    = $this->extractFromLoc('loc');
-        $this->oAnalyze->setLoc((int)$loc);
+        $this->oAnalyze->setLoc((int) $loc);
 
-        $cs     = (int)($this->oAnalyze->getCsSuccess() === true);
-        $test   = (int)$t_info['ok'];
-        $cc     = (float)str_replace('%', '', $t_info['ccLine']);
+        $cs     = (int) ($this->oAnalyze->getCsSuccess() === true);
+        $test   = (int) $testInfo['ok'];
+        $cc     = (float) str_replace('%', '', $testInfo['ccLine']);
 
         $csWeight       = $this->getScoreWeightParam('csWeight');
         $testWeight     = $this->getScoreWeightParam('testWeight');
@@ -66,7 +69,12 @@ trait ScoreManager
         return $score;
     }
 
-    function getScoreWeightParam($name)
+    /**
+     * Return weight of the given parameter
+     * @param type $name
+     * @return int
+     */
+    public function getScoreWeightParam($name)
     {
         $weight = $this->getParam('score', $name);
         if (! is_int($weight)) {

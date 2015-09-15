@@ -10,8 +10,13 @@ namespace JD\PhpProjectAnalyzerBundle\Traits;
  *
  * @author jd.labails
  */
-trait Visualizer
+trait VisualizerTrait
 {
+    /**
+     * Affiche ok ou ko selon le resultat de l'analyse
+     * @param type $summary
+     * @return string
+     */
     function afficheSummary($summary)
     {
         switch ($summary) {
@@ -27,16 +32,6 @@ trait Visualizer
         }
 
         return $txt;
-    }
-
-    /**
-     * Gestion de la trad
-     * @param string $label
-     * @return string
-     */
-    public function getLabel($label)
-    {
-        return key_exists($label, $this->labels) ? $this->labels[$label] : $label;
     }
 
     /**
@@ -65,8 +60,8 @@ trait Visualizer
     {
         if ($this->parameters['lang'] == 'fr') {
             return date('d/m/y à H:i', $dt);
-        } else {
-            return date('Y-m-d H:i', $dt);
         }
+
+        return date('Y-m-d H:i', $dt);
     }
 }

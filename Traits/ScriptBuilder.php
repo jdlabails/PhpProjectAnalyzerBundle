@@ -18,50 +18,51 @@ trait ScriptBuilder
     {
         $contentGlobalSh = $contentCSSh = $contentCbfSh = $this->getHeader();
 
-        foreach ($this->_parameters as $idAnalyse => $param) {
-            if ($this->isEnable($idAnalyse) && file_exists($this->_tplShDirPath.'/'.$idAnalyse.'.tpl.sh')) {
+        foreach ($this->parameters as $idAnalyse => $param) {
+            if ($this->isEnable($idAnalyse) && file_exists($this->tplShDirPath.'/'.$idAnalyse.'.tpl.sh')) {
                 $contentSh = '';
                 switch ($idAnalyse) {
                     case 'md':
-                        $contentSh = file_get_contents($this->_tplShDirPath.'/md.tpl.sh');
+                        $contentSh = file_get_contents($this->tplShDirPath.'/md.tpl.sh');
                         $contentSh .= str_replace('%%%rule_set%%%', $this->getMDRuleSet(), $contentSh);
                         break;
                     case 'test':
                         if ($param['lib'] == 'phpunit') {
-                            $contentSh = file_get_contents($this->_tplShDirPath.'/testPhpUnit.tpl.sh');
+                            $contentSh = file_get_contents($this->tplShDirPath.'/testPhpUnit.tpl.sh');
                             $contentSh = str_replace('%%%testsuite%%%', $param['phpunitTestSuite'], $contentSh);
+                            $contentSh = str_replace('%%%testconfig%%%', $param['phpunitTestConfig'], $contentSh);
                         }
                         if ($param['lib'] == 'atoum') {
-                            $contentSh = file_get_contents($this->_tplShDirPath.'/testAtoum.tpl.sh');
+                            $contentSh = file_get_contents($this->tplShDirPath.'/testAtoum.tpl.sh');
                             $contentSh = str_replace('%%%pathAtoum%%%', $param['atoumPath'], $contentSh);
                             $contentSh = str_replace('%%%dirTestAtoum%%%', $param['atoumTestDir'], $contentSh);
                             // modif atoum.cc.php
-                            $contentAtoumCC = file_get_contents($this->_phpDirPath.'/atoum.cc.tpl.php');
+                            $contentAtoumCC = file_get_contents($this->phpDirPath.'/atoum.cc.tpl.php');
                             $contentAtoumCC = str_replace('%%%projectName%%%', $param['title'], $contentAtoumCC);
-                            $contentAtoumCC = str_replace('%%%ppaPath%%%', $this->_dirRoot, $contentAtoumCC);
-                            
-                            file_put_contents($this->_dirRoot.'assets/php/atoum.cc.php', $contentAtoumCC);
+                            $contentAtoumCC = str_replace('%%%ppaPath%%%', $this->dirRoot, $contentAtoumCC);
+
+                            file_put_contents($this->dirRoot.'assets/php/atoum.cc.php', $contentAtoumCC);
                         }
                         break;
                     case 'cs':
-                        $contentSh = file_get_contents($this->_tplShDirPath.'/cs.tpl.sh');
-                        $cbfContent = file_get_contents($this->_tplShDirPath.'/cbf.tpl.sh');
+                        $contentSh = file_get_contents($this->tplShDirPath.'/cs.tpl.sh');
+                        $cbfContent = file_get_contents($this->tplShDirPath.'/cbf.tpl.sh');
                         $std = 'PSR2';
                         if (strpos($param['standard'], 'PSR') !== null &&
                             strlen($param['standard']) < 8
                             ) {
-                            $std = $this->_parameters['cs']['standard'];
+                            $std = $this->parameters['cs']['standard'];
                         }
 
                         $cbfContent = str_replace('%%%standard%%%', $std, $cbfContent);
                         $contentSh = str_replace('%%%standard%%%', $std, $contentSh);
 
                         $contentCbfSh .= $cbfContent;
-                        $contentCbfSh .= file_get_contents($this->_tplShDirPath.'/footer.tpl.sh');
-                        file_put_contents($this->_shDirPath.'/one/cbf.sh', $contentCbfSh);
+                        $contentCbfSh .= file_get_contents($this->tplShDirPath.'/footer.tpl.sh');
+                        file_put_contents($this->shDirPath.'/one/cbf.sh', $contentCbfSh);
                         break;
                     default:
-                        $contentSh = file_get_contents($this->_tplShDirPath.'/'.$idAnalyse.'.tpl.sh');
+                        $contentSh = file_get_contents($this->tplShDirPath.'/'.$idAnalyse.'.tpl.sh');
                         break;
                 }
 
@@ -69,14 +70,14 @@ trait ScriptBuilder
 
                 $content = $this->getHeader();
                 $content .= $contentSh;
-                $content .= file_get_contents($this->_tplShDirPath.'/footer.tpl.sh');
+                $content .= file_get_contents($this->tplShDirPath.'/footer.tpl.sh');
 
-                file_put_contents($this->_shDirPath.'/one/'.$idAnalyse.'.sh', $content);
+                file_put_contents($this->shDirPath.'/one/'.$idAnalyse.'.sh', $content);
             }
         }
 
-        $contentGlobalSh .= file_get_contents($this->_tplShDirPath.'/footer.tpl.sh');
-        file_put_contents($this->_shDirPath.'/pa.sh', $contentGlobalSh);
+        $contentGlobalSh .= file_get_contents($this->tplShDirPath.'/footer.tpl.sh');
+        file_put_contents($this->paShPath, $contentGlobalSh);
     }
 
 
@@ -86,7 +87,7 @@ trait ScriptBuilder
         $tabRule=[];
 
         foreach ($availableRule as $r) {
-            if ($this->_parameters['md']['rules'][$r] == 'true') {
+            if ($this->parameters['md']['rules'][$r] == 'true') {
                 $tabRule[]=$r;
             }
         }
@@ -97,17 +98,12 @@ trait ScriptBuilder
     private function getHeader()
     {
         if ($this->header == '') {
-            $this->header = file_get_contents($this->_tplShDirPath.'/header.tpl.sh');
-            $this->header = str_replace('%%%dir_src%%%', $this->_parameters['srcPath'], $this->header);
-            $this->header = str_replace('%%%dir_pa%%%', $this->_dirRoot, $this->header);
+            $this->header = file_get_contents($this->tplShDirPath.'/header.tpl.sh');
+            $this->header = str_replace('%%%dir_src%%%', $this->parameters['srcPath'], $this->header);
+            $this->header = str_replace('%%%dir_pa%%%', $this->dirRoot, $this->header);
             $this->header = str_replace('%%%dir_phar%%%', __DIR__.'/../Resources/_phar', $this->header);
         }
 
         return $this->header;
-    }
-
-    private function creerScriptAnalyse($idAnalyse)
-    {
-
     }
 }

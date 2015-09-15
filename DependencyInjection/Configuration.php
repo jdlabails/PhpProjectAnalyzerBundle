@@ -25,7 +25,7 @@ class Configuration implements ConfigurationInterface
                 ->scalarNode('title')->defaultValue('Your project')->end()
                 ->scalarNode('description')->defaultNull()->end()
                 ->scalarNode('lang')->defaultValue('en')->end()
-                ->scalarNode('gitlabURL')->defaultNull()->end()
+                ->scalarNode('gitRepositoryURL')->defaultNull()->end()
                 ->scalarNode('srcPath')->isRequired()->cannotBeEmpty()->end()
                 ->scalarNode('reportPath')->isRequired()->cannotBeEmpty()->end()
 
@@ -62,6 +62,7 @@ class Configuration implements ConfigurationInterface
                         ->booleanNode('enable')->defaultTrue()->end()
                         ->scalarNode('lib')->defaultValue('phpunit')->cannotBeEmpty()->end()
                         ->scalarNode('phpunitTestSuite')->cannotBeEmpty()->end()
+                        ->scalarNode('phpunitTestConfig')->cannotBeEmpty()->end()
                     ->end()
                 ->end()
 

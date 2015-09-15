@@ -36,7 +36,7 @@ trait Visualizer
      */
     public function getLabel($label)
     {
-        return key_exists($label, $this->_labels) ? $this->_labels[$label] : $label;
+        return key_exists($label, $this->labels) ? $this->labels[$label] : $label;
     }
 
     /**
@@ -63,7 +63,7 @@ trait Visualizer
      */
     function getReadableDateTime($dt)
     {
-        if ($this->_parameters['lang'] == 'fr') {
+        if ($this->parameters['lang'] == 'fr') {
             return date('d/m/y à H:i', $dt);
         } else {
             return date('Y-m-d H:i', $dt);

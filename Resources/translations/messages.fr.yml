@@ -53,7 +53,7 @@ link.link: Liens
 link.tools: Outils associés ou générés
 link.coverageReport: Rapport de code coverage
 link.phpDoc: Documentation générée
-link.gitLabAccess: Accès GitLab
+link.gitRepositoryAccess: Accès Git Repository
 link.phpinfo: Php Info
 link.histo: Historique
 

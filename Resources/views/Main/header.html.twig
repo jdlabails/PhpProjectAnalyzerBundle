@@ -10,11 +10,11 @@
         <table>
             <tr>
               <td>{% trans %}lastAnalyze{%endtrans%}</td>
-                <td>{{ a.getReadableDateTime }}</td>
+                <td>{{ a.readableDateTime }}</td>
             </tr>
             <tr>
                 <td>{% trans %}duration{%endtrans %}</td>
-                <td>{{ a.getReadableExecTime }}</td>
+                <td>{{ a.readableExecTime }}</td>
             </tr>
             {% if projectAnalyser.isScoreEnable %}
             <tr>

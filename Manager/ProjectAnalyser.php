@@ -17,10 +17,9 @@ class ProjectAnalyser
 {
     use Visualizer, ScoreManager, HistoManager, ParamManager;
 
-    private $_dirRoot;
-    private $_parameters;
-    private $_reportPath;
-    //private $_labels;
+    private $dirRoot;
+    private $parameters;
+    private $reportPath;
 
     private $oAnalyze;
 
@@ -31,22 +30,21 @@ class ProjectAnalyser
     {
         $this->translator = $translator;
         // qq chemin
-        $this->_dirRoot = __DIR__.'/../../';
-        $this->_reportPath = $configGlobale['reportPath'].'/reports';
+        $this->dirRoot = $configGlobale['reportPath'];
+        $this->reportPath = $configGlobale['reportPath'].'/reports';
 
         // les parameters
-        $this->_parameters = $configGlobale;
+        $this->parameters = $configGlobale;
 
         // les libelles de l'appli
         $availableLang = array('en', 'fr');
         $lang = $this->getParam('lang');
         $lang = in_array($lang, $availableLang) ? $lang : 'en';
-        //$this->_labels = [];//Spyc::YAMLLoad($this->_dirRoot.'translations/'.$lang.'.yml');
 
         // l'objet analyse
         $this->oAnalyze = new Analyze();
         $this->oAnalyze
-            ->setLangue($this->_parameters['lang'])
+            ->setLangue($this->parameters['lang'])
             ->setNbNamespace($this->extractFromLoc('namespaces'))
             ->setNbClasses($this->extractFromLoc('classes'))
             ->setNbMethod($this->extractFromLoc('methods'))
@@ -76,10 +74,10 @@ class ProjectAnalyser
      */
     public function isAnalyzeInProgress()
     {
-        return file_exists($this->_dirRoot.'/jetons/jetonAnalyse');
+        return file_exists($this->dirRoot.'/jetons/jetonAnalyse');
     }
 
-    function extractFromLoc($param)
+    protected function extractFromLoc($param)
     {
         return $this->extractFromXmlReport($param, '/LOC/phploc.xml');
     }
@@ -91,7 +89,7 @@ class ProjectAnalyser
      *
      * @return array($txt, $vide) contenu du rapport et boolean si vide ou pas
      */
-    function getReport($file)
+    public function getReport($file)
     {
         $txt = $this->translator->trans('details.noReport').' :(';
         $vide = false;
@@ -116,7 +114,7 @@ class ProjectAnalyser
      */
     protected function getCountFile($file)
     {
-        $path = $this->_reportPath.'/COUNT/'.$file;
+        $path = $this->reportPath.'/COUNT/'.$file;
         $txt = '';
         if (file_exists($path)) {
             $txt = file_get_contents($path);
@@ -191,7 +189,7 @@ class ProjectAnalyser
      */
     protected function extractFromXmlReport($cle, $reportFilePath)
     {
-        $file = $this->_reportPath.$reportFilePath;
+        $file = $this->reportPath.$reportFilePath;
         if (file_exists($file)) {
             $xml = simplexml_load_file($file);
             return $xml->$cle;
@@ -217,7 +215,7 @@ class ProjectAnalyser
     {
         $res = array();
         $txt = '';
-        $report = $this->_reportPath.'/'.$prefix.'/report.txt';
+        $report = $this->reportPath.'/'.$prefix.'/report.txt';
         if (file_exists($report)) {
             $txt = trim(file_get_contents($report));
         }
@@ -239,7 +237,7 @@ class ProjectAnalyser
      * Exploit les rapports de test unitaire
      * @return type
      */
-    function exploitTestReport()
+    public function exploitTestReport()
     {
         $res = array(
             'ok'            => false,
@@ -256,7 +254,7 @@ class ProjectAnalyser
             'report'        => ''
         );
 
-        $testReportFile = $this->_reportPath.'/TEST/report.txt';
+        $testReportFile = $this->reportPath.'/TEST/report.txt';
         if (file_exists($testReportFile)) {
             $res['report'] = $this->adaptPhpUnitReport($testReportFile);
 
@@ -264,7 +262,7 @@ class ProjectAnalyser
 
             $lines = file($testReportFile);
 
-            if ($this->_parameters['test']['lib'] == 'phpunit') {
+            if ($this->parameters['test']['lib'] == 'phpunit') {
                 foreach ($lines as $l) {
                     // si on est sur la ligne des metrique d'execution du test
                     // Time: 6.8 minutes, Memory: 141.00Mb
@@ -296,7 +294,7 @@ class ProjectAnalyser
                     }
                 }
 
-                $covReportFile = $this->_reportPath.'/TEST/coverage.txt';
+                $covReportFile = $this->reportPath.'/TEST/coverage.txt';
                 if (file_exists($covReportFile)) {
                     $res['dateTimeCC']=$this->getReadableDateTime(filemtime($covReportFile));
 
@@ -314,7 +312,7 @@ class ProjectAnalyser
                 }
             } // phpunit
 
-            if ($this->_parameters['test']['lib'] == 'atoum') {
+            if ($this->parameters['test']['lib'] == 'atoum') {
                 $nbLines = count($lines);
                 list($_, $res['exeTime']) = explode(':', $lines[$nbLines-2]);
 
@@ -342,12 +340,12 @@ class ProjectAnalyser
         }
 
 
-        $cmdFile = $this->_reportPath.'/TEST/cmd.txt';
+        $cmdFile = $this->reportPath.'/TEST/cmd.txt';
         if (file_exists($cmdFile)) {
             $res['cmd']=  file_get_contents($cmdFile);
         }
 
-        $cmdManuelleFile = $this->_reportPath.'/TEST/cmdManuelle.txt';
+        $cmdManuelleFile = $this->reportPath.'/TEST/cmdManuelle.txt';
         if (file_exists($cmdManuelleFile)) {
             $res['cmdManuelle']=  file_get_contents($cmdManuelleFile);
         }
@@ -369,9 +367,9 @@ class ProjectAnalyser
         $tabReports = array('MD', 'CS', 'CPD', 'DEPEND', 'LOC', 'DOCS');
 
         foreach ($tabReports as $report) {
-            list($reportTxt, $vide) = $this->getReport($this->_reportPath.'/'.$report.'/report.txt');
+            list($reportTxt, $vide) = $this->getReport($this->reportPath.'/'.$report.'/report.txt');
             $res[$report] = array(
-                'date'      => $this->getDateGeneration($this->_reportPath.'/'.$report.'/report.txt'),
+                'date'      => $this->getDateGeneration($this->reportPath.'/'.$report.'/report.txt'),
                 'report'    => $reportTxt,
                 'ok'        => $vide
             );
@@ -380,20 +378,20 @@ class ProjectAnalyser
                 $res[$report]['ok'] = strpos($reportTxt, '0.00% duplicated lines') !== false;
             }
 
-            $cmdFile = $this->_reportPath.'/'.$report.'/cmd.txt';
+            $cmdFile = $this->reportPath.'/'.$report.'/cmd.txt';
             $res[$report]['cmd']='';
             if (file_exists($cmdFile)) {
                 $res[$report]['cmd']= file_get_contents($cmdFile);
             }
 
-            $cmdManuelleFile = $this->_reportPath.'/'.$report.'/cmdManuelle.txt';
+            $cmdManuelleFile = $this->reportPath.'/'.$report.'/cmdManuelle.txt';
             $res[$report]['cmdManuelle']='';
             if (file_exists($cmdManuelleFile)) {
                 $res[$report]['cmdManuelle']= file_get_contents($cmdManuelleFile);
             }
 
             if ($report == 'CS') {
-                $cmdRepFile = $this->_reportPath.'/'.$report.'/cmdRep.txt';
+                $cmdRepFile = $this->reportPath.'/'.$report.'/cmdRep.txt';
                 $res[$report]['cmdRep']='';
                 if (file_exists($cmdRepFile)) {
                     $res[$report]['cmdRep']= file_get_contents($cmdRepFile);
@@ -409,7 +407,7 @@ class ProjectAnalyser
      */
     protected function getAnalyseInfo()
     {
-        $file = $this->_dirRoot.'/jetons/timeAnalyse';
+        $file = $this->dirRoot.'/jetons/timeAnalyse';
         if (file_exists($file)) {
             $this->oAnalyze
                 ->setDateTime(filemtime($file))

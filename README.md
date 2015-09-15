@@ -29,7 +29,7 @@ jd_php_project_analyzer:
     description:    It's a ouaaaouhh project !
     lang :          en
 
-    gitlabURL:      https://github.com/jdlabails/PhpProjectAnalyzerBundle
+    gitRepositoryURL:      https://github.com/jdlabails/PhpProjectAnalyzerBundle
 
     # chemin d'analyse
     srcPath : /home/jd/Dev/starterkit_sf2/src/JD

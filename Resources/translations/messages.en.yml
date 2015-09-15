@@ -54,7 +54,7 @@ link.link: Links
 link.tools: Associated and generated tools
 link.coverageReport: Code coverage report
 link.phpDoc: Generated documentation
-link.gitLabAccess: GitLab Access
+link.gitRepositoryAccess: Git Repository Access
 link.phpinfo: Php Info
 link.histo: History
 

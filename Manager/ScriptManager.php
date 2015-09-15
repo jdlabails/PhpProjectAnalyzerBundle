@@ -12,40 +12,40 @@ use JD\PhpProjectAnalyzerBundle\Traits\ScriptBuilder;
  */
 class ScriptManager
 {
-    private $_dirRoot;
-    private $_parameters;
-    private $_mustGenerate;
-    private $_jetonAnalysePath;
-    private $_paShPath;
-    //private $_paramPath;
-    private $_tplShDirPath;
-    private $_phpDirPath;
+    private $dirRoot;
+    private $parameters;
+    private $jetonAnalysePath;
+    private $paShPath;
+    private $tplShDirPath;
+    private $phpDirPath;
 
     use ScriptBuilder, ParamManager;
 
-    function __construct($configGlobale)
+    /**
+     * Le constructeur initialise les variables necessaire à la génération du script
+     *
+     * @param type $configGlobale
+     */
+    public function __construct($configGlobale)
     {
-        $this->_dirRoot             = $configGlobale['reportPath'].'/';
-        //$this->_paramPath           = $this->_dirRoot.'core/param.yml';
-        $this->_jetonAnalysePath    = $this->_dirRoot.'/jetons/jetonAnalyse';
-        $this->_shDirPath            = $this->_dirRoot.'/sh';
-        $this->_tplShDirPath        = __DIR__.'/../Resources/sh';
-        $this->_phpDirPath          = $this->_dirRoot.'/php';
+        $this->dirRoot             = $configGlobale['reportPath'].'/';
+        $this->jetonAnalysePath    = $this->dirRoot.'/jetons/jetonAnalyse';
+        $this->shDirPath           = $this->dirRoot.'/sh';
+        $this->tplShDirPath        = __DIR__.'/../Resources/sh';
+        $this->phpDirPath          = $this->dirRoot.'/php';
 
-        $this->_parameters          = $configGlobale;
-
-        $this->_mustGenerate        = true;//!file_exists($this->_paShPath) || filemtime($this->_paShPath) < filemtime($this->_paramPath);
+        $this->parameters          = $configGlobale;
     }
 
-    public function getState()
-    {
-        
-    }
-    
-    function lancerAnalyse()
+    /**
+     * Lance le shell d'analyse en tache de fond
+     *
+     * @return string état lisible de l'analyse
+     */
+    public function lancerAnalyse()
     {
         // si une analyse est en cours on dégage
-        if (file_exists($this->_jetonAnalysePath)) {
+        if (file_exists($this->jetonAnalysePath)) {
             return 'Analyse en cours';
         }
 
@@ -55,22 +55,19 @@ class ScriptManager
         }
 
         // si on arrive là on doit lancer l'analyse selon la config
-        if ($this->_mustGenerate) {
-            $this->creerAnalyses();
-        }
+        $this->paShPath = $this->shDirPath.'/pa.sh';
+        $this->creerAnalyses();
 
-        $this->_paShPath = $this->_shDirPath.'/pa.sh';
-        
         // lancement unitaire : le sh à lancer n'est pas la meme
         if (filter_input(INPUT_POST, 'one') != '') {
-            $this->_paShPath = $this->_dirRoot.'/sh/one/'.filter_input(INPUT_POST, 'one').'.sh';
+            $this->paShPath = $this->dirRoot.'/sh/one/'.filter_input(INPUT_POST, 'one').'.sh';
         }
 
         // on vérifie qu'on peut executer le sh
-        if (!is_executable($this->_paShPath)) {
-            chmod($this->_paShPath, 0777);
-            if (!is_executable($this->_paShPath)) {
-                return basename($this->_paShPath).' non executable';
+        if (!is_executable($this->paShPath)) {
+            chmod($this->paShPath, 0777);
+            if (!is_executable($this->paShPath)) {
+                return basename($this->paShPath).' non executable';
             }
         }
 
@@ -78,7 +75,7 @@ class ScriptManager
         $txt = 'Analyse ';
 
         // on init la commande
-        $cmd = $this->_paShPath;
+        $cmd = $this->paShPath;
 
         // on gere les options
         if (filter_input(INPUT_POST, 'genDoc') == 1) {
@@ -92,7 +89,7 @@ class ScriptManager
         }
 
         // on lance l'analyse, c'est à dire le sh
-        exec('nohup '.$cmd. ' > '.$this->_dirRoot.'/jetons/output.log 2> '.$this->_dirRoot.'/jetons/error.log &');
+        exec('nohup '.$cmd. ' > '.$this->dirRoot.'/jetons/output.log 2> '.$this->dirRoot.'/jetons/error.log &');
 
         return $txt.' lancée ('.$cmd.')';
     }

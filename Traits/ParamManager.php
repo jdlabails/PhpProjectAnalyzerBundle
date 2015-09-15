@@ -12,17 +12,17 @@ trait ParamManager
      */
     function getParam($name, $attr = '')
     {
-        if (isset($this->_parameters[$name])) {
-            if ($attr != '' && isset($this->_parameters[$name][$attr])) {
-                return $this->_parameters[$name][$attr];
+        if (isset($this->parameters[$name])) {
+            if ($attr != '' && isset($this->parameters[$name][$attr])) {
+                return $this->parameters[$name][$attr];
             }
 
-            return $this->_parameters[$name];
+            return $this->parameters[$name];
         }
 
         return '';
     }
-        
+
     /**
      * Renvoi vrai si la param est à true dans le yml
      * @param type $paramName
@@ -30,12 +30,12 @@ trait ParamManager
      */
     function isEnable($paramName)
     {
-        if (isset($this->_parameters[$paramName])) {
-            if (is_array($this->_parameters[$paramName])) {
-                return $this->_parameters[$paramName]['enable'];
+        if (isset($this->parameters[$paramName])) {
+            if (is_array($this->parameters[$paramName])) {
+                return $this->parameters[$paramName]['enable'];
             }
 
-            return $this->_parameters[$paramName];
+            return $this->parameters[$paramName];
         }
 
         return false;

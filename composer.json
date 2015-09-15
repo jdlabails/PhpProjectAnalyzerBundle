@@ -16,9 +16,7 @@
         "ext-xdebug": ">=2.1.4"
     },
     "autoload" : {
-        "psr-0" : {
-            "jdlabails\\PhpProjectAnalyzerBundle" : ""
-        }
+        "psr-4": { "JD\\PhpProjectAnalyzerBundle\\": "" }
     },
     "extra" : {
         "branch-alias" : {

@@ -81,3 +81,4 @@ outil.reparer: Fix
 outil.cmd.lancee: Launched command
 outil.cmd.manuelle: Manual Launch Command
 outil.relancer: Re-scan
+outil.close: Close

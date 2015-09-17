@@ -341,15 +341,13 @@ class ProjectAnalyser
 
     /**
      * Recupere le contenu d'un count file
-     *
      * @param type $file
-     *
      * @return type
      */
     protected function getCountFile($file)
     {
-        $path = $this->reportPath.'/COUNT/'.$file;
         $txt = '';
+        $path = $this->reportPath.'/COUNT/'.$file;
         if (file_exists($path)) {
             $txt = file_get_contents($path);
         }

@@ -41,7 +41,7 @@ trait VisualizerTrait
      */
     function adaptPhpUnitReport($file)
     {
-        $txt = '<br>'.file_get_contents($file);
+        $txt = file_get_contents($file);
         $txt = str_replace('[30;42m', '<span style="color:green">', $txt);
         $txt = str_replace('[37;41m', '<span style="color:red">', $txt);
         $txt = str_replace('[31;1m', '<span style="">', $txt);

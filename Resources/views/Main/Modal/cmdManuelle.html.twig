@@ -16,8 +16,8 @@
                 </div>              
             </div>
             <div class="modal-footer">
-                <button  type="button" class="btn btn-warning" onclick="$('#cmdManuelle_{{idAnalyse}}').modal('hide');lancerUneAnalyse('{{idAnalyse}}')">Relancer</button>
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button class="btn btn-warning" onclick="$('#cmdManuelle_{{idAnalyse}}').modal('hide');lancerUneAnalyse('{{idAnalyse}}')">{% trans %}outil.relancer{% endtrans %}</button>
+                <button class="btn btn-default" data-dismiss="modal">{% trans %}outil.close{% endtrans %}</button>
             </div>
         </div>
     </div>

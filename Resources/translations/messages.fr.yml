@@ -80,3 +80,4 @@ outil.reparer: Réparer
 outil.cmd.lancee: Commande lancée 
 outil.cmd.manuelle: Commande de lancement manuel
 outil.relancer: Relancer
+outil.close: Fermer

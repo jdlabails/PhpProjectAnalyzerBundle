@@ -1,28 +1,54 @@
 ### What is it ?
-This bundle gives you a constructed view of various analysis results.
+This bundle gives you constructed views of various analysis results.
+
+
+It give a view like :
+
+![](https://raw.githubusercontent.com/jdlabails/PhpProjectAnalyzer/master/ppaIndex.png)
+
+
+### Features
+ - Aggregate php analysis metrics
+ - Offer user-friendly interface
+ - Execute quick scan of your project
+ - English or French interfaces
+ - Links with code coverage report
+ - Scoring based on quantity and quality metrics
+ - Enable PhpUnit or Atoum unit tests
 
 
 It executes
  - Php Mess Detector
  - Php Unit Test
- - Php Code Sniffer
+ - Atoum test
+ - Php Code Sniffer ( + reparation tool)
  - Copy-paste detector
  - Php Depend
  - Php Loc
- - Php Doc
+ - Php Docs
 
-And give a view like :
+And parses their report to give a nice view for rapid analysis of your project.
 
-![](https://raw.githubusercontent.com/jdlabails/PhpProjectAnalyzer/master/ppaIndex.png)
-
+It make sense essentially for dev and lead dev.
 
 
 ### Install
- - composer require...
+ - composer require jdlabails/php-project-analyzer-bundle
+ - Set your config (see below)
+ - php app/console assets:install
+ - php app/console assetic:dump
+ - sudo php app/console ppa:init
+
+### Use
+ - Call http://yoursymfonyproject.local/ppa with your nav.
+ - Click on 'Start Scan'
 
 ### Config
 
 ```yml
+assetic:
+    bundles:        
+        - JDPhpProjectAnalyzerBundle
 
 jd_php_project_analyzer:
     title:          Php project analyzer
@@ -32,10 +58,10 @@ jd_php_project_analyzer:
     gitRepositoryURL:      https://github.com/jdlabails/PhpProjectAnalyzerBundle
 
     # chemin d'analyse
-    srcPath : /home/jd/Dev/starterkit_sf2/src/JD
+    srcPath : /home/jd/Dev/ppa/src/JD
     
     # chemin des rapports
-    reportPath : /home/jd/Dev/starterkit_sf2/web/ppaReports
+    reportPath : /home/jd/Dev/ppa/web/ppaReports
 
     # métrique quantitative
     count : true
@@ -72,7 +98,7 @@ jd_php_project_analyzer:
     test :
         enable: false
         lib : phpunit       # phpunit || atoum
-        phpunitTestSuite : Annuaire
+        phpunitTestSuite : ppa
 #        atoumPath : /home/smith/www/projectX/vendor/bin/atoum
 #        atoumTestDir : /absolute/path/to/your/test/dir
 
@@ -85,22 +111,3 @@ jd_php_project_analyzer:
         projectSize:    small   # small : betwenn 0 and 5000, medium, between 5000 and 50000, big : > 50000
 
 ```
-
-### Init
-
- - sudo php app/console ppa:init
-
-### Use
- - Call http://yoursymfonyproject.local/ppa with your nav.
- - Click on 'Start Scan'
-
-
-### Features
- - Aggregate php analysis metrics
- - Execute quick scan of your project
- - English or French interfaces
- - Links with code coverage report
- - Scoring based on quantity and quality metrics
- - Enable PhpUnit or Atoum unit tests
- - Give a score to your project with parametrable weight
-

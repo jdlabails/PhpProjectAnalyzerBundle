@@ -1,101 +1,102 @@
 
 <div class="panel panel-{% if _testInfo['ok'] %}success{%else%}danger{%endif%}">
-    <div class="panel-heading">
-        <h3>            
-            <span class="glyphicon glyphicon-check"></span>
-            {% trans %}quality.quality{%endtrans%}
-        </h3>
-        <div style=" font-size: 75%;color: #777;">
-            {% trans %}quality.baseline{%endtrans%}
-        </div>
+  <div class="panel-heading">
+    <h3>            
+      <span class="glyphicon glyphicon-check"></span>
+      {% trans %}quality.quality{%endtrans%}
+    </h3>
+    <div style=" font-size: 75%;color: #777;">
+      {% trans %}quality.baseline{%endtrans%}
     </div>
-    <div class="panel-body">
-        <ul class="list-group metrics">
+  </div>
+  <div class="panel-body">
+    <ul class="list-group metrics">
 
-            {% if projectAnalyser.isEnable('test', true) %}
-            <li class="list-group-item">
-                <label>
-                    {% trans %}quality.testsTitle{%endtrans%}
-                    <span class="badge outil">
-                        <span onclick="$('#detailTest').toggle()" class="glyphicon glyphicon-search"></span>
-                    </span>
-                </label>                
-                                
-                {% if _testInfo['ok'] == false %}
-                    <span class="badge alert-danger value">KO</span>
-                {% else %}
-                    <span class="badge alert-success value">OK</span>
+      {% if projectAnalyser.isEnable('test', true) %}
+          <li class="list-group-item">
+            <label>
+              {% trans %}quality.testsTitle{%endtrans%}
+              <span class="badge outil">
+                <span onclick="$('#detailTest').toggle()" class="glyphicon glyphicon-search"></span>
+              </span>
+            </label>                
+
+            {% if _testInfo['ok'] == false %}
+                <span class="badge alert-danger value">KO</span>
+            {% else %}
+                <span class="badge alert-success value">OK</span>
+            {% endif %}
+
+            {% set idAnalyse = 'test' %} 
+            {% include 'JDPhpProjectAnalyzerBundle:Main:options.html.twig' %}
+
+            <ul id="detailTest" class="metricDetail">
+              <li class="list-group-item">                        
+                <label>{% trans %}quality.tests{%endtrans%}</label>
+                <span class="badge alert-info">{{_testInfo['nbTest']}}</span>
+              </li>
+              <li class="list-group-item">
+                <label>{% trans %}quality.assertions{%endtrans%}</label>
+                <span class="badge alert-info">{{_testInfo['nbAssertions']}}</span>
+              </li>
+              <li class="list-group-item">
+                <label>{% trans %}quality.coverage{%endtrans%}</label>
+                <span class="badge alert-success">{{_testInfo['ccLine']}}</span>
+                {% if _testInfo['dateTimeCC'] != a.getReadableDateTime() %}
+                    <br>
+                    <div style=" font-size: 75%;color: red;">
+                      {{ _testInfo['dateTimeCC']}}
+                    </div>
                 {% endif %}
-                    
-                {% set idAnalyse = 'test' %} 
-                {% include 'JDPhpProjectAnalyzerBundle:Main:options.html.twig' %}
+              </li>
+            </ul>
+          </li>
+      {% endif %}
 
-                <ul id="detailTest" class="metricDetail">
-                    <li class="list-group-item">                        
-                        <label>{% trans %}quality.tests{%endtrans%}</label>
-                        <span class="badge alert-info">{{_testInfo['nbTest']}}</span>
-                    </li>
-                    <li class="list-group-item">
-                        <label>{% trans %}quality.assertions{%endtrans%}</label>
-                        <span class="badge alert-info">{{_testInfo['nbAssertions']}}</span>
-                    </li>
-                    <li class="list-group-item">
-                        <label>{% trans %}quality.coverage{%endtrans%}</label>
-                        <span class="badge alert-success">{{_testInfo['ccLine']}}</span>
-                        {% if _testInfo['dateTimeCC'] != a.getReadableDateTime() %}
-                            <br>
-                            <div style=" font-size: 75%;color: red;">
-                                {{ _testInfo['dateTimeCC']}}
-                            </div>
-                        {% endif %}
-                    </li>
-                </ul>
-            </li>
-            {% endif %}
 
-            {% if projectAnalyser.isEnable('md', true) %}
-            <li class="list-group-item">
-                <label>{% trans %}quality.messDetector{%endtrans%}</label>
-                {{ projectAnalyser.afficheSummary(_quality_info['MD']['summary'])|raw }}
-                {% set idAnalyse = 'md' %} 
-                {% include 'JDPhpProjectAnalyzerBundle:Main:options.html.twig' %}
-            </li>
-            <li class="list-group-item">
-                <label>{% trans %}quality.cc10{%endtrans%}</label>
-                <span class="badge alert-warning">{{_quality_info['cc10']}}</span>
-                <span class="dropdown optionsTool">   </span>
-            </li>
-            <li class="list-group-item">
-                <label>{% trans %}quality.ccMethod{%endtrans%}</label>
-                <span class="badge alert-success value">
-                    <!--<?php //number_format((float)$projectAnalyser->extractFromXmlReport('ccnByNom', '/LOC/phploc.xml'), 2, ',', ' ')?>-->
-                </span>
-                <span class="dropdown optionsTool">   </span>
-            </li>            
-            {% endif %}
+      {% if projectAnalyser.isEnable('cs', true) %}            
+          <li class="list-group-item">
+            <label>
+              {% trans %}quality.codeSniffer{%endtrans%}
+              ({{params['cs']['standard']}})
+            </label>     
+            {{ projectAnalyser.afficheSummary(_quality_info['CS']['summary'])|raw}}
+            {% set idAnalyse = 'cs' %} 
+            {% include 'JDPhpProjectAnalyzerBundle:Main:options.html.twig' %}        
+          </li>
+      {% endif %}
 
-            {% if projectAnalyser.isEnable('cpd') %}
-            <li class="list-group-item">
-                <label>{% trans %}quality.copyPaste{%endtrans%}</label>
-                {{ projectAnalyser.afficheSummary(_quality_info['CPD']['summary'])|raw }}  
-                {% set idAnalyse = 'cpd' %} 
-                {% include 'JDPhpProjectAnalyzerBundle:Main:options.html.twig' %}
-            </li>                
-            {% endif %}
 
-            {% if projectAnalyser.isEnable('cs', true) %}
-            
-            <li class="list-group-item">
-                <label>
-                    {% trans %}quality.codeSniffer{%endtrans%}
-                    ({{params['cs']['standard']}})
-                </label>     
-                {{ projectAnalyser.afficheSummary(_quality_info['CS']['summary'])|raw}}
-                {% set idAnalyse = 'cs' %} 
-                {% include 'JDPhpProjectAnalyzerBundle:Main:options.html.twig' %}        
-            </li>
-            {% endif %}
-        </ul>
-        {% trans %}quality.defineCC{%endtrans%}
-    </div>
+      {% if projectAnalyser.isEnable('cpd') %}
+          <li class="list-group-item">
+            <label>{% trans %}quality.copyPaste{%endtrans%}</label>
+            {{ projectAnalyser.afficheSummary(_quality_info['CPD']['summary'])|raw }}  
+            {% set idAnalyse = 'cpd' %} 
+            {% include 'JDPhpProjectAnalyzerBundle:Main:options.html.twig' %}
+          </li>                
+      {% endif %}
+
+
+      {% if projectAnalyser.isEnable('md', true) %}
+          <li class="list-group-item">
+            <label>{% trans %}quality.messDetector{%endtrans%}</label>
+            {{ projectAnalyser.afficheSummary(_quality_info['MD']['summary'])|raw }}
+            {% set idAnalyse = 'md' %} 
+            {% include 'JDPhpProjectAnalyzerBundle:Main:options.html.twig' %}
+          </li>
+          <li class="list-group-item">
+            <label>{% trans %}quality.cc10{%endtrans%}</label>
+            <span class="badge alert-warning">{{_quality_info['cc10']}}</span>
+            <span class="dropdown optionsTool">   </span>
+          </li>
+          <li class="list-group-item">
+            <label>{% trans %}quality.ccMethod{%endtrans%}</label>
+            <span class="badge alert-success value">{{_quality_info['ccMethod']}}</span>
+            <span class="dropdown optionsTool">   </span>
+          </li>            
+      {% endif %}
+
+    </ul>
+    {% trans %}quality.defineCC{%endtrans%}
+  </div>
 </div>

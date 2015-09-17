@@ -154,10 +154,13 @@ class ProjectAnalyser
 
         $this->oAnalyze->setCsSuccess($csAnalyse['CS']['summary'] === 'ok');
 
+        $ccMethod = number_format((float) $this->extractFromLoc('ccnByNom'), 2, ',', ' ');
+
         return
             $csAnalyse +
             $this->analyseReport('MD') +
-            $this->analyseReport('CPD', false, '0.00% duplicated lines')
+            $this->analyseReport('CPD', false, '0.00% duplicated lines') +
+            ['ccMethod' => $ccMethod]
         ;
     }
 

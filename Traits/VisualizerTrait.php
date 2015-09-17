@@ -17,7 +17,7 @@ trait VisualizerTrait
      * @param type $summary
      * @return string
      */
-    function afficheSummary($summary)
+    public static function afficheSummary($summary)
     {
         switch ($summary) {
             case 'ok':
@@ -39,7 +39,7 @@ trait VisualizerTrait
      * @param type $file
      * @return type
      */
-    function adaptPhpUnitReport($file)
+    static public function adaptPhpUnitReport($file)
     {
         $txt = file_get_contents($file);
         $txt = str_replace('[30;42m', '<span style="color:green">', $txt);
@@ -56,10 +56,10 @@ trait VisualizerTrait
      * @param datetime $dt
      * @return string
      */
-    function getReadableDateTime($dt)
+    public function getReadableDateTime($dt)
     {
         if ($this->parameters['lang'] == 'fr') {
-            return date('d/m/y à H:i', $dt);
+            return date('d/m/Y à H:i', $dt);
         }
 
         return date('Y-m-d H:i', $dt);

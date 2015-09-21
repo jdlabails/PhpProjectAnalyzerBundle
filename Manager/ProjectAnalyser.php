@@ -52,6 +52,7 @@ class ProjectAnalyser
             ->setNbNamespace($this->extractFromLoc('namespaces'))
             ->setNbClasses($this->extractFromLoc('classes'))
             ->setNbMethod($this->extractFromLoc('methods'))
+            ->setLoc((int) $this->extractFromLoc('loc'));
             ;
 
         $this->getCount();

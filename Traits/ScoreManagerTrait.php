@@ -32,19 +32,16 @@ trait ScoreManagerTrait
             return 0;
         }
 
-        $loc    = $this->extractFromLoc('loc');
-        $this->oAnalyze->setLoc((int) $loc);
-
-        $cs     = (int) ($this->oAnalyze->getCsSuccess() === true);
-        $test   = (int) $testInfo['ok'];
-        $cc     = (float) str_replace('%', '', $testInfo['ccLine']);
+        $loc            = $this->oAnalyze->getLoc();
+        $cs             = (int) ($this->oAnalyze->getCsSuccess() === true);
+        $test           = (int) $testInfo['ok'];
+        $cc             = (float) str_replace('%', '', $testInfo['ccLine']);
 
         $csWeight       = $this->getScoreWeightParam('csWeight');
         $testWeight     = $this->getScoreWeightParam('testWeight');
         $locWeight      = $this->getScoreWeightParam('locWeight');
 
         $projectSize    = $this->getParam('score', 'projectSize');
-        $maxSize = 50000;
         switch ($projectSize) {
             case 'small':
                 $maxSize = 10000;

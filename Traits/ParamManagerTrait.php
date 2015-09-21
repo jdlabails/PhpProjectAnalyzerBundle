@@ -10,7 +10,7 @@ trait ParamManagerTrait
      * @param string $attr sous cle du param
      * @return string value du param
      */
-    function getParam($name, $attr = '')
+    public function getParam($name, $attr = '')
     {
         if (isset($this->parameters[$name])) {
             if ($attr != '' && isset($this->parameters[$name][$attr])) {
@@ -28,7 +28,7 @@ trait ParamManagerTrait
      * @param type $paramName
      * @return boolean
      */
-    function isEnable($paramName)
+    public function isEnable($paramName)
     {
         if (isset($this->parameters[$paramName])) {
             if (is_array($this->parameters[$paramName])) {

@@ -57,6 +57,7 @@ class ProjectAnalyser
 
         $this->getCount();
         $this->getAnalyseInfo();
+        $this->exploitTestReport();
     }
 
     /**
@@ -179,7 +180,6 @@ class ProjectAnalyser
             'exeTime'       => '/',
             'exeMem'        => '/',
             'dateTimeCC'    => '/',
-            'coverage'      => '/',
             'ccClasse'      => '/',
             'ccMethod'      => '/',
             'ccLine'        => '/',
@@ -283,7 +283,7 @@ class ProjectAnalyser
 
         $this->oAnalyze
             ->setTuSuccess($res['ok'])
-            ->setCov($res['coverage'])
+            ->setCov($res['ccLine'])
             ;
 
         return $res;

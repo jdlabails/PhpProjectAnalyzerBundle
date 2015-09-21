@@ -37,7 +37,7 @@ class MainController extends Controller
             '_quality_info'         => $projectAnalyser->getQualityInfo(),
             '_testInfo'             => $testInfo,
             '_reportInfo'           => $projectAnalyser->getReportInfo(),
-            '_note'                 => $projectAnalyser->getNote($testInfo),
+            '_note'                 => $projectAnalyser->getNote([]),
         ]);
     }
 

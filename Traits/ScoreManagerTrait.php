@@ -22,26 +22,29 @@ trait ScoreManagerTrait
     }
 
     /**
+     * Calcule le score en fonction des analyses et du parametrage, puis set l'objet analyse
+     *
      * 20/20 serait donné à un projet de 100kLoc tester à 100% avec CS ok
-     * @param array $testInfo test information
+     *
      * @return type
      */
-    public function getNote($testInfo)
+    public function getNote()
     {
         if (! $this->isScoreEnable()) {
             return 0;
         }
 
-        $loc            = $this->oAnalyze->getLoc();
+        $loc            = (int) $this->oAnalyze->getLoc();
         $cs             = (int) ($this->oAnalyze->getCsSuccess() === true);
-        $test           = (int) $testInfo['ok'];
-        $cc             = (float) str_replace('%', '', $testInfo['ccLine']);
+        $test           = (int) ($this->oAnalyze->getTuSuccess() === true);
+        $cc             = (float) $this->oAnalyze->getCov();//str_replace('%', '', $testInfo['ccLine']);
 
         $csWeight       = $this->getScoreWeightParam('csWeight');
         $testWeight     = $this->getScoreWeightParam('testWeight');
         $locWeight      = $this->getScoreWeightParam('locWeight');
 
         $projectSize    = $this->getParam('score', 'projectSize');
+
         switch ($projectSize) {
             case 'small':
                 $maxSize = 10000;
@@ -56,10 +59,9 @@ trait ScoreManagerTrait
         }
 
         //echo "$cs*$csWeight + $test*$testWeight*($cc/100) + $loc*$locWeight/$maxSize;";
-        $note = $cs*$csWeight + $test*$testWeight*($cc/100) + $loc*$locWeight/$maxSize;
+        $note   = $cs*$csWeight + $test*$testWeight*($cc/100) + $loc*$locWeight/$maxSize;
         $divide = ($csWeight + $testWeight + $locWeight) / 20;
-
-        $score = round(($note/$divide), 2);
+        $score  = round(($note/$divide), 2);
 
         $this->oAnalyze->setScore($score);
 

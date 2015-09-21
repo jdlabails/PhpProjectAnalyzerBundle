@@ -22,6 +22,8 @@ class ProjectAnalyser
     private $reportPath;
 
     private $oAnalyze;
+    private $qualityInfo;
+    private $testInfo;
 
     private $translator;
 
@@ -56,6 +58,7 @@ class ProjectAnalyser
             ;
 
         $this->count();
+        $this->setQualityInfo();
         $this->setAnalysisTimeInfo();
         $this->exploitTestReport();
         $this->calculateScore();
@@ -65,7 +68,7 @@ class ProjectAnalyser
      * @todo mettre la trad
      * @return type
      */
-    public function getTabAvailableAnalysis ()
+    public function getTabAvailableAnalysis()
     {
         return [
             'test'      => 'Tests fonctionnels et unitaires',
@@ -90,6 +93,25 @@ class ProjectAnalyser
         }
 
         return $this->oAnalyze;
+    }
+
+    /**
+     * Retourne les infos pour la vue sur les tests
+     *
+     * @return array
+     */
+    public function getTestInfo()
+    {
+        return $this->testInfo;
+    }
+
+    /**
+     * Retroune les infos pour la vue sur les metriques de qualité
+     * @return type
+     */
+    public function getQualityInfo()
+    {
+        return $this->qualityInfo;
     }
 
     /**
@@ -125,35 +147,10 @@ class ProjectAnalyser
     }
 
     /**
-     * Retourn une tableau associatif avec les comptage de fichiers
-     *
-     * @return type
-     */
-    protected function count()
-    {
-        $nbCSS = $this->getCountFile('nbCSS.txt');
-        $nbLibCSS = $this->getCountFile('nbLibCSS.txt');
-        $nbJS = $this->getCountFile('nbJS.txt');
-        $nbLibJS = $this->getCountFile('nbLibJS.txt');
-
-        $this->oAnalyze
-            ->setNbDir($this->getCountFile('nbDossier.txt'))
-            ->setNbBundles($this->getCountFile('nbBundle.txt'))
-            ->setNbFile($this->getCountFile('nbFichier.txt'))
-            ->setNbPhpFile($this->getCountFile('nbPHP.txt'))
-            ->setNbTwig($this->getCountFile('nbTwig.txt'))
-            ->setNbCSSFile($nbCSS - $nbLibCSS)
-            ->setNbCSSLib($nbLibCSS)
-            ->setNbJSFile($nbJS - $nbLibJS)
-            ->setNbJSLib($nbLibJS)
-            ;
-    }
-
-    /**
      * Return info from quality analysis
      * @return array
      */
-    public function getQualityInfo()
+    public function setQualityInfo()
     {
         $csAnalyse = $this->analyseReport('CS');
 
@@ -161,7 +158,7 @@ class ProjectAnalyser
 
         $ccMethod = number_format((float) $this->extractFromLoc('ccnByNom'), 2, ',', ' ');
 
-        return
+        $this->qualityInfo =
             $csAnalyse +
             $this->analyseReport('MD') +
             $this->analyseReport('CPD', false, '0.00% duplicated lines') +
@@ -289,7 +286,7 @@ class ProjectAnalyser
             ->setCov($res['ccLine'])
             ;
 
-        return $res;
+        $this->testInfo = $res;
     }
 
     /**
@@ -334,6 +331,31 @@ class ProjectAnalyser
         }
 
         return $res;
+    }
+
+    /**
+     * Retourn une tableau associatif avec les comptage de fichiers
+     *
+     * @return type
+     */
+    protected function count()
+    {
+        $nbCSS = $this->getCountFile('nbCSS.txt');
+        $nbLibCSS = $this->getCountFile('nbLibCSS.txt');
+        $nbJS = $this->getCountFile('nbJS.txt');
+        $nbLibJS = $this->getCountFile('nbLibJS.txt');
+
+        $this->oAnalyze
+            ->setNbDir($this->getCountFile('nbDossier.txt'))
+            ->setNbBundles($this->getCountFile('nbBundle.txt'))
+            ->setNbFile($this->getCountFile('nbFichier.txt'))
+            ->setNbPhpFile($this->getCountFile('nbPHP.txt'))
+            ->setNbTwig($this->getCountFile('nbTwig.txt'))
+            ->setNbCSSFile($nbCSS - $nbLibCSS)
+            ->setNbCSSLib($nbLibCSS)
+            ->setNbJSFile($nbJS - $nbLibJS)
+            ->setNbJSLib($nbLibJS)
+            ;
     }
 
     /**

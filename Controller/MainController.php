@@ -15,18 +15,17 @@ class MainController extends Controller
      */
     public function indexAction()
     {
-        $projectAnalyser    = $this->get('jd_ppa.projectAnalyser');
-        $testInfo          = $projectAnalyser->exploitTestReport();
+        $projectAnalyser = $this->get('jd_ppa.projectAnalyser');
 
         return $this->render('JDPhpProjectAnalyzerBundle:Main:index.html.twig', [
-            'tabAvailableAnalysis'  => $projectAnalyser-> getTabAvailableAnalysis(),
-            'projectAnalyser'       => $projectAnalyser,
-            'params'                => $this->getParameter('jd.ppa.global'),
-            'isAnalyzeInProgress'   => $projectAnalyser->isAnalyzeInProgress(),
-            'analyze'               => $projectAnalyser->getAnalyze(),
-            '_quality_info'         => $projectAnalyser->getQualityInfo(),
-            '_testInfo'             => $testInfo,
-            '_reportInfo'           => $projectAnalyser->getReportInfo(),
+                'tabAvailableAnalysis'  => $projectAnalyser->getTabAvailableAnalysis(),
+                'projectAnalyser'       => $projectAnalyser,
+                'params'                => $this->getParameter('jd.ppa.global'),
+                'isAnalyzeInProgress'   => $projectAnalyser->isAnalyzeInProgress(),
+                '_quality_info'         => $projectAnalyser->getQualityInfo(),
+                '_testInfo'             => $projectAnalyser->getTestInfo(),
+                '_reportInfo'           => $projectAnalyser->getReportInfo(),
+                'analyze'               => $projectAnalyser->getAnalyze(),
         ]);
     }
 
@@ -48,7 +47,7 @@ class MainController extends Controller
         $scriptManager = $this->get('jd_ppa.scriptManager');
 
         return $this->render('JDPhpProjectAnalyzerBundle:Main:res.html.twig', [
-            'res' => $scriptManager->lancerAnalyse(),
+                'res' => $scriptManager->lancerAnalyse(),
         ]);
     }
 }

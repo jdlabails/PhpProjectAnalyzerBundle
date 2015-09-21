@@ -31,22 +31,22 @@
             {% if projectAnalyser.isEnable('loc') %}
             
             <li class="list-group-item">
-                <span class="badge alert-info">{{ a.loc}}</span>
+                <span class="badge alert-info">{{ analyze.loc}}</span>
                 {% trans %}quantity.codeLines{%endtrans %}
             </li>
             
             <li class="list-group-item">
-                <span class="badge alert-info">{{a.nbClasses}}</span>
+                <span class="badge alert-info">{{analyze.nbClasses}}</span>
                 {% trans %}quantity.classes{%endtrans %}
             </li>
 
             <li class="list-group-item">
-                <span class="badge alert-info">{{a.nbMethod}}</span>
+                <span class="badge alert-info">{{analyze.nbMethod}}</span>
                 {% trans %}quantity.methods{%endtrans %}
             </li>
 
             <li class="list-group-item">
-                <span class="badge alert-info">{{a.nbNamespace}}</span>
+                <span class="badge alert-info">{{analyze.nbNamespace}}</span>
                 {% trans %}quantity.namespaces{%endtrans %}
             </li>
 
@@ -55,42 +55,42 @@
             {% if projectAnalyser.isEnable('count') %}
 
             <li class="list-group-item">
-                <span class="badge alert-info">{{a.nbBundles}}</span>
+                <span class="badge alert-info">{{analyze.nbBundles}}</span>
                 {% trans %}quantity.bundles{%endtrans %}
             </li>
             <li class="list-group-item">
-                <span class="badge alert-info">{{a.nbDir}}</span>
+                <span class="badge alert-info">{{analyze.nbDir}}</span>
                 {% trans %}quantity.directories{%endtrans %}
             </li>
             <li class="list-group-item">
-                <span class="badge alert-info">{{a.nbfile}}</span>
+                <span class="badge alert-info">{{analyze.nbfile}}</span>
                 {% trans %}quantity.files{%endtrans %}    
                 <span class="badge outil">
                     <span class="glyphicon glyphicon-search" onclick="$('#listeNbFile').toggle()"></span>
                 </span>
                 <ul id="listeNbFile" class="metricDetail">
                     <li class="list-group-item">
-                        <span class="badge">{{a.nbPhpFile}}</span>
+                        <span class="badge">{{analyze.nbPhpFile}}</span>
                         {% trans %}quantity.PHP{%endtrans %}
                     </li>
                     <li class="list-group-item">
-                        <span class="badge">{{a.nbCSSFile}}</span>
+                        <span class="badge">{{analyze.nbCSSFile}}</span>
                         {% trans %}quantity.CSS{%endtrans %}
                     </li>
                     <li class="list-group-item">
-                        <span class="badge alert-warning">{{a.nbCSSLib}}</span>
+                        <span class="badge alert-warning">{{analyze.nbCSSLib}}</span>
                         {% trans %}quantity.libCSS{%endtrans %}
                     </li>
                     <li class="list-group-item">
-                        <span class="badge">{{a.nbJSFile}}</span>
+                        <span class="badge">{{analyze.nbJSFile}}</span>
                         {% trans %}quantity.JS{%endtrans %}
                     </li>
                     <li class="list-group-item">
-                        <span class="badge alert-warning">{{a.nbJSLib}}</span>
+                        <span class="badge alert-warning">{{analyze.nbJSLib}}</span>
                         {% trans %}quantity.libJS{%endtrans %}
                     </li>
                     <li class="list-group-item">
-                        <span class="badge">{{a.nbTwig}}</span>
+                        <span class="badge">{{analyze.nbTwig}}</span>
                         {% trans %}quantity.twig{%endtrans %}
                     </li>
                 </ul>

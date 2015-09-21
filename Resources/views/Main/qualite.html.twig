@@ -42,7 +42,7 @@
               <li class="list-group-item">
                 <label>{% trans %}quality.coverage{%endtrans%}</label>
                 <span class="badge alert-success">{{_testInfo['ccLine']}}</span>
-                {% if _testInfo['dateTimeCC'] != a.getReadableDateTime() %}
+                {% if _testInfo['dateTimeCC'] != analyze.readableDateTime %}
                     <br>
                     <div style=" font-size: 75%;color: red;">
                       {{ _testInfo['dateTimeCC']}}

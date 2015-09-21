@@ -55,9 +55,27 @@ class ProjectAnalyser
             ->setLoc((int) $this->extractFromLoc('loc'));
             ;
 
-        $this->getCount();
-        $this->getAnalyseInfo();
+        $this->count();
+        $this->setAnalysisTimeInfo();
         $this->exploitTestReport();
+        $this->calculateScore();
+    }
+
+    /**
+     * @todo mettre la trad
+     * @return type
+     */
+    public function getTabAvailableAnalysis ()
+    {
+        return [
+            'test'      => 'Tests fonctionnels et unitaires',
+            'md'        => 'PhpMD : Mess Detector',
+            'cpd'       => 'CPD : Copy-Paste Detector',
+            'cs'        => 'CS : Code Sniffer',
+            'loc'       => 'PhpLoc : Statistic',
+            'docs'      => 'PhpDoc : Documentation',
+            'depend'    => 'PhpDepend : Métriques d\'analyse',
+        ];
     }
 
     /**
@@ -111,39 +129,24 @@ class ProjectAnalyser
      *
      * @return type
      */
-    public function getCount()
+    protected function count()
     {
-        $res = [
-            'nbDossier'     => $this->getCountFile('nbDossier.txt'),
-            'nbFichier'     => $this->getCountFile('nbFichier.txt'),
-            'nbPHP'         => $this->getCountFile('nbPHP.txt'),
-            'nbTwig'        => $this->getCountFile('nbTwig.txt'),
-            'nbBundle'      => $this->getCountFile('nbBundle.txt'),
-        ];
-
         $nbCSS = $this->getCountFile('nbCSS.txt');
         $nbLibCSS = $this->getCountFile('nbLibCSS.txt');
         $nbJS = $this->getCountFile('nbJS.txt');
         $nbLibJS = $this->getCountFile('nbLibJS.txt');
 
-        $res['nbLibCSS']    = $nbLibCSS;
-        $res['nbCSS']       = $nbCSS - $nbLibCSS;
-        $res['nbLibJS']     = $nbLibJS;
-        $res['nbJS']        = $nbJS - $nbLibJS;
-
         $this->oAnalyze
-            ->setNbDir($res['nbDossier'])
-            ->setNbBundles($res['nbBundle'])
-            ->setNbFile($res['nbFichier'])
-            ->setNbPhpFile($res['nbPHP'])
-            ->setNbTwig($res['nbTwig'])
-            ->setNbCSSFile($res['nbCSS'])
-            ->setNbCSSLib($res['nbLibCSS'])
-            ->setNbJSFile($res['nbJS'])
-            ->setNbJSLib($res['nbLibJS'])
+            ->setNbDir($this->getCountFile('nbDossier.txt'))
+            ->setNbBundles($this->getCountFile('nbBundle.txt'))
+            ->setNbFile($this->getCountFile('nbFichier.txt'))
+            ->setNbPhpFile($this->getCountFile('nbPHP.txt'))
+            ->setNbTwig($this->getCountFile('nbTwig.txt'))
+            ->setNbCSSFile($nbCSS - $nbLibCSS)
+            ->setNbCSSLib($nbLibCSS)
+            ->setNbJSFile($nbJS - $nbLibJS)
+            ->setNbJSLib($nbLibJS)
             ;
-
-        return $res;
     }
 
     /**
@@ -395,6 +398,7 @@ class ProjectAnalyser
             $res[$prefix]['summary'] = 'ok';
         }
 
+        // cas particulier de mess detector
         if ($prefix == 'MD') {
             $res['cc10'] = substr_count($txt, 'has a Cyclomatic Complexity of');
         }
@@ -425,7 +429,7 @@ class ProjectAnalyser
     /**
      *     Lit la date et le temps d'execution de l'analyse
      */
-    protected function getAnalyseInfo()
+    protected function setAnalysisTimeInfo()
     {
         $file = $this->dirRoot.'/jetons/timeAnalyse';
         if (file_exists($file)) {

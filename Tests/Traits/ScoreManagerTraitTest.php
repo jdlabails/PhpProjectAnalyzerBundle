@@ -48,11 +48,21 @@ class ScoreManagerTraitTest extends \PHPUnit_Framework_TestCase
     /**
      * Test du formatage des dates
      */
-    public function testGetNote()
+    public function testCalculateScore()
     {
+        // resultats de l'analyse
+        $this->oAnalyze = new Analyze();
+        $this->oAnalyze
+            ->setCov('100%')
+            ->setCsSuccess(true)
+            ->setLoc(10000)
+            ->setTuSuccess(true)
+            ;
+
         // si le scoring n'est pas enable
         $this->parameters['score']['enable'] = 'false';
-        $this->assertEquals($this->getNote([]), 0);
+        $this->calculateScore();
+        $this->assertEquals($this->oAnalyze->getScore(), 0);
 
         // scoring enable
         $this->parameters['score'] = [
@@ -63,21 +73,15 @@ class ScoreManagerTraitTest extends \PHPUnit_Framework_TestCase
             'projectSize' => 'small',
         ];
 
-        // resultats de l'analyse
-        $this->oAnalyze = new Analyze();
-        $this->oAnalyze
-            ->setCov('100%')
-            ->setCsSuccess(true)
-            ->setLoc(10000)
-            ->setTuSuccess(true)
-            ;
-
-        $this->assertEquals($this->getNote(), 20);
+        $this->calculateScore();
+        $this->assertEquals($this->oAnalyze->getScore(), 20);
 
         $this->parameters['score']['projectSize'] = 'medium';
-        $this->assertEquals($this->getNote(), 14.67);
+        $this->calculateScore();
+        $this->assertEquals($this->oAnalyze->getScore(), 14.67);
 
         $this->parameters['score']['projectSize'] = 'big';
-        $this->assertEquals($this->getNote(), 14);
+        $this->calculateScore();
+        $this->assertEquals($this->oAnalyze->getScore(), 14);
     }
 }

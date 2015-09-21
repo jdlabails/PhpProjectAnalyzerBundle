@@ -6,21 +6,21 @@
     </h1>
 </div>
 <div class="col-md-4" style="margin-top:23px; font-size:20px">
-    <div class="label-{% if a.getTuSuccess() %}success{% else %}danger{%endif%}" id="encartResultat">
+    <div class="label-{% if analyze.tuSuccess %}success{% else %}danger{%endif%}" id="encartResultat">
         <table>
             <tr>
               <td>{% trans %}lastAnalyze{%endtrans%}</td>
-                <td>{{ a.readableDateTime }}</td>
+                <td>{{ analyze.readableDateTime }}</td>
             </tr>
             <tr>
                 <td>{% trans %}duration{%endtrans %}</td>
-                <td>{{ a.readableExecTime }}</td>
+                <td>{{ analyze.readableExecTime }}</td>
             </tr>
             {% if projectAnalyser.isScoreEnable %}
             <tr>
                 <td>{% trans %}score.note{%endtrans %}</td>
-                <td {% if a.getReadableDateTime() != _testInfo['dateTimeCC'] and a.getTuSuccess() %} style="color: red;font-weight: normal" {% endif %} >
-                {{ _note }} / 20
+                <td {% if analyze.getReadableDateTime() != _testInfo['dateTimeCC'] and analyze.getTuSuccess() %} style="color: red;font-weight: normal" {% endif %} >
+                {{ analyze.score }} / 20
                 <img
                     src="{{ asset('bundles/jdphpprojectanalyzer/img/question.png') }}"
                     class="help"

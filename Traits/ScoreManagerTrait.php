@@ -25,10 +25,8 @@ trait ScoreManagerTrait
      * Calcule le score en fonction des analyses et du parametrage, puis set l'objet analyse
      *
      * 20/20 serait donné à un projet de 100kLoc tester à 100% avec CS ok
-     *
-     * @return type
      */
-    public function getNote()
+    protected function calculateScore()
     {
         if (! $this->isScoreEnable()) {
             return 0;
@@ -64,8 +62,6 @@ trait ScoreManagerTrait
         $score  = round(($note/$divide), 2);
 
         $this->oAnalyze->setScore($score);
-
-        return $score;
     }
 
     /**

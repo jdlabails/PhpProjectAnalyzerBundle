@@ -18,26 +18,15 @@ class MainController extends Controller
         $projectAnalyser    = $this->get('jd_ppa.projectAnalyser');
         $testInfo          = $projectAnalyser->exploitTestReport();
 
-        $tabAvailableAnalysis = [
-            'test'      => 'Tests fonctionnels et unitaires',
-            'md'        => 'PhpMD : Mess Detector',
-            'cpd'       => 'CPD : Copy-Paste Detector',
-            'cs'        => 'CS : Code Sniffer',
-            'loc'       => 'PhpLoc : Statistic',
-            'docs'      => 'PhpDoc : Documentation',
-            'depend'    => 'PhpDepend : Métriques d\'analyse',
-        ];
-
         return $this->render('JDPhpProjectAnalyzerBundle:Main:index.html.twig', [
-            'tabAvailableAnalysis'  => $tabAvailableAnalysis,
+            'tabAvailableAnalysis'  => $projectAnalyser-> getTabAvailableAnalysis(),
             'projectAnalyser'       => $projectAnalyser,
             'params'                => $this->getParameter('jd.ppa.global'),
             'isAnalyzeInProgress'   => $projectAnalyser->isAnalyzeInProgress(),
-            'a'                     => $projectAnalyser->getAnalyze(),
+            'analyze'               => $projectAnalyser->getAnalyze(),
             '_quality_info'         => $projectAnalyser->getQualityInfo(),
             '_testInfo'             => $testInfo,
             '_reportInfo'           => $projectAnalyser->getReportInfo(),
-            '_note'                 => $projectAnalyser->getNote([]),
         ]);
     }
 

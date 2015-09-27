@@ -4,11 +4,9 @@ namespace JD\PhpProjectAnalyzerBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
-use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 
 /**
- * This is the class that validates and merges configuration from your app/config files
- *
+ * Configuration of PPA
  */
 class Configuration implements ConfigurationInterface
 {
@@ -24,10 +22,8 @@ class Configuration implements ConfigurationInterface
             ->children()
                 ->scalarNode('title')->defaultValue('Your project')->end()
                 ->scalarNode('description')->defaultNull()->end()
-                ->scalarNode('lang')->defaultValue('en')->end()
                 ->scalarNode('gitRepositoryURL')->defaultNull()->end()
                 ->scalarNode('srcPath')->isRequired()->cannotBeEmpty()->end()
-                //->scalarNode('reportPath')->isRequired()->cannotBeEmpty()->end()
 
                 ->booleanNode('count')->defaultTrue()->end()
                 ->booleanNode('cpd')->defaultTrue()->end()

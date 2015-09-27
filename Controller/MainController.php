@@ -18,9 +18,9 @@ class MainController extends Controller
         $projectAnalyser = $this->get('jd_ppa.projectAnalyser');
 
         return $this->render('JDPhpProjectAnalyzerBundle:Main:index.html.twig', [
-                'tabAvailableAnalysis'  => $projectAnalyser->getTabAvailableAnalysis(),
                 'projectAnalyser'       => $projectAnalyser,
                 'params'                => $this->getParameter('jd.ppa.global'),
+                'tabAvailableAnalysis'  => $projectAnalyser->getTabAvailableAnalysis(),
                 'isAnalyzeInProgress'   => $projectAnalyser->isAnalyzeInProgress(),
                 '_quality_info'         => $projectAnalyser->getQualityInfo(),
                 '_testInfo'             => $projectAnalyser->getTestInfo(),

@@ -114,7 +114,7 @@ class Analyze implements JsonSerializable
     /**
      * @var string
      */
-    private $langue;
+    private $lang;
 
 
     /**
@@ -151,13 +151,13 @@ class Analyze implements JsonSerializable
     }
 
     /**
-     * Retourne une date lisible formaté selon la langue.
+     * Retourne une date lisible formaté selon la lang.
      *
      * @return string
      */
     public function getReadableDateTime()
     {
-        if ($this->langue == 'fr') {
+        if ($this->lang == 'fr') {
             return date('d/m/y à H:i', $this->dateTime);
         }
 
@@ -603,26 +603,26 @@ class Analyze implements JsonSerializable
     }
 
     /**
-     * Set langue
+     * Set lang
      *
-     * @param string $langue
+     * @param string $lang
      * @return analyze
      */
-    public function setLangue($langue)
+    public function setLang($lang)
     {
-        $this->langue = $langue;
+        $this->lang = $lang;
 
         return $this;
     }
 
     /**
-     * Get langue
+     * Get lang
      *
      * @return string
      */
-    public function getLangue()
+    public function getLang()
     {
-        return $this->langue;
+        return $this->lang;
     }
 
     /**

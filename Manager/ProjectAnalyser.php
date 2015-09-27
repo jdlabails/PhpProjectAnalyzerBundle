@@ -46,21 +46,17 @@ class ProjectAnalyser
         // parameters
         $this->parameters = $configGlobale;
 
-        // les libelles de l'appli
-        $availableLang = array('en', 'fr');
-        $lang = $this->getParam('lang');
-        $lang = in_array($lang, $availableLang) ? $lang : 'en';
-
         // l'objet analyse
         $this->oAnalyze = new Analyze();
         $this->oAnalyze
-            ->setLangue($this->parameters['lang'])
+            ->setLang($translator->getLocale())
             ->setNbNamespace($this->extractFromLoc('namespaces'))
             ->setNbClasses($this->extractFromLoc('classes'))
             ->setNbMethod($this->extractFromLoc('methods'))
             ->setLoc((int) $this->extractFromLoc('loc'));
             ;
 
+        // Exploits analysis
         $this->count();
         $this->setQualityInfo();
         $this->setAnalysisTimeInfo();

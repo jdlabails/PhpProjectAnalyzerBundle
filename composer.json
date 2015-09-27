@@ -15,6 +15,16 @@
         "symfony/twig-bundle": "~2.3",
         "ext-xdebug": ">=2.1.4"
     },
+    "scripts": {
+        "post-install-cmd": [
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets"
+        ],
+        "post-update-cmd": [
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets"
+        ]
+    },
     "autoload" : {
         "psr-4": { "JD\\PhpProjectAnalyzerBundle\\": "" }
     },

@@ -34,13 +34,13 @@ It make sense essentially for dev and lead dev.
 
 ### Install
  - composer require jdlabails/php-project-analyzer-bundle
- - Set your config (see below)
  - php app/console assets:install
  - php app/console assetic:dump
+ - Set your config (see below)
  - sudo php app/console ppa:init
 
 ### Use
- - Call http://yoursymfonyproject.local/ppa with your nav.
+ - Call http://yoursymfonyproject.local/en/ppa with your nav.
  - Click on 'Start Scan'
 
 ### Config
@@ -59,9 +59,6 @@ jd_php_project_analyzer:
 
     # chemin d'analyse
     srcPath : /home/jd/Dev/ppa/src/JD
-    
-    # chemin des rapports
-    reportPath : /home/jd/Dev/ppa/web/ppaReports
 
     # métrique quantitative
     count : true

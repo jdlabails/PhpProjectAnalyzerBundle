@@ -1,6 +1,8 @@
 jd_php_project_analyzer_homepage:
-    path:     /ppa
+    path:     /{_locale}/ppa
     defaults: { _controller: JDPhpProjectAnalyzerBundle:Main:index }
+    requirements:
+        _locale: en|fr
 
 jd_php_project_analyzer_phpinfo:
     path:     /ppa/phpinfo

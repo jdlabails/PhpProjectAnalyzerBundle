@@ -1,25 +1,19 @@
 #!/bin/bash
 ################################################################################
 #
-# Projet d'installer... ca va pas loin, le but etant qd meme de
-# pouvoir le copier coller et qu'il marche direct
-#
-# Date       Auteur       : Contenu
-# 2014-09-15 Jean-David Labails   : debut du script
+# Initialisation des repertoires des reports qui seront générés
 #
 ################################################################################
 
 # on sort des qu'il y a une erreur
 set -e
 
-#Parametres generaux
-DIR_CORE=${2}
+# Parametres generaux
 DIR_GEN=${2}
 DIR_PHP=${DIR_GEN}/php
 DIR_REPORT=${DIR_GEN}/reports
 DIR_JETON=${DIR_GEN}/jetons
 DIR_SH=${DIR_GEN}/sh
-DIR_PHP=${DIR_GEN}/php
 
 WEB_USER=${1}
 
@@ -42,9 +36,7 @@ function createDir4Web {
 }
 
 # on cree les rep de report
-#createDir4Web ${DIR_CORE}
 createDir4Web ${DIR_GEN}
-createDir4Web ${DIR_PHP}
 createDir4Web ${DIR_SH}
 createDir4Web ${DIR_REPORT}
 createDir4Web ${DIR_REPORT}/COUNT

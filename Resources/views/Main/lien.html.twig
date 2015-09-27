@@ -9,13 +9,13 @@
         </div>
     </div>
     <div class="panel-body" style="line-height: 30px">
-        <a href="{{ app.request.getSchemeAndHttpHost()}}/ppaReports/reports/TEST/phpUnitReport/dashboard.html" target="_blank">
+        <a href="{{ app.request.getSchemeAndHttpHost()}}/ppa/reports/TEST/phpUnitReport/dashboard.html" target="_blank">
             {% trans %}link.coverageReport{%endtrans%}
         </a>
         <br>
 
         {% if projectAnalyser.isEnable('docs') %}
-        <a href="{{ app.request.getSchemeAndHttpHost()}}/ppaReports/reports/DOCS/index.html" target="_blank">
+        <a href="{{ app.request.getSchemeAndHttpHost()}}/ppa/reports/DOCS/index.html" target="_blank">
             {% trans %}link.phpDoc{%endtrans%}
         </a>
         {% endif %}

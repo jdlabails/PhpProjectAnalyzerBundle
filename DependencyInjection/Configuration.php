@@ -27,7 +27,7 @@ class Configuration implements ConfigurationInterface
                 ->scalarNode('lang')->defaultValue('en')->end()
                 ->scalarNode('gitRepositoryURL')->defaultNull()->end()
                 ->scalarNode('srcPath')->isRequired()->cannotBeEmpty()->end()
-                ->scalarNode('reportPath')->isRequired()->cannotBeEmpty()->end()
+                //->scalarNode('reportPath')->isRequired()->cannotBeEmpty()->end()
 
                 ->booleanNode('count')->defaultTrue()->end()
                 ->booleanNode('cpd')->defaultTrue()->end()

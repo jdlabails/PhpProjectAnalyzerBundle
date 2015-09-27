@@ -17,7 +17,6 @@ class ScriptManager
     private $jetonAnalysePath;
     private $paShPath;
     private $tplShDirPath;
-    private $phpDirPath;
 
     use ScriptBuilderTrait, ParamManagerTrait;
 
@@ -28,11 +27,10 @@ class ScriptManager
      */
     public function __construct($configGlobale)
     {
-        $this->dirRoot             = $configGlobale['reportPath'].'/';
+        $this->dirRoot             = __DIR__.'/../../../../web/ppa/';
         $this->jetonAnalysePath    = $this->dirRoot.'/jetons/jetonAnalyse';
         $this->shDirPath           = $this->dirRoot.'/sh';
         $this->tplShDirPath        = __DIR__.'/../Resources/sh';
-        $this->phpDirPath          = $this->dirRoot.'/php';
 
         $this->parameters          = $configGlobale;
     }

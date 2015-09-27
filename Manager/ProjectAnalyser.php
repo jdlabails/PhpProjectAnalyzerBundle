@@ -34,12 +34,16 @@ class ProjectAnalyser
      */
     public function __construct($configGlobale, $translator)
     {
+        // traduction
         $this->translator = $translator;
-        // qq chemin
-        $this->dirRoot = $configGlobale['reportPath'];
-        $this->reportPath = $configGlobale['reportPath'].'/reports';
 
-        // les parameters
+        // web ppa path
+        $this->dirRoot = __DIR__.'/../../../../web/ppa';
+
+        // report path
+        $this->reportPath = $this->dirRoot.'/reports';
+
+        // parameters
         $this->parameters = $configGlobale;
 
         // les libelles de l'appli
@@ -184,6 +188,8 @@ class ProjectAnalyser
             'ccMethod'      => '/',
             'ccLine'        => '/',
             'report'        => '',
+            'cmd'           => '',
+            'cmdManuelle'   => '',
         ];
 
         $testReportFile = $this->reportPath.'/TEST/report.txt';
@@ -273,7 +279,7 @@ class ProjectAnalyser
 
         $cmdFile = $this->reportPath.'/TEST/cmd.txt';
         if (file_exists($cmdFile)) {
-            $res['cmd'] =  file_get_contents($cmdFile);
+            $res['cmd'] = file_get_contents($cmdFile);
         }
 
         $cmdManuelleFile = $this->reportPath.'/TEST/cmdManuelle.txt';

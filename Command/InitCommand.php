@@ -30,8 +30,8 @@ class InitCommand extends ContainerAwareCommand
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $param = $this->getContainer()->getParameter('jd.ppa.global');
         $installerPath = __DIR__.'/../Resources/sh/install.sh';
+        $reportPath    = __DIR__.'/../../../../web/ppa';
 
         if (!is_executable($installerPath)) {
             chmod($installerPath, 0755);
@@ -42,16 +42,14 @@ class InitCommand extends ContainerAwareCommand
             }
         }
 
-        $dialog = $this->getHelperSet()->get('dialog');
-
-        $webServer = $dialog->ask(
+        $webServer = $this->getHelperSet()->get('dialog')->ask(
             $output,
             'Please enter your web server user [www-data:www-data] :',
             'www-data:www-data'
         );
 
         $res = '';
-        exec(__DIR__.'/../Resources/sh/install.sh '.$webServer.' '.$param['reportPath'], $res);
+        exec(__DIR__.'/../Resources/sh/install.sh '.$webServer.' '.$reportPath, $res);
 
         $res[] = "\nInstallation done";
 

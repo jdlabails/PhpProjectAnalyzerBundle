@@ -2,8 +2,7 @@
 
 namespace JD\PhpProjectAnalyzerBundle\Manager;
 
-use JD\PhpProjectAnalyzerBundle\Traits\ParamManagerTrait;
-use JD\PhpProjectAnalyzerBundle\Traits\ScriptBuilderTrait;
+use JD\PhpProjectAnalyzerBundle\Traits;
 
 /**
  * scriptManager s'occupe de générer et de lancer le script d'analyse
@@ -12,22 +11,22 @@ use JD\PhpProjectAnalyzerBundle\Traits\ScriptBuilderTrait;
  */
 class ScriptManager
 {
+    use Traits\ScriptBuilder, Traits\ParamReader;
+
     private $dirRoot;
     private $parameters;
     private $jetonAnalysePath;
     private $paShPath;
     private $tplShDirPath;
 
-    use ScriptBuilderTrait, ParamManagerTrait;
-
     /**
      * Le constructeur initialise les variables necessaire à la génération du script
      *
      * @param type $configGlobale
      */
-    public function __construct($configGlobale)
+    public function __construct($configGlobale, $rootDir)
     {
-        $this->dirRoot             = __DIR__.'/../../../../web/ppa/';
+        $this->dirRoot             = $rootDir.'/web/ppa/';
         $this->jetonAnalysePath    = $this->dirRoot.'/jetons/jetonAnalyse';
         $this->shDirPath           = $this->dirRoot.'/sh';
         $this->tplShDirPath        = __DIR__.'/../Resources/sh';

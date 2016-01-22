@@ -9,8 +9,8 @@ use Symfony\Component\Console\Output\OutputInterface;
 /**
  * Command d'initialisation des repertoires de rapports d'analyses
  */
-class InitCommand extends ContainerAwareCommand
-{
+class InitCommand extends ContainerAwareCommand {
+
     /**
      * Configuration de la commande
      */
@@ -30,29 +30,28 @@ class InitCommand extends ContainerAwareCommand
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $installerPath = __DIR__.'/../Resources/sh/install.sh';
-        $reportPath    = __DIR__.'/../../../../web/ppa';
+        $installerPath = __DIR__ . '/../Resources/sh/install.sh';
+        $reportPath = __DIR__ . '/../../../../web/ppa';
 
         if (!is_executable($installerPath)) {
             chmod($installerPath, 0755);
             if (!is_executable($installerPath)) {
-                $output->writeln(basename($installerPath).' non executable');
+                $output->writeln(basename($installerPath) . ' non executable');
 
                 return;
             }
         }
 
         $webServer = $this->getHelperSet()->get('dialog')->ask(
-            $output,
-            'Please enter your web server user [www-data:www-data] :',
-            'www-data:www-data'
+            $output, 'Please enter your web server user [www-data:www-data] :', 'www-data:www-data'
         );
-
+        //die($webServer);
         $res = '';
-        exec(__DIR__.'/../Resources/sh/install.sh '.$webServer.' '.$reportPath, $res);
+        exec(__DIR__ . '/../Resources/sh/install.sh ' . $webServer . ' ' . $reportPath, $res);
 
         $res[] = "\nInstallation done";
 
         $output->writeln($res);
     }
+
 }

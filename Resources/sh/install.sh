@@ -17,11 +17,12 @@ DIR_SH=${DIR_GEN}/sh
 
 WEB_USER=${1}
 
-if [ ${WEB_USER} != "" ] 
+if [ ${WEB_USER} == "" ] 
 then 
     WEB_USER=www-data:www-data
 fi
 
+echo 'Web server : '${WEB_USER}
 
 function createDir4Web {
     if [ ! -d $1 ]

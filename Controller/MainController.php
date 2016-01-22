@@ -16,10 +16,13 @@ class MainController extends Controller
     public function indexAction()
     {
         $projectAnalyser = $this->get('jd_ppa.projectAnalyser');
+        //echo $rootPath = $this->get('kernel')->getRootDir().'/..';
 
         return $this->render('JDPhpProjectAnalyzerBundle:Main:index.html.twig', [
                 'projectAnalyser'       => $projectAnalyser,
                 'params'                => $this->getParameter('jd.ppa.global'),
+
+
                 'tabAvailableAnalysis'  => $projectAnalyser->getTabAvailableAnalysis(),
                 'isAnalyzeInProgress'   => $projectAnalyser->isAnalyzeInProgress(),
                 '_quality_info'         => $projectAnalyser->getQualityInfo(),

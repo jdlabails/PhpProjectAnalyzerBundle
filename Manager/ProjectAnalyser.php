@@ -3,10 +3,7 @@
 namespace JD\PhpProjectAnalyzerBundle\Manager;
 
 use JD\PhpProjectAnalyzerBundle\Entities\Analyze;
-use JD\PhpProjectAnalyzerBundle\Traits\VisualizerTrait;
-use JD\PhpProjectAnalyzerBundle\Traits\ScoreManagerTrait;
-use JD\PhpProjectAnalyzerBundle\Traits\HistoManagerTrait;
-use JD\PhpProjectAnalyzerBundle\Traits\ParamManagerTrait;
+use JD\PhpProjectAnalyzerBundle\Traits;
 
 /**
  * Classe basique regroupant les fonctions utilisées dans l'index
@@ -15,7 +12,7 @@ use JD\PhpProjectAnalyzerBundle\Traits\ParamManagerTrait;
  */
 class ProjectAnalyser
 {
-    use VisualizerTrait, ScoreManagerTrait, HistoManagerTrait, ParamManagerTrait;
+    use Traits\ViewHelper, Traits\ScoreCalculator, Traits\ParamReader;
 
     private $dirRoot;
     private $parameters;
@@ -32,13 +29,13 @@ class ProjectAnalyser
      * @param type $configGlobale
      * @param type $translator
      */
-    public function __construct($configGlobale, $translator)
+    public function __construct($configGlobale, $translator, $rootDir)
     {
         // traduction
         $this->translator = $translator;
 
         // web ppa path
-        $this->dirRoot = __DIR__.'/../../../../web/ppa';
+        $this->dirRoot = $rootDir.'/web/ppa';
 
         // report path
         $this->reportPath = $this->dirRoot.'/reports';
@@ -147,10 +144,9 @@ class ProjectAnalyser
     }
 
     /**
-     * Return info from quality analysis
-     * @return array
+     * Set info from quality analysis
      */
-    public function setQualityInfo()
+    protected function setQualityInfo()
     {
         $csAnalyse = $this->analyseReport('CS');
 
@@ -170,7 +166,7 @@ class ProjectAnalyser
      * Exploit les rapports de test unitaire
      * @return type
      */
-    public function exploitTestReport()
+    protected function exploitTestReport()
     {
         $res = [
             'ok'            => false,
@@ -285,8 +281,7 @@ class ProjectAnalyser
 
         $this->oAnalyze
             ->setTuSuccess($res['ok'])
-            ->setCov($res['ccLine'])
-            ;
+            ->setCov($res['ccLine']);
 
         $this->testInfo = $res;
     }
@@ -356,8 +351,7 @@ class ProjectAnalyser
             ->setNbCSSFile($nbCSS - $nbLibCSS)
             ->setNbCSSLib($nbLibCSS)
             ->setNbJSFile($nbJS - $nbLibJS)
-            ->setNbJSLib($nbLibJS)
-            ;
+            ->setNbJSLib($nbLibJS);
     }
 
     /**
@@ -388,7 +382,9 @@ class ProjectAnalyser
 
     /**
      * Renvoi la date de derniere modif du fichier
+     *
      * @param type $file
+     *
      * @return string
      */
     protected function getDateGeneration($file)
@@ -402,9 +398,11 @@ class ProjectAnalyser
 
     /**
      * Analysis un rapport
+     *
      * @param type $prefix
      * @param type $goodIfEmpty
      * @param type $goodIfContains
+     *
      * @return type
      */
     protected function analyseReport($prefix, $goodIfEmpty = true, $goodIfContains = '')
@@ -451,7 +449,7 @@ class ProjectAnalyser
     }
 
     /**
-     *     Lit la date et le temps d'execution de l'analyse
+     * Lit la date et le temps d'execution de l'analyse
      */
     protected function setAnalysisTimeInfo()
     {
@@ -459,8 +457,7 @@ class ProjectAnalyser
         if (file_exists($file)) {
             $this->oAnalyze
                 ->setDateTime(filemtime($file))
-                ->setExecTime((int) file_get_contents($file))
-            ;
+                ->setExecTime((int) file_get_contents($file));
         }
     }
 }

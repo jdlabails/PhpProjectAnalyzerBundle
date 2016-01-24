@@ -52,7 +52,6 @@ class ProjectAnalyser
             ->setNbClasses($this->extractFromLoc('classes'))
             ->setNbMethod($this->extractFromLoc('methods'))
             ->setLoc((int) $this->extractFromLoc('loc'));
-            ;
 
         // Exploits analysis
         $this->count();

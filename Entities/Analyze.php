@@ -2,14 +2,12 @@
 
 namespace JD\PhpProjectAnalyzerBundle\Entities;
 
-use Zend\Stdlib\JsonSerializable;
-
 /**
  * La classe Analyze sert à structurer les résultats des analyses
  *
  * @author Jean-David Labails <jd.labails@gmail.com>
  */
-class Analyze implements JsonSerializable
+class Analyze 
 {
     /**
      * @var integer

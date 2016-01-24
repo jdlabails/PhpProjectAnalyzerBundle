@@ -1,4 +1,5 @@
-### What is it ?
+Php Project Analyzer [![Build Status](https://travis-ci.org/jdlabails/PhpProjectAnalyzer.svg?branch=master)](https://travis-ci.org/jdlabails/PhpProjectAnalyzer)
+
 This bundle gives you constructed views of various analysis results.
 
 

@@ -1,0 +1,22 @@
+language: php
+
+php:
+    - 5.5
+    - 5.6
+    - 7
+    
+before_install:
+    - wget http://getcomposer.org/composer.phar    
+    
+before_script:
+    - php composer.phar install --dev
+    - pyrus install pear/PHP_CodeSniffer
+    - phpenv rehash
+
+script: 
+    - phpunit --coverage-text 
+    - phpcs --extensions=php --standard=PSR2 src/Bundle
+
+notifications:
+  email:
+    - jd.labails@gmail.com

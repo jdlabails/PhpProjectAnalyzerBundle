@@ -16,12 +16,10 @@ class MainController extends Controller
     public function indexAction()
     {
         $projectAnalyser = $this->get('jd_ppa.projectAnalyser');
-        //echo $rootPath = $this->get('kernel')->getRootDir().'/..';
 
         return $this->render('JDPhpProjectAnalyzerBundle:Main:index.html.twig', [
                 'projectAnalyser'       => $projectAnalyser,
                 'params'                => $this->getParameter('jd.ppa.global'),
-
 
                 'tabAvailableAnalysis'  => $projectAnalyser->getTabAvailableAnalysis(),
                 'isAnalyzeInProgress'   => $projectAnalyser->isAnalyzeInProgress(),
@@ -47,10 +45,9 @@ class MainController extends Controller
      */
     public function analyzeAction()
     {
-        $scriptManager = $this->get('jd_ppa.scriptManager');
-
-        return $this->render('JDPhpProjectAnalyzerBundle:Main:res.html.twig', [
-                'res' => $scriptManager->lancerAnalyse(),
-        ]);
+        return $this->render(
+            'JDPhpProjectAnalyzerBundle:Main:res.html.twig',
+            ['res' => $this->get('jd_ppa.scriptManager')->lancerAnalyse()]
+        );
     }
 }

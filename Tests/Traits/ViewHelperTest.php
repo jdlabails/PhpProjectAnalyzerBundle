@@ -3,6 +3,7 @@
 namespace JD\PhpProjectAnalyzerBundle\Traits;
 
 use JD\PhpProjectAnalyzerBundle\Traits;
+use Symfony\Component\Translation\Translator;
 
 /**
  * Tests unitaire du trait Visualizer
@@ -37,12 +38,25 @@ class ViewHelperTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetReadableDateTime()
     {
+        $this->translator = $this
+            ->getMockBuilder(Translator::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
         $date = strtotime('10 sept 2015 12:00');
 
-        $this->parameters['lang'] = 'fr';
-        $this->assertEquals(self::getReadableDateTime($date), '10/09/2015 à 12:00');
+        $this->translator->expects($this->any())
+             ->method('getLocale')
+             ->will($this->returnValue('fr'));
+        $this->assertEquals($this->getReadableDateTime($date), '10/09/2015 à 12:00');
 
-        $this->parameters['lang'] = 'en';
-        $this->assertEquals(self::getReadableDateTime($date), '2015-09-10 12:00');
+        $this->translator = $this
+            ->getMockBuilder(Translator::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+        $this->translator->expects($this->any())
+             ->method('getLocale')
+             ->will($this->returnValue('en'));
+        $this->assertEquals($this->getReadableDateTime($date), '2015-09-10 12:00');
     }
 }

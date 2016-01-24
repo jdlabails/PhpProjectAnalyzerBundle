@@ -10,7 +10,7 @@ use JD\PhpProjectAnalyzerBundle\Entities\Analyze;
  */
 class ScoreCalculatorTest extends \PHPUnit_Framework_TestCase
 {
-    use Traits\SScoreCalculator, Traits\SParamReader;
+    use Traits\ScoreCalculator, Traits\ParamReader;
 
     public $parameters;
     public $oAnalyze;
@@ -69,18 +69,9 @@ class ScoreCalculatorTest extends \PHPUnit_Framework_TestCase
             'testWeight' => '100',
             'locWeight' => '100',
             'csWeight' => '100',
-            'projectSize' => 'small',
         ];
 
         $this->calculateScore();
-        $this->assertEquals($this->oAnalyze->getScore(), 20);
-
-        $this->parameters['score']['projectSize'] = 'medium';
-        $this->calculateScore();
         $this->assertEquals($this->oAnalyze->getScore(), 14.67);
-
-        $this->parameters['score']['projectSize'] = 'big';
-        $this->calculateScore();
-        $this->assertEquals($this->oAnalyze->getScore(), 14);
     }
 }

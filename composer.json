@@ -10,8 +10,8 @@
         "email" : "jd.labails@gmail.com"
     }],
     "require" : {        
-        "php": ">=5.3.2",
-        "symfony/framework-bundle": "~2.7",
+        "php": ">=5.4",
+        "symfony/framework-bundle": "~2.8",
         "symfony/twig-bundle": "~2.3"
     },
     "scripts": {
@@ -20,7 +20,7 @@
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets"
         ],
         "post-update-cmd": [
-            "JD\\PhpProjectAnalyzerBundle\\Resources\\_phar\\update.sh",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets"
         ]
     },

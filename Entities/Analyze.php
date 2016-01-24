@@ -7,7 +7,7 @@ namespace JD\PhpProjectAnalyzerBundle\Entities;
  *
  * @author Jean-David Labails <jd.labails@gmail.com>
  */
-class Analyze 
+class Analyze
 {
     /**
      * @var integer

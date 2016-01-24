@@ -14,8 +14,8 @@ before_script:
     - phpenv rehash
 
 script: 
-    - phpunit --coverage-text 
-    - phpcs --extensions=php --standard=PSR2 src/Bundle
+    - phpunit -c phpunit.xml
+    - phpcs --standard=PSR2 --extensions=php Entities Manager Command Controller DependencyInjection Traits
 
 notifications:
   email:

@@ -10,7 +10,8 @@ namespace JD\PhpProjectAnalyzerBundle\Traits;
  *
  * @author jd.labails
  */
-trait ScoreCalculator {
+trait ScoreCalculator
+{
 
     /**
      * Return true if score is enable by the config file
@@ -78,5 +79,4 @@ trait ScoreCalculator {
 
         return $weight;
     }
-
 }

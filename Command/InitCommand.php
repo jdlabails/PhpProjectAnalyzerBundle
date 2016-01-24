@@ -9,7 +9,8 @@ use Symfony\Component\Console\Output\OutputInterface;
 /**
  * Command d'initialisation des repertoires de rapports d'analyses
  */
-class InitCommand extends ContainerAwareCommand {
+class InitCommand extends ContainerAwareCommand
+{
 
     /**
      * Configuration de la commande
@@ -43,7 +44,9 @@ class InitCommand extends ContainerAwareCommand {
         }
 
         $webServer = $this->getHelperSet()->get('dialog')->ask(
-            $output, 'Please enter your web server user [www-data:www-data] :', 'www-data:www-data'
+            $output,
+            'Please enter your web server user [www-data:www-data] :',
+            'www-data:www-data'
         );
         //die($webServer);
         $res = '';
@@ -53,5 +56,4 @@ class InitCommand extends ContainerAwareCommand {
 
         $output->writeln($res);
     }
-
 }

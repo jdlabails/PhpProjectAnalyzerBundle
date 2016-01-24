@@ -7,7 +7,8 @@ namespace JD\PhpProjectAnalyzerBundle\Traits;
  *
  * @author jd
  */
-trait ScriptBuilder {
+trait ScriptBuilder
+{
 
     private $header = '';
 
@@ -108,5 +109,4 @@ trait ScriptBuilder {
 
         return $this->header;
     }
-
 }

@@ -74,10 +74,10 @@ jd_php_project_analyzer:
         enable: true
         standard: PSR2
 
-    # quality metric : php depend
+    # quality metric : phpdepend
     depend : true
 
-    # quality metric : php loc
+    # quality metric : phploc
     loc : true
 
     # quality metric : mess detector

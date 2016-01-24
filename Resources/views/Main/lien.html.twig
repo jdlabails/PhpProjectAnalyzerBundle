@@ -14,13 +14,13 @@
         </a>
         <br>
 
-        {% if projectAnalyser.isEnable('docs') %}
+        {% if projectAnalyzer.isEnable('docs') %}
         <a href="{{ app.request.getSchemeAndHttpHost()}}/ppa/reports/DOCS/index.html" target="_blank">
             {% trans %}link.phpDoc{%endtrans%}
         </a>
         {% endif %}
 
-        {% if projectAnalyser.isEnable('histo', true) %}
+        {% if projectAnalyzer.isEnable('histo', true) %}
         <br>
         <a href="histo.php" target="_blank">
             {% trans %}link.histo{%endtrans%}

@@ -28,7 +28,7 @@
     <div class="panel-body">
         <ul class="list-group">
             
-            {% if projectAnalyser.isEnable('loc') %}
+            {% if projectAnalyzer.isEnable('loc') %}
             
             <li class="list-group-item">
                 <span class="badge alert-info">{{ analyze.loc}}</span>
@@ -52,7 +52,7 @@
 
             {% endif %}
 
-            {% if projectAnalyser.isEnable('count') %}
+            {% if projectAnalyzer.isEnable('count') %}
 
             <li class="list-group-item">
                 <span class="badge alert-info">{{analyze.nbBundles}}</span>

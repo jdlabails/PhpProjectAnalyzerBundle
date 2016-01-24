@@ -12,7 +12,7 @@
   <div class="panel-body">
     <ul class="list-group metrics">
 
-      {% if projectAnalyser.isEnable('test', true) %}
+      {% if projectAnalyzer.isEnable('test', true) %}
           <li class="list-group-item">
             <label>
               {% trans %}quality.testsTitle{%endtrans%}
@@ -54,33 +54,33 @@
       {% endif %}
 
 
-      {% if projectAnalyser.isEnable('cs', true) %}            
+      {% if projectAnalyzer.isEnable('cs', true) %}            
           <li class="list-group-item">
             <label>
               {% trans %}quality.codeSniffer{%endtrans%}
               ({{params['cs']['standard']}})
             </label>     
-            {{ projectAnalyser.afficheSummary(_quality_info['CS']['summary'])|raw}}
+            {{ projectAnalyzer.afficheSummary(_quality_info['CS']['summary'])|raw}}
             {% set idAnalyse = 'cs' %} 
             {% include 'JDPhpProjectAnalyzerBundle:Main:options.html.twig' %}        
           </li>
       {% endif %}
 
 
-      {% if projectAnalyser.isEnable('cpd') %}
+      {% if projectAnalyzer.isEnable('cpd') %}
           <li class="list-group-item">
             <label>{% trans %}quality.copyPaste{%endtrans%}</label>
-            {{ projectAnalyser.afficheSummary(_quality_info['CPD']['summary'])|raw }}  
+            {{ projectAnalyzer.afficheSummary(_quality_info['CPD']['summary'])|raw }}  
             {% set idAnalyse = 'cpd' %} 
             {% include 'JDPhpProjectAnalyzerBundle:Main:options.html.twig' %}
           </li>                
       {% endif %}
 
 
-      {% if projectAnalyser.isEnable('md', true) %}
+      {% if projectAnalyzer.isEnable('md', true) %}
           <li class="list-group-item">
             <label>{% trans %}quality.messDetector{%endtrans%}</label>
-            {{ projectAnalyser.afficheSummary(_quality_info['MD']['summary'])|raw }}
+            {{ projectAnalyzer.afficheSummary(_quality_info['MD']['summary'])|raw }}
             {% set idAnalyse = 'md' %} 
             {% include 'JDPhpProjectAnalyzerBundle:Main:options.html.twig' %}
           </li>

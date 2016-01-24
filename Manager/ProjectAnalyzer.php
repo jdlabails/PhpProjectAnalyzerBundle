@@ -4,14 +4,14 @@ namespace JD\PhpProjectAnalyzerBundle\Manager;
 
 use JD\PhpProjectAnalyzerBundle\Entities\Analyze;
 use JD\PhpProjectAnalyzerBundle\Traits;
-use Symfony\Component\Translation\Translator;
+use Symfony\Component\Translation\DataCollectorTranslator as Translator;
 
 /**
  * Classe basique regroupant les fonctions utilisées dans l'index
  *
  * @author Jean-David Labails <jd.labails@gmail.com>
  */
-class ProjectAnalyser
+class ProjectAnalyzer
 {
     use Traits\ViewHelper, Traits\ScoreCalculator, Traits\ParamReader;
 
@@ -148,7 +148,7 @@ class ProjectAnalyser
      */
     protected function setQualityInfo()
     {
-        $csAnalyse = $this->analyseReport('CS');
+        $csAnalyse = $this->analyzeReport('CS');
 
         $this->oAnalyze->setCsSuccess($csAnalyse['CS']['summary'] === 'ok');
 
@@ -156,8 +156,8 @@ class ProjectAnalyser
 
         $this->qualityInfo =
             $csAnalyse +
-            $this->analyseReport('MD') +
-            $this->analyseReport('CPD', false, '0.00% duplicated lines') +
+            $this->analyzeReport('MD') +
+            $this->analyzeReport('CPD', false, '0.00% duplicated lines') +
             ['ccMethod' => $ccMethod]
         ;
     }
@@ -405,7 +405,7 @@ class ProjectAnalyser
      *
      * @return type
      */
-    protected function analyseReport($prefix, $goodIfEmpty = true, $goodIfContains = '')
+    protected function analyzeReport($prefix, $goodIfEmpty = true, $goodIfContains = '')
     {
         $res = array();
         $txt = '';

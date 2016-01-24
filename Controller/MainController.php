@@ -15,18 +15,18 @@ class MainController extends Controller
      */
     public function indexAction()
     {
-        $projectAnalyser = $this->get('jd_ppa.projectAnalyser');
+        $projectAnalyzer = $this->get('jd_ppa.projectAnalyzer');
 
         return $this->render('JDPhpProjectAnalyzerBundle:Main:index.html.twig', [
-                'projectAnalyser'       => $projectAnalyser,
+                'projectAnalyzer'       => $projectAnalyzer,
                 'params'                => $this->getParameter('jd.ppa.global'),
 
-                'tabAvailableAnalysis'  => $projectAnalyser->getTabAvailableAnalysis(),
-                'isAnalyzeInProgress'   => $projectAnalyser->isAnalyzeInProgress(),
-                '_quality_info'         => $projectAnalyser->getQualityInfo(),
-                '_testInfo'             => $projectAnalyser->getTestInfo(),
-                '_reportInfo'           => $projectAnalyser->getReportInfo(),
-                'analyze'               => $projectAnalyser->getAnalyze(),
+                'tabAvailableAnalysis'  => $projectAnalyzer->getTabAvailableAnalysis(),
+                'isAnalyzeInProgress'   => $projectAnalyzer->isAnalyzeInProgress(),
+                '_quality_info'         => $projectAnalyzer->getQualityInfo(),
+                '_testInfo'             => $projectAnalyzer->getTestInfo(),
+                '_reportInfo'           => $projectAnalyzer->getReportInfo(),
+                'analyze'               => $projectAnalyzer->getAnalyze(),
         ]);
     }
 

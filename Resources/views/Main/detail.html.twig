@@ -1,5 +1,5 @@
 {% for idAnalyse, title in tabAvailableAnalysis %}
-    {% if projectAnalyser.isEnable(idAnalyse, true) %}        
+    {% if projectAnalyzer.isEnable(idAnalyse, true) %}        
         {% if idAnalyse == 'test' %}
             {% set report = _testInfo%}
         {% else %}

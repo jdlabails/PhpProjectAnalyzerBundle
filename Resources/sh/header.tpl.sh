@@ -1,7 +1,7 @@
 #!/bin/bash
 ################################################################################
 #
-# Script Project Analyser
+# Script Project Analyzer
 #
 # Date       Auteur       : Contenu
 # 2014-09-15 Jean-David Labails   : creation du script

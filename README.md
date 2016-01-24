@@ -27,16 +27,13 @@ It executes
  - Php Mess Detector
  - Php Unit Test
  - Atoum test
- - Php Code Sniffer ( + reparation tool)
+ - Php Code Sniffer ( + reparation tool via phpcbf)
  - Copy-paste detector
  - Php Depend
  - Php Loc
  - Php Docs
 
 And parses their report to give a nice view for rapid analysis of your project.
-
-It make sense essentially for dev and lead dev.
-
 
 ### Install
  - composer require jdlabails/php-project-analyzer-bundle
@@ -46,7 +43,7 @@ It make sense essentially for dev and lead dev.
  - sudo php app/console ppa:init
 
 ### Use
- - Call http://yoursymfonyproject.local/en/ppa with your nav.
+ - Call http://127.0.0.1:8000/en/ppa with your nav.
  - Click on 'Start Scan'
 
 ### Config
@@ -63,27 +60,27 @@ jd_php_project_analyzer:
 
     gitRepositoryURL:      https://github.com/jdlabails/PhpProjectAnalyzerBundle
 
-    # chemin d'analyse
+    # directory to analyze
     srcPath : /home/jd/Dev/ppa/src/JD
 
-    # métrique quantitative
+    # quantitative metric
     count : true
 
-    # métrique qualité copy-paste
+    # quality metric : copy-paste
     cpd : true
 
-    # métrique qualité code sniffer
+    # quality metric : code sniffer
     cs :
         enable: true
         standard: PSR2
 
-    # métrique qualité php depend
+    # quality metric : php depend
     depend : true
 
-    # métrique qualité php loc
+    # quality metric : php loc
     loc : true
 
-    # métrique qualité mess detector
+    # quality metric : mess detector
     md :
         enable: true
         rules:
@@ -94,10 +91,10 @@ jd_php_project_analyzer:
             naming: true
             unusedcode: true
 
-    # possiblité de généré la phpdoc
+    # generate phpdoc
     docs : true
 
-    # tests unitaires et fonctionnels
+    # testing
     test :
         enable: false
         lib : phpunit       # phpunit || atoum
@@ -111,6 +108,5 @@ jd_php_project_analyzer:
         csWeight:       100     # between 0 and 100, weighting of code sniffer
         testWeight:     100     # between 0 and 100, weighting of testing
         locWeight:      100     # between 0 and 100, weighting of code coverage
-        projectSize:    small   # small : betwenn 0 and 5000, medium, between 5000 and 50000, big : > 50000
-
+        
 ```

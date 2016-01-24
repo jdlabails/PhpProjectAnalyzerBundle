@@ -1,4 +1,9 @@
-Php Project Analyzer [![Build Status](https://travis-ci.org/jdlabails/PhpProjectAnalyzer.svg?branch=master)](https://travis-ci.org/jdlabails/PhpProjectAnalyzer)
+Php Project Analyzer 
+
+[![Build Status](https://travis-ci.org/jdlabails/PhpProjectAnalyzerBundle.svg?branch=master)](https://travis-ci.org/jdlabails/PhpProjectAnalyzerBundle)
+[![Coverage Status](https://coveralls.io/repos/jdlabails/php-project-analyzer-bundle/badge.png?branch=master)](https://coveralls.io/r/simkimsia/UtilityBehaviors?branch=master)
+[![Total Downloads](https://poser.pugx.org/jdlabails/php-project-analyzer-bundle/d/total.png)](https://packagist.org/packages/jdlabails/php-project-analyzer-bundle)
+[![Latest Stable Version](https://poser.pugx.org/jdlabails/php-project-analyzer-bundle/v/stable.png)](https://packagist.org/packages/jdlabails/php-project-analyzer-bundle)
 
 This bundle gives you constructed views of various analysis results.
 

@@ -1,4 +1,4 @@
-Php Project Analyzer 
+# Php Project Analyzer 
 
 [![Build Status](https://travis-ci.org/jdlabails/PhpProjectAnalyzerBundle.svg?branch=master)](https://travis-ci.org/jdlabails/PhpProjectAnalyzerBundle)
 [![Coverage Status](https://coveralls.io/repos/jdlabails/php-project-analyzer-bundle/badge.png?branch=master)](https://coveralls.io/r/simkimsia/UtilityBehaviors?branch=master)

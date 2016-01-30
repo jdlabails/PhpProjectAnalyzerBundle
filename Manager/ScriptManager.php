@@ -29,7 +29,9 @@ class ScriptManager
         $this->dirRoot             = $rootDir.'/web/ppa/';
         $this->jetonAnalysePath    = $this->dirRoot.'/jetons/jetonAnalyse';
         $this->shDirPath           = $this->dirRoot.'/sh';
-        $this->tplShDirPath        = __DIR__.'/../Resources/sh';
+
+        $reflClass                 = new \ReflectionClass(get_class($this));
+        $this->tplShDirPath        = dirname($reflClass->getFileName()).'/../Resources/sh';
 
         $this->parameters          = $configGlobale;
     }

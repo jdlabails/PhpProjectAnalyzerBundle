@@ -25,14 +25,19 @@ class InitCommand extends ContainerAwareCommand
 
     /**
      * Execution de la commande
+     *
      * @param InputInterface $input
      * @param OutputInterface $output
+     *
      * @return type
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $installerPath = __DIR__ . '/../Resources/sh/install.sh';
-        $reportPath = __DIR__ . '/../../../../web/ppa';
+        $reflClass = new \ReflectionClass(get_class($this));
+        $dirPath = dirname($reflClass->getFileName());
+
+        $installerPath = $dirPath . '/../Resources/sh/install.sh';
+        $reportPath = $this->getContainer()->getParameter('kernel.root_dir') . '/../web/ppa';
 
         if (!is_executable($installerPath)) {
             chmod($installerPath, 0755);
@@ -48,11 +53,11 @@ class InitCommand extends ContainerAwareCommand
             'Please enter your web server user [www-data:www-data] :',
             'www-data:www-data'
         );
-        //die($webServer);
-        $res = '';
-        exec(__DIR__ . '/../Resources/sh/install.sh ' . $webServer . ' ' . $reportPath, $res);
 
-        $res[] = "\nInstallation done";
+        $output = [];
+        exec($installerPath. ' ' . $webServer . ' ' . $reportPath, $output);
+
+        $output[] = "\nInstallation done";
 
         $output->writeln($res);
     }

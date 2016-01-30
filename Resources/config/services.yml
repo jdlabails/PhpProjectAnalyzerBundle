@@ -1,7 +1,7 @@
 services:
     jd_ppa.projectAnalyzer:
         class: JD\PhpProjectAnalyzerBundle\Manager\ProjectAnalyzer
-        arguments: [%jd.ppa.global%, @translator, %kernel.root_dir%/../]
+        arguments: [%jd.ppa.global%, "@translator", %kernel.root_dir%/../]
     
     jd_ppa.scriptManager:
         class: JD\PhpProjectAnalyzerBundle\Manager\ScriptManager

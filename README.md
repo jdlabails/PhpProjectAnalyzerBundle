@@ -4,6 +4,7 @@
 [![Coverage Status](https://coveralls.io/repos/jdlabails/php-project-analyzer-bundle/badge.png?branch=master)](https://coveralls.io/r/simkimsia/UtilityBehaviors?branch=master)
 [![Total Downloads](https://poser.pugx.org/jdlabails/php-project-analyzer-bundle/d/total.png)](https://packagist.org/packages/jdlabails/php-project-analyzer-bundle)
 [![Latest Stable Version](https://poser.pugx.org/jdlabails/php-project-analyzer-bundle/v/stable.png)](https://packagist.org/packages/jdlabails/php-project-analyzer-bundle)
+[![SensioLabsInsight](https://insight.sensiolabs.com/projects/3b03dad9-01a6-4d9e-8cb5-72a2fc8190dc/mini.png)](https://insight.sensiolabs.com/projects/3b03dad9-01a6-4d9e-8cb5-72a2fc8190dc)
 
 This bundle gives you constructed views of various analysis results.
 

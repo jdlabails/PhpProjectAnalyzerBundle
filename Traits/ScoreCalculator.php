@@ -33,10 +33,10 @@ trait ScoreCalculator
             return 0;
         }
 
-        $loc = (int) $this->oAnalyze->getLoc();
-        $cs = (int) ($this->oAnalyze->getCsSuccess() === true);
+        $loc  = (int) $this->oAnalyze->getLoc();
+        $cs   = (int) ($this->oAnalyze->getCsSuccess() === true);
         $test = (int) ($this->oAnalyze->getTuSuccess() === true);
-        $cc = (float) $this->oAnalyze->getCov(); //str_replace('%', '', $testInfo['ccLine']);
+        $cc   = (float) $this->oAnalyze->getCov();
 
         $csWeight = $this->getScoreWeightParam('csWeight');
         $testWeight = $this->getScoreWeightParam('testWeight');
@@ -53,10 +53,9 @@ trait ScoreCalculator
             $maxSize = 100000;
         }
 
-        //echo "$cs*$csWeight + $test*$testWeight*($cc/100) + $loc*$locWeight/$maxSize;";
-        $note = $cs * $csWeight + $test * $testWeight * ($cc / 100) + $loc * $locWeight / $maxSize;
+        $note   = $cs * $csWeight + $test * $testWeight * ($cc / 100) + $loc * $locWeight / $maxSize;
         $divide = ($csWeight + $testWeight + $locWeight) / 20;
-        $score = round(($note / $divide), 2);
+        $score  = round(($note / $divide), 2);
 
         $this->oAnalyze->setScore($score);
     }

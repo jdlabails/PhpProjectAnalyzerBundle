@@ -6,21 +6,21 @@
     </h1>
 </div>
 <div class="col-md-4" style="margin-top:23px; font-size:20px">
-    <div class="label-{% if analyze.tuSuccess %}success{% else %}danger{%endif%}" id="encartResultat">
+    <div class="label-{% if projectAnalyzer.analyze.tuSuccess %}success{% else %}danger{%endif%}" id="encartResultat">
         <table>
             <tr>
               <td>{% trans %}lastAnalyze{%endtrans%}</td>
-                <td>{{ analyze.readableDateTime }}</td>
+                <td>{{ projectAnalyzer.analyze.readableDateTime }}</td>
             </tr>
             <tr>
                 <td>{% trans %}duration{%endtrans %}</td>
-                <td>{{ analyze.readableExecTime }}</td>
+                <td>{{ projectAnalyzer.analyze.readableExecTime }}</td>
             </tr>
             {% if projectAnalyzer.isScoreEnable %}
             <tr>
                 <td>{% trans %}score.note{%endtrans %}</td>
-                <td {% if analyze.getReadableDateTime() != _testInfo['dateTimeCC'] and analyze.getTuSuccess() %} style="color: red;font-weight: normal" {% endif %} >
-                {{ analyze.score }} / 20
+                <td {% if projectAnalyzer.analyze.getReadableDateTime() != projectAnalyzer.testInfo['dateTimeCC'] and projectAnalyzer.analyze.getTuSuccess() %} style="color: red;font-weight: normal" {% endif %} >
+                {{ projectAnalyzer.analyze.score }} / 20
                 <img
                     src="{{ asset('bundles/jdphpprojectanalyzer/img/question.png') }}"
                     class="help"

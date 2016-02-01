@@ -27,7 +27,7 @@
     {% endjavascripts %}
 {% endblock %}
 
-        <link rel="icon" href="assets/img/favicon.ico" />
+    <link rel="icon" href="assets/img/favicon.ico" />
         
     </head>
     <body>
@@ -54,7 +54,7 @@
         </div>
     </body>
 
-    {% if isAnalyzeInProgress %} 
+    {% if projectAnalyzer.analyzeInProgress %} 
         <script>
         var urlLanceur = "{{path('jd_php_project_analyzer_analyze')}}";
         $('document').ready(function () {

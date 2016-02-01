@@ -34,7 +34,6 @@ class JDPhpProjectAnalyzerExtension extends Extension
         foreach ($config as $k => $v) {
             $paramName = $prefix.'.'.$k;
             if (!is_array($v)) {
-                //echo $paramName.' => '.$v.'<br>';
                 $container->setParameter($paramName, $v);
             } else {
                 $this->addConfigToParameter($paramName, $v, $container);

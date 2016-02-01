@@ -58,7 +58,6 @@ trait ViewHelper
      */
     public function getReadableDateTime($dt)
     {
-        //var_dump($this->translator->getLocale());
         if ($this->translator->getLocale() == 'fr') {
             return date('d/m/Y à H:i', $dt);
         }

@@ -13,11 +13,11 @@ class ScriptManager
 {
     use Traits\ScriptBuilder, Traits\ParamReader;
 
-    private $dirRoot;
-    private $parameters;
-    private $jetonAnalysePath;
-    private $paShPath;
-    private $tplShDirPath;
+    protected $dirRoot;
+    protected $parameters;
+    protected $jetonAnalysePath;
+    protected $paShPath;
+    protected $tplShDirPath;
 
     /**
      * Le constructeur initialise les variables necessaire à la génération du script
@@ -29,7 +29,9 @@ class ScriptManager
         $this->dirRoot             = $rootDir.'/web/ppa/';
         $this->jetonAnalysePath    = $this->dirRoot.'/jetons/jetonAnalyse';
         $this->shDirPath           = $this->dirRoot.'/sh';
-        $this->tplShDirPath        = __DIR__.'/../Resources/sh';
+
+        $reflClass                 = new \ReflectionClass(get_class($this));
+        $this->tplShDirPath        = dirname($reflClass->getFileName()).'/../Resources/sh';
 
         $this->parameters          = $configGlobale;
     }

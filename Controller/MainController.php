@@ -18,15 +18,8 @@ class MainController extends Controller
         $projectAnalyzer = $this->get('jd_ppa.projectAnalyzer');
 
         return $this->render('JDPhpProjectAnalyzerBundle:Main:index.html.twig', [
-                'projectAnalyzer'       => $projectAnalyzer,
-                'params'                => $this->getParameter('jd.ppa.global'),
-
-                'tabAvailableAnalysis'  => $projectAnalyzer->getTabAvailableAnalysis(),
-                'isAnalyzeInProgress'   => $projectAnalyzer->isAnalyzeInProgress(),
-                '_quality_info'         => $projectAnalyzer->getQualityInfo(),
-                '_testInfo'             => $projectAnalyzer->getTestInfo(),
-                '_reportInfo'           => $projectAnalyzer->getReportInfo(),
-                'analyze'               => $projectAnalyzer->getAnalyze(),
+                'projectAnalyzer' => $projectAnalyzer,
+                'params'          => $this->getParameter('jd.ppa.global'),
         ]);
     }
 

@@ -62,7 +62,8 @@ class ProjectAnalyzer
     }
 
     /**
-     * @todo mettre la trad
+     * il faudra mettre la trad
+     *
      * @return type
      */
     public function getTabAvailableAnalysis()
@@ -198,28 +199,28 @@ class ProjectAnalyzer
                     // Time: 6.8 minutes, Memory: 141.00Mb
                     if (strpos($l, 'Time') !== false && strpos($l, 'Memory') !== false) {
                         list($t, $m) = explode(',', $l);
-                        list($neverMind, $res['exeTime']) = explode(':', $t);
-                        list($neverMind, $res['exeMem']) = explode(':', $m);
+                        $res['exeTime'] = explode(':', $t)[1];
+                        $res['exeMem']  = explode(':', $m)[1];
                     }
 
-                    // [30;42mOK (40 tests, 123 assertions)[0m
+                    // output of test : "[30;42mOK (40 tests, 123 assertions)[0m "
                     if (stripos($l, 'test') !== false && stripos($l, 'assertion') !== false) {
                         $res['ok'] = strpos($l, 'OK') !== false;
 
                         if ($res['ok']) {
                             list($t, $a) = explode(',', $l);
 
-                            list($neverMind, $nb) = explode('(', $t);
+                            $nb = explode('(', $t)[1];
                             $res['nbTest'] = str_ireplace('tests', '', $nb);
 
-                            list($nb, $neverMind) = explode(')', $a);
+                            $nb = explode(')', $a)[0];
                             $res['nbAssertions'] = str_ireplace('assertions', '', $nb);
                         } else {
-                            list($t, $a, $neverMind) = explode(',', $l);
+                            $lineTab = explode(',', $l);
 
-                            list($neverMind, $res['nbTest']) = explode(':', $t);
+                            $res['nbTest'] = explode(':', $lineTab[0])[1];
 
-                            list($neverMind,  $res['nbAssertions']) = explode(':', $a);
+                            $res['nbAssertions'] = explode(':', $lineTab[1])[1];
                         }
                     }
                 }
@@ -231,10 +232,10 @@ class ProjectAnalyzer
                     $lines = file($covReportFile);
                     foreach ($lines as $k => $v) {
                         if (strpos($v, 'Summary:') !== false) {
-                            list($neverMind, $res['ccClasse']) = explode(':', $lines[$k+1]);
-                            list($neverMind, $res['ccMethod']) = explode(':', $lines[$k+2]);
-                            list($neverMind, $res['ccLine']) = explode(':', $lines[$k+3]);
-                            list($res['ccLine'], $neverMind) = explode('(', $res['ccLine']);
+                            $res['ccClasse'] = explode(':', $lines[$k+1])[1];
+                            $res['ccMethod'] = explode(':', $lines[$k+2])[1];
+                            $res['ccLine']   = explode(':', $lines[$k+3])[1];
+                            $res['ccLine']   = explode('(', $res['ccLine'])[0];
 
                             break;
                         }
@@ -244,7 +245,7 @@ class ProjectAnalyzer
 
             if ($this->parameters['test']['lib'] == 'atoum') {
                 $nbLines = count($lines);
-                list($neverMind, $res['exeTime']) = explode(':', $lines[$nbLines-2]);
+                $res['exeTime'] = explode(':', $lines[$nbLines-2])[1];
 
                 //Success (4 tests, 40/40 methods, 0 void method, 0 skipped method, 265 assertions)!
                 $line = $lines[$nbLines-1];
@@ -252,7 +253,7 @@ class ProjectAnalyzer
                 if ($res['ok']) {
                     $items = explode(',', $line);
 
-                    list($neverMind, $nb) = explode('(', $items[0]);
+                    $nb = explode('(', $items[0])[1];
                     $res['nbTest'] = str_ireplace('tests', '', $nb);
 
                     $res['nbAssertions'] = str_ireplace('assertions)!', '', array_pop($items));

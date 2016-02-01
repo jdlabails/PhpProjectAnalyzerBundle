@@ -1,9 +1,9 @@
-{% for idAnalyse, title in tabAvailableAnalysis %}
+{% for idAnalyse, title in projectAnalyzer.tabAvailableAnalysis %}
     {% if projectAnalyzer.isEnable(idAnalyse, true) %}        
         {% if idAnalyse == 'test' %}
-            {% set report = _testInfo%}
+            {% set report = projectAnalyzer.testInfo %}
         {% else %}
-            {% set report = _reportInfo[idAnalyse|upper] %}
+            {% set report = projectAnalyzer.reportInfo[idAnalyse|upper] %}
         {% endif %}
         
         {% include 'JDPhpProjectAnalyzerBundle:Main:blockReportDetail.html.twig' %}

@@ -13,11 +13,11 @@ class ScriptManager
 {
     use Traits\ScriptBuilder, Traits\ParamReader;
 
-    private $dirRoot;
-    private $parameters;
-    private $jetonAnalysePath;
-    private $paShPath;
-    private $tplShDirPath;
+    protected $dirRoot;
+    protected $parameters;
+    protected $jetonAnalysePath;
+    protected $paShPath;
+    protected $tplShDirPath;
 
     /**
      * Le constructeur initialise les variables necessaire à la génération du script

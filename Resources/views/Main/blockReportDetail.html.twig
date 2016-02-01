@@ -4,11 +4,11 @@
     <div class="panel panel-primary">
         <div class="panel-heading">
             <h3 class="panel-title">PhpDepend : Métriques d'analyse</h3>
-            <small>{{ _reportInfo['DEPEND']['date'] }}</small>
+            <small>{{ projectAnalyzer.reportInfo['DEPEND']['date'] }}</small>
         </div>
         <div class="panel-body">
-            <pre class="pre-scrollable">{{ _reportInfo['DEPEND']['report'] }}</pre>
-            <!--<code><?=$_reportInfo['DEPEND']['cmd']?></code>
+            <pre class="pre-scrollable">{{ projectAnalyzer.reportInfo['DEPEND']['report'] }}</pre>
+            <!--<code><?=$projectAnalyzer.reportInfo['DEPEND']['cmd']?></code>
             <img src='DEPEND/jdepend.svg' width="90%">
             <img src='DEPEND/pyramid.svg' width="40%">
 

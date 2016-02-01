@@ -29,7 +29,8 @@ class ViewHelperTest extends \PHPUnit_Framework_TestCase
      */
     public function testAdaptPhpUnitReport()
     {
-        $file = __DIR__.'/../Fixtures/Traits/visualizer.txt';
+        $reflClass = new \ReflectionClass(get_class($this));
+        $file      = dirname($reflClass->getFileName()).'/../Fixtures/Traits/visualizer.txt';
         $this->assertEquals(self::adaptPhpUnitReport($file), '<span style="color:green"><span style="color:red"><span style=""><span style=""></span>');
     }
 

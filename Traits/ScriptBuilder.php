@@ -19,7 +19,7 @@ trait ScriptBuilder
      */
     function creerAnalyses()
     {
-        $contentGlobalSh = $contentCSSh = $contentCbfSh = $this->getHeader();
+        $contentGlobalSh = $contentCbfSh = $this->getHeader();
 
         foreach ($this->parameters as $idAnalyse => $param) {
             if ($this->isEnable($idAnalyse) && file_exists($this->tplShDirPath . '/' . $idAnalyse . '.tpl.sh')) {

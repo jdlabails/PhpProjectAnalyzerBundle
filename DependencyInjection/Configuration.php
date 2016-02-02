@@ -34,6 +34,7 @@ class Configuration implements ConfigurationInterface
                     ->end()
                 ->end()
                 ->booleanNode('depend')->defaultTrue()->end()
+                ->booleanNode('security')->defaultTrue()->end()
                 ->booleanNode('loc')->defaultTrue()->end()
 
                 ->arrayNode('md')

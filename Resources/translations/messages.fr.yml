@@ -73,6 +73,15 @@ details.generatedOn: Généré le
 details.notGenerated: Non généré
 details.emptyReport: Rapport vide
 details.noReport: Aucun report généré
+details.libelle.test: Tests fonctionnels et unitaires
+details.libelle.phpmd: "PhpMD : Mess Detector"
+details.libelle.phpcpd: "CPD : Copy-Paste Detector"
+details.libelle.cs: "CS : Code Sniffer"
+details.libelle.phploc: "PhpLoc : Statistic"
+details.libelle.phpdoc: "PhpDoc : Documentation"
+details.libelle.phpdepend: "PhpDepend : Métriques d'analyse"
+details.libelle.security: "Symfony security-cheker"
+details.libelle.behat: "Behat : test fonctionnel"
 
 #outil
 outil.detail: Voir le rapport

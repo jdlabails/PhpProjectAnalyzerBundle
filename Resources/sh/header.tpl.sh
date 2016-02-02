@@ -17,6 +17,7 @@ DIR_PA=%%%dir_pa%%%
 DIR_REPORT=${DIR_PA}/reports
 DIR_PHAR=%%%dir_phar%%%
 DIR_JETON=${DIR_PA}/jetons
+LOCK_PATH=%%%lock_path%%%
 
 #chmod -R 777 ${DIR_REPORT}
 

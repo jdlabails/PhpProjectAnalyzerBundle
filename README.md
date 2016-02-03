@@ -11,7 +11,7 @@ Gives you consolidated views of analysis results.
 
 It give a view like :
 
-![](https://raw.githubusercontent.com/jdlabails/PhpProjectAnalyzer/master/ppaIndex.png)
+![](https://raw.githubusercontent.com/jdlabails/PhpProjectAnalyzerBundle/master/ppaIndex.png)
 
 
 ### Features
@@ -22,6 +22,7 @@ It give a view like :
  - Links with code coverage report
  - Scoring based on quantity and quality metrics
  - Enable PhpUnit or Atoum unit tests
+ - Security checker available
 
 
 It executes
@@ -74,6 +75,9 @@ jd_php_project_analyzer:
     cs :
         enable: true
         standard: PSR2
+
+    # security checker
+    security: true
 
     # quality metric : phpdepend
     depend : true

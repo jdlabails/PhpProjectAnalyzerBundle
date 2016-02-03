@@ -55,6 +55,7 @@ class ProjectAnalyzer
 
         // Exploits analysis
         $this->count();
+        $this->setSecurityInfo();
         $this->setQualityInfo();
         $this->setAnalysisTimeInfo();
         $this->exploitTestReport();
@@ -143,6 +144,16 @@ class ProjectAnalyzer
         }
 
         return [$txt, $vide];
+    }
+
+    /**
+     * Set info from security analysis
+     */
+    protected function setSecurityInfo()
+    {
+        $securityAnalyse = $this->analyzeReport('SECURITY', false, '[OK] 0 packages have known vulnerabilities');
+
+        $this->oAnalyze->setSecuritySuccess($securityAnalyse['SECURITY']['summary'] === 'ok');
     }
 
     /**
@@ -409,7 +420,7 @@ class ProjectAnalyzer
      */
     protected function analyzeReport($prefix, $goodIfEmpty = true, $goodIfContains = '')
     {
-        $res = array();
+        $res = [];
         $txt = '';
         $report = $this->reportPath.'/'.$prefix.'/report.txt';
         if (file_exists($report)) {

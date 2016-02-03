@@ -2,8 +2,9 @@ $('document').ready(function () {
     $(".help").popover({placement: 'left', html: true});
 });
 
-function lancerUneAnalyse(one) {
-   
+function lancerUneAnalyse(one) {   
+    $('#formLanceur').hide();
+    $('#refreshLanceur').show();
     $.ajax({
         url: urlLanceur,
         data: {
@@ -11,8 +12,6 @@ function lancerUneAnalyse(one) {
         },
         method: 'post'
     }).done(function (data) {
-        $('#formLanceur').hide();
-        $('#refreshLanceur').show();
         setTimeout(refreshLanceur, 3000);
     });
 
@@ -20,7 +19,8 @@ function lancerUneAnalyse(one) {
 }
 
 function lancerAnalyse() {
-   
+    $('#formLanceur').hide();
+    $('#refreshLanceur').show();
     $.ajax({
         url: urlLanceur,
         data: {
@@ -29,8 +29,6 @@ function lancerAnalyse() {
         },
         method: 'post'
     }).done(function (data) {
-        $('#formLanceur').hide();
-        $('#refreshLanceur').show();
         setTimeout(refreshLanceur, 3000);
     });
 
@@ -43,7 +41,7 @@ function refreshLanceur() {
     $.ajax({
         url: urlLanceur+"?statut=1"
     }).done(function (data) {
-        if (data == 'ok') {
+        if (data.trim() == 'ok') {
             $('#rechargePage').show();
             $('#refreshLanceur').hide();
         } else {

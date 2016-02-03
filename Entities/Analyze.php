@@ -30,6 +30,11 @@ class Analyze
     private $csSuccess;
 
     /**
+     * @var boolean
+     */
+    private $securitySuccess;
+
+    /**
      * @var integer
      */
     private $loc;
@@ -216,6 +221,29 @@ class Analyze
     public function getCsSuccess()
     {
         return $this->csSuccess;
+    }
+
+    /**
+     * Set securitySuccess
+     *
+     * @param boolean $securitySuccess
+     * @return analyze
+     */
+    public function setSecuritySuccess($securitySuccess)
+    {
+        $this->securitySuccess = $securitySuccess;
+
+        return $this;
+    }
+
+    /**
+     * Get securitySuccess
+     *
+     * @return boolean
+     */
+    public function getSecuritySuccess()
+    {
+        return $this->securitySuccess;
     }
 
     /**

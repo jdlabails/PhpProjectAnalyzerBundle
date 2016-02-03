@@ -1,12 +1,27 @@
 
 <div class="panel panel-{% if projectAnalyzer.testInfo['ok'] %}success{%else%}danger{%endif%}">
   <div class="panel-heading">
-    <h3>            
-      <span class="glyphicon glyphicon-check"></span>
-      {% trans %}quality.quality{%endtrans%}
-    </h3>
-    <div style=" font-size: 75%;color: #777;">
-      {% trans %}quality.baseline{%endtrans%}
+    <div style="float:left">
+        <h3>            
+          <span class="glyphicon glyphicon-check"></span>
+          {% trans %}quality.quality{%endtrans%}
+        </h3>
+        <div style="font-size: 75%;color: #777;">
+          {% trans %}quality.baseline{%endtrans%}
+        </div>
+    </div>
+    <div style="float:right">
+        {% if projectAnalyzer.isEnable('security', true) %}        
+            {% if projectAnalyzer.analyze.securitySuccess %}
+                <img src="{{ asset('bundles/jdphpprojectanalyzer/img/Shield_Green.png') }}"
+                     title="Security checker symfony OK"
+                     alt="Security checker symfony OK">
+            {% else %}
+                <img src="{{ asset('bundles/jdphpprojectanalyzer/img/Shield_Red.png') }}"
+                     title="Security checker symfony KO"
+                     alt="Security checker symfony KO">
+            {% endif %}
+        {% endif %}   
     </div>
   </div>
   <div class="panel-body">

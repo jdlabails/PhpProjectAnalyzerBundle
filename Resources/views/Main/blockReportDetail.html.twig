@@ -47,7 +47,7 @@
 <div class="col-xs-12 col-md-6 detail">
     <div class="panel panel-{% if report['ok'] %}success{%else%}warning{%endif%}">
         <div class="panel-heading">
-            <h3 class="panel-title">{{title}}</h3>
+            <h3 class="panel-title">{{title|trans}}</h3>
             <small>{{report['date']}}</small>
         </div>
         <div class="panel-body">

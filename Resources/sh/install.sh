@@ -49,6 +49,7 @@ createDir4Web ${DIR_REPORT}/DOCS
 createDir4Web ${DIR_REPORT}/MD
 createDir4Web ${DIR_REPORT}/TEST
 createDir4Web ${DIR_REPORT}/HISTORIQUE
+createDir4Web ${DIR_REPORT}/SECURITY
 
 createDir4Web ${DIR_SH}/one
 

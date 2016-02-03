@@ -26,3 +26,9 @@ wget http://static.phpmd.org/php/latest/phpmd.phar
 
 rm phpunit.phar
 wget https://phar.phpunit.de/phpunit.phar
+
+rm behat.phar
+wget https://github.com/downloads/Behat/Behat/behat.phar
+
+rm security-checker.phar
+wget http://get.sensiolabs.org/security-checker.phar

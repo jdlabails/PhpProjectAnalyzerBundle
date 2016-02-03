@@ -55,6 +55,7 @@ class ProjectAnalyzer
 
         // Exploits analysis
         $this->count();
+        $this->setSecurityInfo();
         $this->setQualityInfo();
         $this->setAnalysisTimeInfo();
         $this->exploitTestReport();
@@ -69,13 +70,14 @@ class ProjectAnalyzer
     public function getTabAvailableAnalysis()
     {
         return [
-            'test'      => 'Tests fonctionnels et unitaires',
-            'md'        => 'PhpMD : Mess Detector',
-            'cpd'       => 'CPD : Copy-Paste Detector',
-            'cs'        => 'CS : Code Sniffer',
-            'loc'       => 'PhpLoc : Statistic',
-            'docs'      => 'PhpDoc : Documentation',
-            'depend'    => 'PhpDepend : Métriques d\'analyse',
+            'test'      => 'details.libelle.test',
+            'md'        => 'details.libelle.phpmd',
+            'cpd'       => 'details.libelle.phpcpd',
+            'cs'        => 'details.libelle.cs',
+            'loc'       => 'details.libelle.phploc',
+            'docs'      => 'details.libelle.phpdoc',
+            'depend'    => 'details.libelle.phpdepend',
+            'security'  => 'details.libelle.security',
         ];
     }
 
@@ -142,6 +144,16 @@ class ProjectAnalyzer
         }
 
         return [$txt, $vide];
+    }
+
+    /**
+     * Set info from security analysis
+     */
+    protected function setSecurityInfo()
+    {
+        $securityAnalyse = $this->analyzeReport('SECURITY', false, '[OK] 0 packages have known vulnerabilities');
+
+        $this->oAnalyze->setSecuritySuccess($securityAnalyse['SECURITY']['summary'] === 'ok');
     }
 
     /**
@@ -293,7 +305,7 @@ class ProjectAnalyzer
      */
     public function getReportInfo()
     {
-        $tabReports = array('MD', 'CS', 'CPD', 'DEPEND', 'LOC', 'DOCS');
+        $tabReports = array('MD', 'CS', 'CPD', 'DEPEND', 'LOC', 'DOCS', 'SECURITY');
 
         foreach ($tabReports as $report) {
             list($reportTxt, $vide) = $this->getReport($this->reportPath.'/'.$report.'/report.txt');
@@ -408,7 +420,7 @@ class ProjectAnalyzer
      */
     protected function analyzeReport($prefix, $goodIfEmpty = true, $goodIfContains = '')
     {
-        $res = array();
+        $res = [];
         $txt = '';
         $report = $this->reportPath.'/'.$prefix.'/report.txt';
         if (file_exists($report)) {

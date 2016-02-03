@@ -59,6 +59,6 @@ class InitCommand extends ContainerAwareCommand
 
         $output[] = "\nInstallation done";
 
-        $output->writeln($res);
+        $output->writeln($output);
     }
 }

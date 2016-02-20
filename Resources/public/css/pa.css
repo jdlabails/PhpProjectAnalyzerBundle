@@ -89,3 +89,17 @@ ul.metrics .list-group-item span.value {
 .detail{
     display: none;
 }
+
+.panel-heading{
+    height: 75px;
+}
+
+.panel-heading .baseline{
+    font-size: 75%;
+    color: #777;
+}
+
+.panel-heading img{
+    float: right;
+    height: 58px;
+}

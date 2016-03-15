@@ -24,8 +24,11 @@ wget https://phar.phpunit.de/phploc.phar
 rm phpmd.phar
 wget http://static.phpmd.org/php/latest/phpmd.phar
 
+#si php >= 5.6 telecharge la 5.2 sinon la 4.8
 rm phpunit.phar
 wget https://phar.phpunit.de/phpunit.phar
+
+#wget https://phar.phpunit.de/phpunit-old.phar
 
 rm behat.phar
 wget https://github.com/downloads/Behat/Behat/behat.phar

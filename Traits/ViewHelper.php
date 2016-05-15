@@ -3,18 +3,19 @@
 namespace JD\PhpProjectAnalyzerBundle\Traits;
 
 /**
- * Methodes de visualisation
+ * Visualization Helper
  *
- * Utilisable uniquement dans la classe projectAnalyzer
- * car les this s'y referent
+ * Only for projectAnalyzer class because $this has to be one of its object
  *
  * @author jd.labails
  */
 trait ViewHelper
 {
     /**
-     * Affiche ok ou ko selon le resultat de l'analyse
-     * @param type $summary
+     * Return ok or ko according the analysis result
+     *
+     * @param string $summary
+     *
      * @return string
      */
     public static function afficheSummary($summary)
@@ -35,9 +36,11 @@ trait ViewHelper
     }
 
     /**
-     * Adapte le rapport phpunit pour mettre en vert le res
-     * @param type $file
-     * @return type
+     * Adapt the phpunit report to html
+     *
+     * @param string $file path to the phpunit report
+     *
+     * @return string
      */
     static public function adaptPhpUnitReport($file)
     {
@@ -52,8 +55,10 @@ trait ViewHelper
     }
 
     /**
-     * Retourne une date lisible formaté selon la langue
-     * @param datetime $dt
+     * Return a formated date
+     *
+     * @param int $dt
+     *
      * @return string
      */
     public function getReadableDateTime($dt)

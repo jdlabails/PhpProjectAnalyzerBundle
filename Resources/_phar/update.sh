@@ -1,4 +1,4 @@
-cd ../_phar
+#!/bin/bash
 
 rm pdepend.phar
 wget http://static.pdepend.org/php/latest/pdepend.phar

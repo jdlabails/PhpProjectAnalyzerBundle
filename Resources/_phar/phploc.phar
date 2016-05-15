@@ -8,7 +8,7 @@ if ($_SERVER['SCRIPT_NAME'] != '-') {
 }
 
 define('__PHPLOC_PHAR__', str_replace(DIRECTORY_SEPARATOR, '/', $phar));
-define('__PHPLOC_PHAR_ROOT__', 'phar://phploc-3.0.0.phar');
+define('__PHPLOC_PHAR_ROOT__', 'phar://phploc-3.0.1.phar');
 
 spl_autoload_register(
   function ($class)
@@ -25,10 +25,12 @@ spl_autoload_register(
             'sebastianbergmann\\phploc\\analyser' => '/src/Analyser.php',
             'sebastianbergmann\\phploc\\cli\\application' => '/src/CLI/Application.php',
             'sebastianbergmann\\phploc\\cli\\command' => '/src/CLI/Command.php',
+            'sebastianbergmann\\phploc\\exception' => '/src/Exception/Exception.php',
             'sebastianbergmann\\phploc\\log\\csv\\history' => '/src/Log/CSV/History.php',
             'sebastianbergmann\\phploc\\log\\csv\\single' => '/src/Log/CSV/Single.php',
             'sebastianbergmann\\phploc\\log\\text' => '/src/Log/Text.php',
             'sebastianbergmann\\phploc\\log\\xml' => '/src/Log/XML.php',
+            'sebastianbergmann\\phploc\\runtimeexception' => '/src/Exception/RuntimeException.php',
             'sebastianbergmann\\version' => '/version/Version.php',
             'symfony\\component\\console\\application' => '/symfony/console/Application.php',
             'symfony\\component\\console\\command\\command' => '/symfony/console/Command/Command.php',
@@ -98,24 +100,11 @@ spl_autoload_register(
             'symfony\\component\\console\\style\\symfonystyle' => '/symfony/console/Style/SymfonyStyle.php',
             'symfony\\component\\console\\tester\\applicationtester' => '/symfony/console/Tester/ApplicationTester.php',
             'symfony\\component\\console\\tester\\commandtester' => '/symfony/console/Tester/CommandTester.php',
-            'symfony\\component\\finder\\adapter\\abstractadapter' => '/symfony/finder/Adapter/AbstractAdapter.php',
-            'symfony\\component\\finder\\adapter\\abstractfindadapter' => '/symfony/finder/Adapter/AbstractFindAdapter.php',
-            'symfony\\component\\finder\\adapter\\adapterinterface' => '/symfony/finder/Adapter/AdapterInterface.php',
-            'symfony\\component\\finder\\adapter\\bsdfindadapter' => '/symfony/finder/Adapter/BsdFindAdapter.php',
-            'symfony\\component\\finder\\adapter\\gnufindadapter' => '/symfony/finder/Adapter/GnuFindAdapter.php',
-            'symfony\\component\\finder\\adapter\\phpadapter' => '/symfony/finder/Adapter/PhpAdapter.php',
             'symfony\\component\\finder\\comparator\\comparator' => '/symfony/finder/Comparator/Comparator.php',
             'symfony\\component\\finder\\comparator\\datecomparator' => '/symfony/finder/Comparator/DateComparator.php',
             'symfony\\component\\finder\\comparator\\numbercomparator' => '/symfony/finder/Comparator/NumberComparator.php',
             'symfony\\component\\finder\\exception\\accessdeniedexception' => '/symfony/finder/Exception/AccessDeniedException.php',
-            'symfony\\component\\finder\\exception\\adapterfailureexception' => '/symfony/finder/Exception/AdapterFailureException.php',
             'symfony\\component\\finder\\exception\\exceptioninterface' => '/symfony/finder/Exception/ExceptionInterface.php',
-            'symfony\\component\\finder\\exception\\operationnotpermitedexception' => '/symfony/finder/Exception/OperationNotPermitedException.php',
-            'symfony\\component\\finder\\exception\\shellcommandfailureexception' => '/symfony/finder/Exception/ShellCommandFailureException.php',
-            'symfony\\component\\finder\\expression\\expression' => '/symfony/finder/Expression/Expression.php',
-            'symfony\\component\\finder\\expression\\glob' => '/symfony/finder/Expression/Glob.php',
-            'symfony\\component\\finder\\expression\\regex' => '/symfony/finder/Expression/Regex.php',
-            'symfony\\component\\finder\\expression\\valueinterface' => '/symfony/finder/Expression/ValueInterface.php',
             'symfony\\component\\finder\\finder' => '/symfony/finder/Finder.php',
             'symfony\\component\\finder\\glob' => '/symfony/finder/Glob.php',
             'symfony\\component\\finder\\iterator\\customfilteriterator' => '/symfony/finder/Iterator/CustomFilterIterator.php',
@@ -124,7 +113,6 @@ spl_autoload_register(
             'symfony\\component\\finder\\iterator\\excludedirectoryfilteriterator' => '/symfony/finder/Iterator/ExcludeDirectoryFilterIterator.php',
             'symfony\\component\\finder\\iterator\\filecontentfilteriterator' => '/symfony/finder/Iterator/FilecontentFilterIterator.php',
             'symfony\\component\\finder\\iterator\\filenamefilteriterator' => '/symfony/finder/Iterator/FilenameFilterIterator.php',
-            'symfony\\component\\finder\\iterator\\filepathsiterator' => '/symfony/finder/Iterator/FilePathsIterator.php',
             'symfony\\component\\finder\\iterator\\filetypefilteriterator' => '/symfony/finder/Iterator/FileTypeFilterIterator.php',
             'symfony\\component\\finder\\iterator\\filteriterator' => '/symfony/finder/Iterator/FilterIterator.php',
             'symfony\\component\\finder\\iterator\\multiplepcrefilteriterator' => '/symfony/finder/Iterator/MultiplePcreFilterIterator.php',
@@ -132,8 +120,6 @@ spl_autoload_register(
             'symfony\\component\\finder\\iterator\\recursivedirectoryiterator' => '/symfony/finder/Iterator/RecursiveDirectoryIterator.php',
             'symfony\\component\\finder\\iterator\\sizerangefilteriterator' => '/symfony/finder/Iterator/SizeRangeFilterIterator.php',
             'symfony\\component\\finder\\iterator\\sortableiterator' => '/symfony/finder/Iterator/SortableIterator.php',
-            'symfony\\component\\finder\\shell\\command' => '/symfony/finder/Shell/Command.php',
-            'symfony\\component\\finder\\shell\\shell' => '/symfony/finder/Shell/Shell.php',
             'symfony\\component\\finder\\splfileinfo' => '/symfony/finder/SplFileInfo.php',
             'symfony\\component\\yaml\\dumper' => '/symfony/yaml/Dumper.php',
             'symfony\\component\\yaml\\escaper' => '/symfony/yaml/Escaper.php',
@@ -166,12 +152,12 @@ spl_autoload_register(
       $class = strtolower($class);
 
       if (isset($classes[$class])) {
-          require 'phar://phploc-3.0.0.phar' . $classes[$class];
+          require 'phar://phploc-3.0.1.phar' . $classes[$class];
       }
   }
 );
 
-Phar::mapPhar('phploc-3.0.0.phar');
+Phar::mapPhar('phploc-3.0.1.phar');
 
 if (isset($_SERVER['argv'][1]) && $_SERVER['argv'][1] == '--manifest') {
     print file_get_contents(__PHPLOC_PHAR_ROOT__ . '/manifest.txt');
@@ -182,24 +168,20 @@ $application = new SebastianBergmann\PHPLOC\CLI\Application;
 $application->run();
 
 __HALT_COMPILER(); ?>
-,&  í          phploc-3.0.0.phar       version/Version.php2  %ñV2  Bü‚Z∂      %   fdomdocument/fDOMDocumentFragment.phpÀ  %ñVÀ  ïx,l∂         fdomdocument/fDOMException.php©  %ñV©  ˛°∑8∂         fdomdocument/css/NotRule.php7  %ñV7  ∞˘Íô∂         fdomdocument/css/Translator.phpÅ  %ñVÅ  l∑≈	∂      !   fdomdocument/css/NthChildRule.php…  %ñV…  [4ñé∂      "   fdomdocument/css/RuleInterface.php–   %ñV–   Œ,ó·∂      $   fdomdocument/css/DollarEqualRule.php  %ñV  pîˇ∂         fdomdocument/css/RegexRule.php«  %ñV«  ˘ÆÅs∂         fdomdocument/fDOMXPath.php·  %ñV·  #ùX∂         fdomdocument/fDOMElement.phpU7  %ñVU7  €yπf∂         fdomdocument/XPathQuery.phpó  %ñVó  =M∂      $   fdomdocument/XPathQueryException.php¯  %ñV¯  èŸ÷∂         fdomdocument/fDOMNode.php⁄  %ñV⁄  ‹*ó∂         fdomdocument/fDOMDocument.php÷X  %ñV÷X  $O4?∂         fdomdocument/autoload.phpæ  %ñVæ  !ÂH∂         manifest.txtœ   %ñVœ   AÃsÍ∂         src/Analyser.php¢f  %ñV¢f  $ã∫∂         src/Log/CSV/Single.phph  %ñVh  3îÿ4∂         src/Log/CSV/History.phpA  %ñVA  Ad•∂         src/Log/Text.phpg!  %ñVg!  ˛~Z•∂         src/Log/XML.php6  %ñV6  Ÿ|\∂         src/CLI/Command.php  %ñV  ®Ωx∂         src/CLI/Application.php3
-  %ñV3
-  ]çi∂      %   symfony/finder/Adapter/PhpAdapter.phpq  %ñVq  ´◊∂      )   symfony/finder/Adapter/GnuFindAdapter.php‰  %ñV‰  öf!Û∂      .   symfony/finder/Adapter/AbstractFindAdapter.phpâ*  %ñVâ*  ê—é∂      +   symfony/finder/Adapter/AdapterInterface.php”  %ñV”  mTßA∂      *   symfony/finder/Adapter/AbstractAdapter.php¬  %ñV¬  ™º—∂      )   symfony/finder/Adapter/BsdFindAdapter.phpÌ  %ñVÌ  O≈‡H∂      .   symfony/finder/Comparator/NumberComparator.php
-  %ñV
-  lØdJ∂      ,   symfony/finder/Comparator/DateComparator.phpπ  %ñVπ  ∏'e∂      (   symfony/finder/Comparator/Comparator.php  %ñV  Áù∂∂      *   symfony/finder/Iterator/FilterIterator.phpü  %ñVü  „Ω,G∂      3   symfony/finder/Iterator/DateRangeFilterIterator.php≈  %ñV≈  ß'˝Q∂      2   symfony/finder/Iterator/FilenameFilterIterator.phpï  %ñVï  Àp¿∂      0   symfony/finder/Iterator/CustomFilterIterator.php  %ñV  ˙g3,∂      -   symfony/finder/Iterator/FilePathsIterator.phpP  %ñVP  Ëπ˛∂      4   symfony/finder/Iterator/DepthRangeFilterIterator.phpÂ  %ñVÂ  -,Ï∂      3   symfony/finder/Iterator/SizeRangeFilterIterator.php¢  %ñV¢  §ß∞∂      5   symfony/finder/Iterator/FilecontentFilterIterator.php¶  %ñV¶  r‹~∂      .   symfony/finder/Iterator/PathFilterIterator.php´  %ñV´  X„Ó∑∂      :   symfony/finder/Iterator/ExcludeDirectoryFilterIterator.phpè	  %ñVè	  "Œ∞∂      6   symfony/finder/Iterator/RecursiveDirectoryIterator.phpŒ  %ñVŒ  √:ó∂      6   symfony/finder/Iterator/MultiplePcreFilterIterator.php∏  %ñV∏  Ôq˜–∂      ,   symfony/finder/Iterator/SortableIterator.php„	  %ñV„	  ™∂*∂      2   symfony/finder/Iterator/FileTypeFilterIterator.phpY  %ñVY  ô]∞%∂         symfony/finder/Glob.php¬  %ñV¬  S£ˆ∂      #   symfony/finder/Expression/Regex.php  %ñV  ‹FH∂      "   symfony/finder/Expression/Glob.phpD  %ñVD  ^˜b∂      ,   symfony/finder/Expression/ValueInterface.php⁄  %ñV⁄  våV◊∂      (   symfony/finder/Expression/Expression.phpØ
-  %ñVØ
-  €p{∂         symfony/finder/SplFileInfo.php  %ñV  s1∂      :   symfony/finder/Exception/OperationNotPermitedException.phpr  %ñVr  c
-Ø©∂      9   symfony/finder/Exception/ShellCommandFailureException.php  %ñV  ~À∂      4   symfony/finder/Exception/AdapterFailureException.phpK  %ñVK  |^ÌØ∂      /   symfony/finder/Exception/ExceptionInterface.phpÔ  %ñVÔ  Ä7∂      2   symfony/finder/Exception/AccessDeniedException.php´  %ñV´   cWﬁ∂         symfony/finder/Finder.phpfc  %ñVfc  îãT∂          symfony/finder/Shell/Command.phps  %ñVs  
-îQ+∂         symfony/finder/Shell/Shell.phpK  %ñVK  π±˜5∂         symfony/yaml/Unescaper.phpU  %ñVU  ™©∂         symfony/yaml/Yaml.php@
-  %ñV@
-  œÕÉ∂      (   symfony/yaml/Exception/DumpException.php«  %ñV«  å∂      +   symfony/yaml/Exception/RuntimeException.phpÂ  %ñVÂ  Ù_q¶∂      )   symfony/yaml/Exception/ParseException.php]  %ñV]  A∑∂      -   symfony/yaml/Exception/ExceptionInterface.phpª  %ñVª  ﬁ^KA∂         symfony/yaml/Escaper.php"  %ñV"  ÌIo	∂         symfony/yaml/Parser.phpÒq  %ñVÒq  ™6Uq∂         symfony/yaml/Inline.phpO  %ñVO  H⁄ÅΩ∂         symfony/yaml/Dumper.phpÅ	  %ñVÅ	  l£D∂      '   symfony/polyfill-mbstring/bootstrap.phpŸ  %ñVŸ  W8 œ∂      &   symfony/polyfill-mbstring/Mbstring.phpM  %ñVM  ∂2˜ﬁ∂      !   symfony/console/ConsoleEvents.php7  %ñV7  E¡•ë∂      ,   symfony/console/Tester/ApplicationTester.php[  %ñV[  /ôI∂      (   symfony/console/Tester/CommandTester.phpK  %ñVK  t¿Ië∂      /   symfony/console/Event/ConsoleTerminateEvent.php  %ñV  {e∂      &   symfony/console/Event/ConsoleEvent.php∏  %ñV∏  æı
-û∂      -   symfony/console/Event/ConsoleCommandEvent.php=  %ñV=  %mf∂      /   symfony/console/Event/ConsoleExceptionEvent.php=  %ñV=  ∑¶≈∂      *   symfony/console/Output/OutputInterface.phpr  %ñVr  ÈÀ>Z∂      )   symfony/console/Output/BufferedOutput.phph  %ñVh  t|X4∂      1   symfony/console/Output/ConsoleOutputInterface.phpK  %ñVK  Ï≈0û∂      (   symfony/console/Output/ConsoleOutput.php†  %ñV†  *Xëª∂      !   symfony/console/Output/Output.php  %ñV  Ω>ª∂      '   symfony/console/Output/StreamOutput.php7  %ñV7  ÿÕø∂      %   symfony/console/Output/NullOutput.php⁄  %ñV⁄  ∂`XO∂      (   symfony/console/Logger/ConsoleLogger.phpÍ  %ñVÍ  ·˝¥ú∂      (   symfony/console/Style/StyleInterface.phpµ  %ñVµ  3®ıZ∂      &   symfony/console/Style/SymfonyStyle.phpi,  %ñVi,  Ç_ø∂      %   symfony/console/Style/OutputStyle.php$  %ñV$  È8∂      -   symfony/console/Formatter/OutputFormatter.phpÍ  %ñVÍ  ¬V=∂      7   symfony/console/Formatter/OutputFormatterStyleStack.php&  %ñV&  ]∂4ª∂      2   symfony/console/Formatter/OutputFormatterStyle.php¿  %ñV¿  D1©∂      6   symfony/console/Formatter/OutputFormatterInterface.php]  %ñV]  ¸y	L∂      ;   symfony/console/Formatter/OutputFormatterStyleInterface.php[  %ñV[  f@Ü≥∂      '   symfony/console/Command/HelpCommand.php©	  %ñV©	  2ˇsO∂      #   symfony/console/Command/Command.php^E  %ñV^E  áuõú∂      '   symfony/console/Command/ListCommand.php
-  %ñV
-  §ˇnv∂         symfony/console/Application.php	é  %ñV	é  |q Ù∂      -   symfony/console/Descriptor/JsonDescriptor.phpâ  %ñVâ  t[ÔÀ∂      5   symfony/console/Descriptor/ApplicationDescription.php  %ñV  £ìÔ∂      -   symfony/console/Descriptor/TextDescriptor.phpî'  %ñVî'  ID¥]∂      2   symfony/console/Descriptor/DescriptorInterface.php·  %ñV·  JZ0<∂      1   symfony/console/Descriptor/MarkdownDescriptor.php¿  %ñV¿  ¸;„∂      )   symfony/console/Descriptor/Descriptor.php  %ñV  ı‰∏ˇ∂      ,   symfony/console/Descriptor/XmlDescriptor.phpS%  %ñVS%  ¢‡Nê∂      6   symfony/console/Exception/InvalidArgumentException.phpæ  %ñVæ  Óu i∂      .   symfony/console/Exception/RuntimeException.phpÆ  %ñVÆ  ∂*b∂      ,   symfony/console/Exception/LogicException.php™  %ñV™  SMLè∂      4   symfony/console/Exception/InvalidOptionException.php¸  %ñV¸  Ìì;∂      6   symfony/console/Exception/CommandNotFoundException.php√  %ñV√  øŒói∂      0   symfony/console/Exception/ExceptionInterface.phpñ  %ñVñ  „Î⁄U∂      *   symfony/console/Helper/HelperInterface.phpØ  %ñVØ  ÔÀËˆ∂          symfony/console/Helper/Table.phpH  %ñVH  H*ÂÕ∂      $   symfony/console/Helper/HelperSet.php
-  %ñV
-  ùªı∂      /   symfony/console/Helper/DebugFormatterHelper.phpV  %ñVV  ò›î™∂      )   symfony/console/Helper/TableSeparator.phpb  %ñVb  ZõQ∂      +   symfony/console/Helper/InputAwareHelper.phpÎ  %ñVÎ  ÏìÎÀ∂      %   symfony/console/Helper/TableStyle.phpµ  %ñVµ  kÑï∂      ,   symfony/console/Helper/ProgressIndicator.php€#  %ñV€#  [P‚É∂      (   symfony/console/Helper/ProcessHelper.phpá  %ñVá  åÆA∂      *   symfony/console/Helper/FormatterHelper.php	  %ñV	  "å*°∂      )   symfony/console/Helper/QuestionHelper.phpm5  %ñVm5  Æ,§∂      +   symfony/console/Helper/DescriptorHelper.php`
-  %ñV`
-  +7*≈∂      $   symfony/console/Helper/TableCell.phpV  %ñVV  %∂      0   symfony/console/Helper/SymfonyQuestionHelper.php/  %ñV/   V@:∂      &   symfony/console/Helper/ProgressBar.phpˆA  %ñVˆA  ≥öö5∂      !   symfony/console/Helper/Helper.php˙  %ñV˙  ÊΩô≈∂      (   symfony/console/Input/InputInterface.php;  %ñV;  Q'Ø«∂      %   symfony/console/Input/InputOption.phpè  %ñVè  0°xÚ∂         symfony/console/Input/Input.php—  %ñV—  ,s˜[∂      %   symfony/console/Input/StringInput.phpr	  %ñVr	  ˝fIy∂      #   symfony/console/Input/ArgvInput.phpr+  %ñVr+  ﬂyN+∂      $   symfony/console/Input/ArrayInput.php⁄  %ñV⁄  ß˙ŒÄ∂      '   symfony/console/Input/InputArgument.php  %ñV  ÊmB∂      )   symfony/console/Input/InputDefinition.php§,  %ñV§,  õ•∂      -   symfony/console/Input/InputAwareInterface.php^  %ñV^  9KËh∂      %   symfony/console/Question/Question.php   %ñV   aj‘W∂      +   symfony/console/Question/ChoiceQuestion.php  %ñV  ≥–Æﬂ∂      1   symfony/console/Question/ConfirmationQuestion.php7  %ñV7  ‚ú&É∂      "   git/Exception/RuntimeException.php	  %ñV	  ≥‚\∂         git/Exception/Exception.php‹  %ñV‹  ⁄gü∂         git/Git.phpé  %ñVé  ÿ™Ã∂         finder-facade/Configuration.phpƒ  %ñVƒ  ÿ9≠∂         finder-facade/FinderFacade.php$  %ñV$  ’IGd∂      <?php
+<"  Ñ          phploc-3.0.1.phar       version/Version.php±  B—W±  N\«∂      %   fdomdocument/fDOMDocumentFragment.phpÀ  B—WÀ  ïx,l∂         fdomdocument/fDOMException.php©  B—W©  ˛°∑8∂         fdomdocument/css/NotRule.php7  B—W7  ∞˘Íô∂         fdomdocument/css/Translator.phpÅ  B—WÅ  l∑≈	∂      !   fdomdocument/css/NthChildRule.php…  B—W…  [4ñé∂      "   fdomdocument/css/RuleInterface.php–   B—W–   Œ,ó·∂      $   fdomdocument/css/DollarEqualRule.php  B—W  pîˇ∂         fdomdocument/css/RegexRule.php«  B—W«  ˘ÆÅs∂         fdomdocument/fDOMXPath.php·  B—W·  #ùX∂         fdomdocument/fDOMElement.phpU7  B—WU7  €yπf∂         fdomdocument/XPathQuery.phpó  B—Wó  =M∂      $   fdomdocument/XPathQueryException.php¯  B—W¯  èŸ÷∂         fdomdocument/fDOMNode.php⁄  B—W⁄  ‹*ó∂         fdomdocument/fDOMDocument.php÷X  B—W÷X  $O4?∂         fdomdocument/autoload.phpæ  B—Wæ  !ÂH∂         manifest.txtœ   B—Wœ   $ÚZ•∂         src/Analyser.php†f  B—W†f  e‡√∂         src/Log/CSV/Single.phph  B—Wh  3îÿ4∂         src/Log/CSV/History.phpA  B—WA  Ad•∂         src/Log/Text.phpg!  B—Wg!  ˛~Z•∂         src/Log/XML.php6  B—W6  Ÿ|\∂      "   src/Exception/RuntimeException.phpR  B—WR  fÛÑÅ∂         src/Exception/Exception.php   B—W   —$ªâ∂         src/CLI/Command.php`   B—W`   ¨[òq∂         src/CLI/Application.php•  B—W•  ‹¯∂      .   symfony/finder/Comparator/NumberComparator.php
+  B—W
+  lØdJ∂      ,   symfony/finder/Comparator/DateComparator.phpπ  B—Wπ  ∏'e∂      (   symfony/finder/Comparator/Comparator.php  B—W  Áù∂∂      *   symfony/finder/Iterator/FilterIterator.phpì  B—Wì  ƒA«;∂      3   symfony/finder/Iterator/DateRangeFilterIterator.php≈  B—W≈  ß'˝Q∂      2   symfony/finder/Iterator/FilenameFilterIterator.phpï  B—Wï  Àp¿∂      0   symfony/finder/Iterator/CustomFilterIterator.php  B—W  ˙g3,∂      4   symfony/finder/Iterator/DepthRangeFilterIterator.phpÂ  B—WÂ  -,Ï∂      3   symfony/finder/Iterator/SizeRangeFilterIterator.php¢  B—W¢  §ß∞∂      5   symfony/finder/Iterator/FilecontentFilterIterator.php¶  B—W¶  r‹~∂      .   symfony/finder/Iterator/PathFilterIterator.php´  B—W´  X„Ó∑∂      :   symfony/finder/Iterator/ExcludeDirectoryFilterIterator.phpè	  B—Wè	  "Œ∞∂      6   symfony/finder/Iterator/RecursiveDirectoryIterator.php#  B—W#  /“ßh∂      6   symfony/finder/Iterator/MultiplePcreFilterIterator.php∏  B—W∏  Ôq˜–∂      ,   symfony/finder/Iterator/SortableIterator.php„	  B—W„	  ™∂*∂      2   symfony/finder/Iterator/FileTypeFilterIterator.phpY  B—WY  ô]∞%∂         symfony/finder/Glob.phpŸ  B—WŸ  ˛Rú`∂         symfony/finder/SplFileInfo.phpu  B—Wu  "PÍ¸∂      /   symfony/finder/Exception/ExceptionInterface.phpÔ  B—WÔ  Ä7∂      2   symfony/finder/Exception/AccessDeniedException.php´  B—W´   cWﬁ∂         symfony/finder/Finder.phpPM  B—WPM  Vô¨∂         symfony/yaml/Unescaper.phpU  B—WU  ∂≈ëU∂         symfony/yaml/Yaml.php.
+  B—W.
+  ‡åã÷∂      (   symfony/yaml/Exception/DumpException.php«  B—W«  å∂      +   symfony/yaml/Exception/RuntimeException.phpÂ  B—WÂ  Ù_q¶∂      )   symfony/yaml/Exception/ParseException.php]  B—W]  A∑∂      -   symfony/yaml/Exception/ExceptionInterface.phpª  B—Wª  ﬁ^KA∂         symfony/yaml/Escaper.php   B—W   +†o√∂         symfony/yaml/Parser.php~u  B—W~u  “˘Iˆ∂         symfony/yaml/Inline.php°Q  B—W°Q  ¯û»™∂         symfony/yaml/Dumper.php
+  B—W
+  ‹Î¶∂      '   symfony/polyfill-mbstring/bootstrap.phpŸ  B—WŸ  W8 œ∂      &   symfony/polyfill-mbstring/Mbstring.phpM  B—WM  ∂2˜ﬁ∂      !   symfony/console/ConsoleEvents.php7  B—W7  E¡•ë∂      ,   symfony/console/Tester/ApplicationTester.php[  B—W[  /ôI∂      (   symfony/console/Tester/CommandTester.phpK  B—WK  t¿Ië∂      /   symfony/console/Event/ConsoleTerminateEvent.php  B—W  {e∂      &   symfony/console/Event/ConsoleEvent.php∏  B—W∏  æı
+û∂      -   symfony/console/Event/ConsoleCommandEvent.php=  B—W=  %mf∂      /   symfony/console/Event/ConsoleExceptionEvent.php=  B—W=  ∑¶≈∂      *   symfony/console/Output/OutputInterface.phpr  B—Wr  ÈÀ>Z∂      )   symfony/console/Output/BufferedOutput.phph  B—Wh  t|X4∂      1   symfony/console/Output/ConsoleOutputInterface.phpK  B—WK  Ï≈0û∂      (   symfony/console/Output/ConsoleOutput.php†  B—W†  wùêØ∂      !   symfony/console/Output/Output.php  B—W  Ω>ª∂      '   symfony/console/Output/StreamOutput.php7  B—W7  ÿÕø∂      %   symfony/console/Output/NullOutput.php⁄  B—W⁄  ∂`XO∂      (   symfony/console/Logger/ConsoleLogger.phpÍ  B—WÍ  ·˝¥ú∂      (   symfony/console/Style/StyleInterface.phpµ  B—Wµ  3®ıZ∂      &   symfony/console/Style/SymfonyStyle.phpg,  B—Wg,  ·ËT>∂      %   symfony/console/Style/OutputStyle.php$  B—W$  È8∂      -   symfony/console/Formatter/OutputFormatter.php?  B—W?  ËΩÖ∂      7   symfony/console/Formatter/OutputFormatterStyleStack.php&  B—W&  ]∂4ª∂      2   symfony/console/Formatter/OutputFormatterStyle.php¿  B—W¿  D1©∂      6   symfony/console/Formatter/OutputFormatterInterface.php]  B—W]  ¸y	L∂      ;   symfony/console/Formatter/OutputFormatterStyleInterface.php[  B—W[  f@Ü≥∂      '   symfony/console/Command/HelpCommand.php´	  B—W´	  ŸqÉ¶∂      #   symfony/console/Command/Command.php?E  B—W?E  lB"∂      '   symfony/console/Command/ListCommand.php	
+  B—W	
+  Í¬4∂         symfony/console/Application.phpjé  B—Wjé  Ú∫¢á∂      -   symfony/console/Descriptor/JsonDescriptor.phpâ  B—Wâ  t[ÔÀ∂      5   symfony/console/Descriptor/ApplicationDescription.php  B—W  £ìÔ∂      -   symfony/console/Descriptor/TextDescriptor.phpî'  B—Wî'  ƒñù¯∂      2   symfony/console/Descriptor/DescriptorInterface.php·  B—W·  JZ0<∂      1   symfony/console/Descriptor/MarkdownDescriptor.php¿  B—W¿  ¸;„∂      )   symfony/console/Descriptor/Descriptor.php  B—W  ı‰∏ˇ∂      ,   symfony/console/Descriptor/XmlDescriptor.phpS%  B—WS%  ¢‡Nê∂      6   symfony/console/Exception/InvalidArgumentException.phpæ  B—Wæ  Óu i∂      .   symfony/console/Exception/RuntimeException.phpÆ  B—WÆ  ∂*b∂      ,   symfony/console/Exception/LogicException.php™  B—W™  SMLè∂      4   symfony/console/Exception/InvalidOptionException.php¸  B—W¸  Ìì;∂      6   symfony/console/Exception/CommandNotFoundException.php√  B—W√  øŒói∂      0   symfony/console/Exception/ExceptionInterface.phpñ  B—Wñ  „Î⁄U∂      *   symfony/console/Helper/HelperInterface.phpØ  B—WØ  ÔÀËˆ∂          symfony/console/Helper/Table.phpH  B—WH  H*ÂÕ∂      $   symfony/console/Helper/HelperSet.php
+  B—W
+  ùªı∂      /   symfony/console/Helper/DebugFormatterHelper.phpV  B—WV  ò›î™∂      )   symfony/console/Helper/TableSeparator.phpb  B—Wb  ZõQ∂      +   symfony/console/Helper/InputAwareHelper.phpÎ  B—WÎ  ÏìÎÀ∂      %   symfony/console/Helper/TableStyle.phpµ  B—Wµ  kÑï∂      ,   symfony/console/Helper/ProgressIndicator.php€#  B—W€#  [P‚É∂      (   symfony/console/Helper/ProcessHelper.phpá  B—Wá  åÆA∂      *   symfony/console/Helper/FormatterHelper.php	  B—W	  "å*°∂      )   symfony/console/Helper/QuestionHelper.phpF4  B—WF4  ‡$˙/∂      +   symfony/console/Helper/DescriptorHelper.php`
+  B—W`
+  +7*≈∂      $   symfony/console/Helper/TableCell.phpV  B—WV  %∂      0   symfony/console/Helper/SymfonyQuestionHelper.php/  B—W/   V@:∂      &   symfony/console/Helper/ProgressBar.phpˆA  B—WˆA  ≥öö5∂      !   symfony/console/Helper/Helper.php˙  B—W˙  ÊΩô≈∂      (   symfony/console/Input/InputInterface.php;  B—W;  Q'Ø«∂      %   symfony/console/Input/InputOption.phpw  B—Ww  £8s∂         symfony/console/Input/Input.php—  B—W—  ,s˜[∂      %   symfony/console/Input/StringInput.phpr	  B—Wr	  ˝fIy∂      #   symfony/console/Input/ArgvInput.phpr+  B—Wr+  ﬂyN+∂      $   symfony/console/Input/ArrayInput.php⁄  B—W⁄  ß˙ŒÄ∂      '   symfony/console/Input/InputArgument.php  B—W  ÊmB∂      )   symfony/console/Input/InputDefinition.php§,  B—W§,  õ•∂      -   symfony/console/Input/InputAwareInterface.php^  B—W^  9KËh∂      %   symfony/console/Question/Question.php  B—W  nJÇU∂      +   symfony/console/Question/ChoiceQuestion.php  B—W  ≥–Æﬂ∂      1   symfony/console/Question/ConfirmationQuestion.php7  B—W7  ‚ú&É∂      "   git/Exception/RuntimeException.phpU  B—WU  —¿C∂         git/Exception/Exception.php#  B—W#  Ä]ã∂         git/Git.phpØ  B—WØ  »ˆ-∂         finder-facade/Configuration.php¬  B—W¬  Xt&∂         finder-facade/FinderFacade.php  B—W  Oüzâ∂      <?php
 /*
  * This file is part of the Version package.
  *
@@ -216,8 +198,19 @@ namespace SebastianBergmann;
  */
 class Version
 {
+    /**
+     * @var string
+     */
     private $path;
+
+    /**
+     * @var string
+     */
     private $release;
+
+    /**
+     * @var string
+     */
     private $version;
 
     /**
@@ -259,7 +252,8 @@ class Version
     }
 
     /**
-     * @param  string      $path
+     * @param string $path
+     *
      * @return bool|string
      */
     private function getGitInformation($path)
@@ -268,11 +262,26 @@ class Version
             return false;
         }
 
-        $dir = getcwd();
-        chdir($path);
-        $returnCode = 1;
-        $result     = @exec('git describe --tags 2>&1', $output, $returnCode);
-        chdir($dir);
+        $process = proc_open(
+            'git describe --tags',
+            [
+                1 => ['pipe', 'w'],
+                2 => ['pipe', 'w'],
+            ],
+            $pipes,
+            $path
+        );
+
+        if (!is_resource($process)) {
+            return false;
+        }
+
+        $result = trim(stream_get_contents($pipes[1]));
+
+        fclose($pipes[1]);
+        fclose($pipes[2]);
+
+        $returnCode = proc_close($process);
 
         if ($returnCode !== 0) {
             return false;
@@ -2624,13 +2633,13 @@ spl_autoload_register(
     }
 );
 // @codeCoverageIgnoreEnd
-phploc/phploc: 3.0.0
-sebastian/finder-facade: 1.2.0
-sebastian/git: 2.0.1
-sebastian/version: 1.0.6
-symfony/console: v3.0.1
-symfony/finder: v2.8.1
-symfony/polyfill-mbstring: v1.0.1
+phploc/phploc: 3.0.1
+sebastian/finder-facade: 1.2.1
+sebastian/git: 2.1.1
+sebastian/version: 2.0.0
+symfony/console: v3.0.4
+symfony/finder: v3.0.4
+symfony/polyfill-mbstring: v1.1.1
 theseer/fdomdocument: 1.6.1
 <?php
 /*
@@ -2999,12 +3008,7 @@ class Analyser
                         $this->namespaces[$namespace] = true;
                     }
                     break;
-                    
-                case T_USE;
-                    while($tokens[++$i][0] !== ";" && $i < $numTokens);
-                    $i--;
-                    continue;
-                    
+
                 case T_CLASS:
                 case T_INTERFACE:
                 case T_TRAIT:
@@ -3037,6 +3041,12 @@ class Analyser
                     break;
 
                 case T_FUNCTION:
+                    $prev = $this->getPreviousNonWhitespaceTokenPos($tokens, $i);
+
+                    if ($tokens[$prev][0] === T_USE) {
+                        continue;
+                    }
+
                     $currentBlock = T_FUNCTION;
 
                     $next = $this->getNextNonWhitespaceTokenPos($tokens, $i);
@@ -3859,10 +3869,39 @@ class XML
  * file that was distributed with this source code.
  */
 
+namespace SebastianBergmann\PHPLOC;
+
+class RuntimeException extends \RuntimeException implements Exception
+{
+}<?php
+/*
+ * This file is part of PHPLOC.
+ *
+ * (c) Sebastian Bergmann <sebastian@phpunit.de>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
+namespace SebastianBergmann\PHPLOC;
+
+interface Exception
+{
+}<?php
+/*
+ * This file is part of PHPLOC.
+ *
+ * (c) Sebastian Bergmann <sebastian@phpunit.de>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace SebastianBergmann\PHPLOC\CLI;
 
 use SebastianBergmann\FinderFacade\FinderFacade;
 use SebastianBergmann\Git\Git;
+use SebastianBergmann\Git\RuntimeException;
 use SebastianBergmann\PHPLOC\Analyser;
 use SebastianBergmann\PHPLOC\Log\CSV\History;
 use SebastianBergmann\PHPLOC\Log\CSV\Single;
@@ -4011,7 +4050,26 @@ class Command extends AbstractCommand
      */
     private function executeHistory(InputInterface $input, OutputInterface $output)
     {
-        $git            = new Git($input->getOption('git-repository'));
+        if (!is_dir($input->getOption('git-repository'))) {
+            throw new RuntimeException(
+                sprintf(
+                    'Working directory "%s" does not exist',
+                    $input->getOption('git-repository')
+                )
+            );
+        }
+
+        $git = new Git($input->getOption('git-repository'));
+
+        if (!$git->isWorkingCopyClean()) {
+            throw new RuntimeException(
+                sprintf(
+                    'Working directory "%s" is not clean',
+                    $input->getOption('git-repository')
+                )
+            );
+        }
+
         $currentBranch  = $git->getCurrentBranch();
         $revisions      = $git->getRevisions();
         $printer        = null;
@@ -4131,7 +4189,7 @@ class Application extends AbstractApplication
 {
     public function __construct()
     {
-        $version = new Version('3.0.0', dirname(dirname(__DIR__)));
+        $version = new Version('3.0.1', dirname(dirname(__DIR__)));
         parent::__construct('phploc', $version->getVersion());
     }
 
@@ -4183,6 +4241,8 @@ class Application extends AbstractApplication
      */
     public function doRun(InputInterface $input, OutputInterface $output)
     {
+        $this->disableXdebug();
+
         if (!$input->hasParameterOption('--quiet')) {
             $output->write(
                 sprintf(
@@ -4203,1038 +4263,19 @@ class Application extends AbstractApplication
 
         parent::doRun($input, $output);
     }
-}
-<?php
 
-/*
- * This file is part of the Symfony package.
- *
- * (c) Fabien Potencier <fabien@symfony.com>
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
-
-namespace Symfony\Component\Finder\Adapter;
-
-@trigger_error('The '.__NAMESPACE__.'\PhpAdapter class is deprecated since version 2.8 and will be removed in 3.0. Use directly the Finder class instead.', E_USER_DEPRECATED);
-
-use Symfony\Component\Finder\Iterator;
-
-/**
- * PHP finder engine implementation.
- *
- * @author Jean-Fran√ßois Simon <contact@jfsimon.fr>
- *
- * @deprecated since 2.8, to be removed in 3.0. Use Finder instead.
- */
-class PhpAdapter extends AbstractAdapter
-{
-    /**
-     * {@inheritdoc}
-     */
-    public function searchInDirectory($dir)
+    private function disableXdebug()
     {
-        $flags = \RecursiveDirectoryIterator::SKIP_DOTS;
-
-        if ($this->followLinks) {
-            $flags |= \RecursiveDirectoryIterator::FOLLOW_SYMLINKS;
-        }
-
-        $iterator = new Iterator\RecursiveDirectoryIterator($dir, $flags, $this->ignoreUnreadableDirs);
-
-        if ($this->exclude) {
-            $iterator = new Iterator\ExcludeDirectoryFilterIterator($iterator, $this->exclude);
-        }
-
-        $iterator = new \RecursiveIteratorIterator($iterator, \RecursiveIteratorIterator::SELF_FIRST);
-
-        if ($this->minDepth > 0 || $this->maxDepth < PHP_INT_MAX) {
-            $iterator = new Iterator\DepthRangeFilterIterator($iterator, $this->minDepth, $this->maxDepth);
-        }
-
-        if ($this->mode) {
-            $iterator = new Iterator\FileTypeFilterIterator($iterator, $this->mode);
-        }
-
-        if ($this->names || $this->notNames) {
-            $iterator = new Iterator\FilenameFilterIterator($iterator, $this->names, $this->notNames);
-        }
-
-        if ($this->contains || $this->notContains) {
-            $iterator = new Iterator\FilecontentFilterIterator($iterator, $this->contains, $this->notContains);
-        }
-
-        if ($this->sizes) {
-            $iterator = new Iterator\SizeRangeFilterIterator($iterator, $this->sizes);
-        }
-
-        if ($this->dates) {
-            $iterator = new Iterator\DateRangeFilterIterator($iterator, $this->dates);
-        }
-
-        if ($this->filters) {
-            $iterator = new Iterator\CustomFilterIterator($iterator, $this->filters);
-        }
-
-        if ($this->paths || $this->notPaths) {
-            $iterator = new Iterator\PathFilterIterator($iterator, $this->paths, $this->notPaths);
-        }
-
-        if ($this->sort) {
-            $iteratorAggregate = new Iterator\SortableIterator($iterator, $this->sort);
-            $iterator = $iteratorAggregate->getIterator();
-        }
-
-        return $iterator;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getName()
-    {
-        return 'php';
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    protected function canBeUsed()
-    {
-        return true;
-    }
-}
-<?php
-
-/*
- * This file is part of the Symfony package.
- *
- * (c) Fabien Potencier <fabien@symfony.com>
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
-
-namespace Symfony\Component\Finder\Adapter;
-
-@trigger_error('The '.__NAMESPACE__.'\GnuFindAdapter class is deprecated since version 2.8 and will be removed in 3.0. Use directly the Finder class instead.', E_USER_DEPRECATED);
-
-use Symfony\Component\Finder\Shell\Shell;
-use Symfony\Component\Finder\Shell\Command;
-use Symfony\Component\Finder\Iterator\SortableIterator;
-use Symfony\Component\Finder\Expression\Expression;
-
-/**
- * Shell engine implementation using GNU find command.
- *
- * @author Jean-Fran√ßois Simon <contact@jfsimon.fr>
- *
- * @deprecated since 2.8, to be removed in 3.0. Use Finder instead.
- */
-class GnuFindAdapter extends AbstractFindAdapter
-{
-    /**
-     * {@inheritdoc}
-     */
-    public function getName()
-    {
-        return 'gnu_find';
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    protected function buildFormatSorting(Command $command, $sort)
-    {
-        switch ($sort) {
-            case SortableIterator::SORT_BY_NAME:
-                $command->ins('sort')->add('| sort');
-
-                return;
-            case SortableIterator::SORT_BY_TYPE:
-                $format = '%y';
-                break;
-            case SortableIterator::SORT_BY_ACCESSED_TIME:
-                $format = '%A@';
-                break;
-            case SortableIterator::SORT_BY_CHANGED_TIME:
-                $format = '%C@';
-                break;
-            case SortableIterator::SORT_BY_MODIFIED_TIME:
-                $format = '%T@';
-                break;
-            default:
-                throw new \InvalidArgumentException(sprintf('Unknown sort options: %s.', $sort));
-        }
-
-        $command
-            ->get('find')
-            ->add('-printf')
-            ->arg($format.' %h/%f\\n')
-            ->add('| sort | cut')
-            ->arg('-d ')
-            ->arg('-f2-')
-        ;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    protected function canBeUsed()
-    {
-        return $this->shell->getType() === Shell::TYPE_UNIX && parent::canBeUsed();
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    protected function buildFindCommand(Command $command, $dir)
-    {
-        return parent::buildFindCommand($command, $dir)->add('-regextype posix-extended');
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    protected function buildContentFiltering(Command $command, array $contains, $not = false)
-    {
-        foreach ($contains as $contain) {
-            $expr = Expression::create($contain);
-
-            // todo: avoid forking process for each $pattern by using multiple -e options
-            $command
-                ->add('| xargs -I{} -r grep -I')
-                ->add($expr->isCaseSensitive() ? null : '-i')
-                ->add($not ? '-L' : '-l')
-                ->add('-Ee')->arg($expr->renderPattern())
-                ->add('{}')
-            ;
-        }
-    }
-}
-<?php
-
-/*
- * This file is part of the Symfony package.
- *
- * (c) Fabien Potencier <fabien@symfony.com>
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
-
-namespace Symfony\Component\Finder\Adapter;
-
-@trigger_error('The '.__NAMESPACE__.'\AbstractFindAdapter class is deprecated since version 2.8 and will be removed in 3.0. Use directly the Finder class instead.', E_USER_DEPRECATED);
-
-use Symfony\Component\Finder\Exception\AccessDeniedException;
-use Symfony\Component\Finder\Iterator;
-use Symfony\Component\Finder\Shell\Shell;
-use Symfony\Component\Finder\Expression\Expression;
-use Symfony\Component\Finder\Shell\Command;
-use Symfony\Component\Finder\Comparator\NumberComparator;
-use Symfony\Component\Finder\Comparator\DateComparator;
-
-/**
- * Shell engine implementation using GNU find command.
- *
- * @author Jean-Fran√ßois Simon <contact@jfsimon.fr>
- *
- * @deprecated since 2.8, to be removed in 3.0. Use Finder instead.
- */
-abstract class AbstractFindAdapter extends AbstractAdapter
-{
-    /**
-     * @var Shell
-     */
-    protected $shell;
-
-    /**
-     * Constructor.
-     */
-    public function __construct()
-    {
-        $this->shell = new Shell();
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function searchInDirectory($dir)
-    {
-        // having "/../" in path make find fail
-        $dir = realpath($dir);
-
-        // searching directories containing or not containing strings leads to no result
-        if (Iterator\FileTypeFilterIterator::ONLY_DIRECTORIES === $this->mode && ($this->contains || $this->notContains)) {
-            return new Iterator\FilePathsIterator(array(), $dir);
-        }
-
-        $command = Command::create();
-        $find = $this->buildFindCommand($command, $dir);
-
-        if ($this->followLinks) {
-            $find->add('-follow');
-        }
-
-        $find->add('-mindepth')->add($this->minDepth + 1);
-
-        if (PHP_INT_MAX !== $this->maxDepth) {
-            $find->add('-maxdepth')->add($this->maxDepth + 1);
-        }
-
-        if (Iterator\FileTypeFilterIterator::ONLY_DIRECTORIES === $this->mode) {
-            $find->add('-type d');
-        } elseif (Iterator\FileTypeFilterIterator::ONLY_FILES === $this->mode) {
-            $find->add('-type f');
-        }
-
-        $this->buildNamesFiltering($find, $this->names);
-        $this->buildNamesFiltering($find, $this->notNames, true);
-        $this->buildPathsFiltering($find, $dir, $this->paths);
-        $this->buildPathsFiltering($find, $dir, $this->notPaths, true);
-        $this->buildSizesFiltering($find, $this->sizes);
-        $this->buildDatesFiltering($find, $this->dates);
-
-        $useGrep = $this->shell->testCommand('grep') && $this->shell->testCommand('xargs');
-        $useSort = is_int($this->sort) && $this->shell->testCommand('sort') && $this->shell->testCommand('cut');
-
-        if ($useGrep && ($this->contains || $this->notContains)) {
-            $grep = $command->ins('grep');
-            $this->buildContentFiltering($grep, $this->contains);
-            $this->buildContentFiltering($grep, $this->notContains, true);
-        }
-
-        if ($useSort) {
-            $this->buildSorting($command, $this->sort);
-        }
-
-        $command->setErrorHandler(
-            $this->ignoreUnreadableDirs
-                // If directory is unreadable and finder is set to ignore it, `stderr` is ignored.
-                ? function ($stderr) { return; }
-                : function ($stderr) { throw new AccessDeniedException($stderr); }
-        );
-
-        $paths = $this->shell->testCommand('uniq') ? $command->add('| uniq')->execute() : array_unique($command->execute());
-        $iterator = new Iterator\FilePathsIterator($paths, $dir);
-
-        if ($this->exclude) {
-            $iterator = new Iterator\ExcludeDirectoryFilterIterator($iterator, $this->exclude);
-        }
-
-        if (!$useGrep && ($this->contains || $this->notContains)) {
-            $iterator = new Iterator\FilecontentFilterIterator($iterator, $this->contains, $this->notContains);
-        }
-
-        if ($this->filters) {
-            $iterator = new Iterator\CustomFilterIterator($iterator, $this->filters);
-        }
-
-        if (!$useSort && $this->sort) {
-            $iteratorAggregate = new Iterator\SortableIterator($iterator, $this->sort);
-            $iterator = $iteratorAggregate->getIterator();
-        }
-
-        return $iterator;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    protected function canBeUsed()
-    {
-        return $this->shell->testCommand('find');
-    }
-
-    /**
-     * @param Command $command
-     * @param string  $dir
-     *
-     * @return Command
-     */
-    protected function buildFindCommand(Command $command, $dir)
-    {
-        return $command
-            ->ins('find')
-            ->add('find ')
-            ->arg($dir)
-            ->add('-noleaf'); // the -noleaf option is required for filesystems that don't follow the '.' and '..' conventions
-    }
-
-    /**
-     * @param Command  $command
-     * @param string[] $names
-     * @param bool     $not
-     */
-    private function buildNamesFiltering(Command $command, array $names, $not = false)
-    {
-        if (0 === count($names)) {
+        if (!extension_loaded('xdebug')) {
             return;
         }
 
-        $command->add($not ? '-not' : null)->cmd('(');
-
-        foreach ($names as $i => $name) {
-            $expr = Expression::create($name);
-
-            // Find does not support expandable globs ("*.{a,b}" syntax).
-            if ($expr->isGlob() && $expr->getGlob()->isExpandable()) {
-                $expr = Expression::create($expr->getGlob()->toRegex(false));
-            }
-
-            // Fixes 'not search' and 'full path matching' regex problems.
-            // - Jokers '.' are replaced by [^/].
-            // - We add '[^/]*' before and after regex (if no ^|$ flags are present).
-            if ($expr->isRegex()) {
-                $regex = $expr->getRegex();
-                $regex->prepend($regex->hasStartFlag() ? '/' : '/[^/]*')
-                    ->setStartFlag(false)
-                    ->setStartJoker(true)
-                    ->replaceJokers('[^/]');
-                if (!$regex->hasEndFlag() || $regex->hasEndJoker()) {
-                    $regex->setEndJoker(false)->append('[^/]*');
-                }
-            }
-
-            $command
-                ->add($i > 0 ? '-or' : null)
-                ->add($expr->isRegex()
-                    ? ($expr->isCaseSensitive() ? '-regex' : '-iregex')
-                    : ($expr->isCaseSensitive() ? '-name' : '-iname')
-                )
-                ->arg($expr->renderPattern());
-        }
-
-        $command->cmd(')');
-    }
-
-    /**
-     * @param Command  $command
-     * @param string   $dir
-     * @param string[] $paths
-     * @param bool     $not
-     */
-    private function buildPathsFiltering(Command $command, $dir, array $paths, $not = false)
-    {
-        if (0 === count($paths)) {
-            return;
-        }
-
-        $command->add($not ? '-not' : null)->cmd('(');
-
-        foreach ($paths as $i => $path) {
-            $expr = Expression::create($path);
-
-            // Find does not support expandable globs ("*.{a,b}" syntax).
-            if ($expr->isGlob() && $expr->getGlob()->isExpandable()) {
-                $expr = Expression::create($expr->getGlob()->toRegex(false));
-            }
-
-            // Fixes 'not search' regex problems.
-            if ($expr->isRegex()) {
-                $regex = $expr->getRegex();
-                $regex->prepend($regex->hasStartFlag() ? preg_quote($dir).DIRECTORY_SEPARATOR : '.*')->setEndJoker(!$regex->hasEndFlag());
-            } else {
-                $expr->prepend('*')->append('*');
-            }
-
-            $command
-                ->add($i > 0 ? '-or' : null)
-                ->add($expr->isRegex()
-                    ? ($expr->isCaseSensitive() ? '-regex' : '-iregex')
-                    : ($expr->isCaseSensitive() ? '-path' : '-ipath')
-                )
-                ->arg($expr->renderPattern());
-        }
-
-        $command->cmd(')');
-    }
-
-    /**
-     * @param Command            $command
-     * @param NumberComparator[] $sizes
-     */
-    private function buildSizesFiltering(Command $command, array $sizes)
-    {
-        foreach ($sizes as $i => $size) {
-            $command->add($i > 0 ? '-and' : null);
-
-            switch ($size->getOperator()) {
-                case '<=':
-                    $command->add('-size -'.($size->getTarget() + 1).'c');
-                    break;
-                case '>=':
-                    $command->add('-size +'.($size->getTarget() - 1).'c');
-                    break;
-                case '>':
-                    $command->add('-size +'.$size->getTarget().'c');
-                    break;
-                case '!=':
-                    $command->add('-size -'.$size->getTarget().'c');
-                    $command->add('-size +'.$size->getTarget().'c');
-                    break;
-                case '<':
-                default:
-                    $command->add('-size -'.$size->getTarget().'c');
-            }
-        }
-    }
-
-    /**
-     * @param Command          $command
-     * @param DateComparator[] $dates
-     */
-    private function buildDatesFiltering(Command $command, array $dates)
-    {
-        foreach ($dates as $i => $date) {
-            $command->add($i > 0 ? '-and' : null);
-
-            $mins = (int) round((time() - $date->getTarget()) / 60);
-
-            if (0 > $mins) {
-                // mtime is in the future
-                $command->add(' -mmin -0');
-                // we will have no result so we don't need to continue
-                return;
-            }
-
-            switch ($date->getOperator()) {
-                case '<=':
-                    $command->add('-mmin +'.($mins - 1));
-                    break;
-                case '>=':
-                    $command->add('-mmin -'.($mins + 1));
-                    break;
-                case '>':
-                    $command->add('-mmin -'.$mins);
-                    break;
-                case '!=':
-                    $command->add('-mmin +'.$mins.' -or -mmin -'.$mins);
-                    break;
-                case '<':
-                default:
-                    $command->add('-mmin +'.$mins);
-            }
-        }
-    }
-
-    /**
-     * @param Command $command
-     * @param string  $sort
-     *
-     * @throws \InvalidArgumentException
-     */
-    private function buildSorting(Command $command, $sort)
-    {
-        $this->buildFormatSorting($command, $sort);
-    }
-
-    /**
-     * @param Command $command
-     * @param string  $sort
-     */
-    abstract protected function buildFormatSorting(Command $command, $sort);
-
-    /**
-     * @param Command $command
-     * @param array   $contains
-     * @param bool    $not
-     */
-    abstract protected function buildContentFiltering(Command $command, array $contains, $not = false);
-}
-<?php
-
-/*
- * This file is part of the Symfony package.
- *
- * (c) Fabien Potencier <fabien@symfony.com>
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
-
-namespace Symfony\Component\Finder\Adapter;
-
-/**
- * @author Jean-Fran√ßois Simon <contact@jfsimon.fr>
- *
- * @deprecated since 2.8, to be removed in 3.0.
- */
-interface AdapterInterface
-{
-    /**
-     * @param bool $followLinks
-     *
-     * @return AdapterInterface Current instance
-     */
-    public function setFollowLinks($followLinks);
-
-    /**
-     * @param int $mode
-     *
-     * @return AdapterInterface Current instance
-     */
-    public function setMode($mode);
-
-    /**
-     * @param array $exclude
-     *
-     * @return AdapterInterface Current instance
-     */
-    public function setExclude(array $exclude);
-
-    /**
-     * @param array $depths
-     *
-     * @return AdapterInterface Current instance
-     */
-    public function setDepths(array $depths);
-
-    /**
-     * @param array $names
-     *
-     * @return AdapterInterface Current instance
-     */
-    public function setNames(array $names);
-
-    /**
-     * @param array $notNames
-     *
-     * @return AdapterInterface Current instance
-     */
-    public function setNotNames(array $notNames);
-
-    /**
-     * @param array $contains
-     *
-     * @return AdapterInterface Current instance
-     */
-    public function setContains(array $contains);
-
-    /**
-     * @param array $notContains
-     *
-     * @return AdapterInterface Current instance
-     */
-    public function setNotContains(array $notContains);
-
-    /**
-     * @param array $sizes
-     *
-     * @return AdapterInterface Current instance
-     */
-    public function setSizes(array $sizes);
-
-    /**
-     * @param array $dates
-     *
-     * @return AdapterInterface Current instance
-     */
-    public function setDates(array $dates);
-
-    /**
-     * @param array $filters
-     *
-     * @return AdapterInterface Current instance
-     */
-    public function setFilters(array $filters);
-
-    /**
-     * @param \Closure|int $sort
-     *
-     * @return AdapterInterface Current instance
-     */
-    public function setSort($sort);
-
-    /**
-     * @param array $paths
-     *
-     * @return AdapterInterface Current instance
-     */
-    public function setPath(array $paths);
-
-    /**
-     * @param array $notPaths
-     *
-     * @return AdapterInterface Current instance
-     */
-    public function setNotPath(array $notPaths);
-
-    /**
-     * @param bool $ignore
-     *
-     * @return AdapterInterface Current instance
-     */
-    public function ignoreUnreadableDirs($ignore = true);
-
-    /**
-     * @param string $dir
-     *
-     * @return \Iterator Result iterator
-     */
-    public function searchInDirectory($dir);
-
-    /**
-     * Tests adapter support for current platform.
-     *
-     * @return bool
-     */
-    public function isSupported();
-
-    /**
-     * Returns adapter name.
-     *
-     * @return string
-     */
-    public function getName();
-}
-<?php
-
-/*
- * This file is part of the Symfony package.
- *
- * (c) Fabien Potencier <fabien@symfony.com>
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
-
-namespace Symfony\Component\Finder\Adapter;
-
-@trigger_error('The '.__NAMESPACE__.'\AbstractAdapter class is deprecated since version 2.8 and will be removed in 3.0. Use directly the Finder class instead.', E_USER_DEPRECATED);
-
-/**
- * Interface for finder engine implementations.
- *
- * @author Jean-Fran√ßois Simon <contact@jfsimon.fr>
- *
- * @deprecated since 2.8, to be removed in 3.0. Use Finder instead.
- */
-abstract class AbstractAdapter implements AdapterInterface
-{
-    protected $followLinks = false;
-    protected $mode = 0;
-    protected $minDepth = 0;
-    protected $maxDepth = PHP_INT_MAX;
-    protected $exclude = array();
-    protected $names = array();
-    protected $notNames = array();
-    protected $contains = array();
-    protected $notContains = array();
-    protected $sizes = array();
-    protected $dates = array();
-    protected $filters = array();
-    protected $sort = false;
-    protected $paths = array();
-    protected $notPaths = array();
-    protected $ignoreUnreadableDirs = false;
-
-    private static $areSupported = array();
-
-    /**
-     * {@inheritdoc}
-     */
-    public function isSupported()
-    {
-        $name = $this->getName();
-
-        if (!array_key_exists($name, self::$areSupported)) {
-            self::$areSupported[$name] = $this->canBeUsed();
-        }
-
-        return self::$areSupported[$name];
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function setFollowLinks($followLinks)
-    {
-        $this->followLinks = $followLinks;
-
-        return $this;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function setMode($mode)
-    {
-        $this->mode = $mode;
-
-        return $this;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function setDepths(array $depths)
-    {
-        $this->minDepth = 0;
-        $this->maxDepth = PHP_INT_MAX;
-
-        foreach ($depths as $comparator) {
-            switch ($comparator->getOperator()) {
-                case '>':
-                    $this->minDepth = $comparator->getTarget() + 1;
-                    break;
-                case '>=':
-                    $this->minDepth = $comparator->getTarget();
-                    break;
-                case '<':
-                    $this->maxDepth = $comparator->getTarget() - 1;
-                    break;
-                case '<=':
-                    $this->maxDepth = $comparator->getTarget();
-                    break;
-                default:
-                    $this->minDepth = $this->maxDepth = $comparator->getTarget();
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function setExclude(array $exclude)
-    {
-        $this->exclude = $exclude;
-
-        return $this;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function setNames(array $names)
-    {
-        $this->names = $names;
-
-        return $this;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function setNotNames(array $notNames)
-    {
-        $this->notNames = $notNames;
-
-        return $this;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function setContains(array $contains)
-    {
-        $this->contains = $contains;
-
-        return $this;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function setNotContains(array $notContains)
-    {
-        $this->notContains = $notContains;
-
-        return $this;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function setSizes(array $sizes)
-    {
-        $this->sizes = $sizes;
-
-        return $this;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function setDates(array $dates)
-    {
-        $this->dates = $dates;
-
-        return $this;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function setFilters(array $filters)
-    {
-        $this->filters = $filters;
-
-        return $this;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function setSort($sort)
-    {
-        $this->sort = $sort;
-
-        return $this;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function setPath(array $paths)
-    {
-        $this->paths = $paths;
-
-        return $this;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function setNotPath(array $notPaths)
-    {
-        $this->notPaths = $notPaths;
-
-        return $this;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function ignoreUnreadableDirs($ignore = true)
-    {
-        $this->ignoreUnreadableDirs = (bool) $ignore;
-
-        return $this;
-    }
-
-    /**
-     * Returns whether the adapter is supported in the current environment.
-     *
-     * This method should be implemented in all adapters. Do not implement
-     * isSupported in the adapters as the generic implementation provides a cache
-     * layer.
-     *
-     * @see isSupported()
-     *
-     * @return bool Whether the adapter is supported
-     */
-    abstract protected function canBeUsed();
-}
-<?php
-
-/*
- * This file is part of the Symfony package.
- *
- * (c) Fabien Potencier <fabien@symfony.com>
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
-
-namespace Symfony\Component\Finder\Adapter;
-
-@trigger_error('The '.__NAMESPACE__.'\BsdFindAdapter class is deprecated since version 2.8 and will be removed in 3.0. Use directly the Finder class instead.', E_USER_DEPRECATED);
-
-use Symfony\Component\Finder\Shell\Shell;
-use Symfony\Component\Finder\Shell\Command;
-use Symfony\Component\Finder\Iterator\SortableIterator;
-use Symfony\Component\Finder\Expression\Expression;
-
-/**
- * Shell engine implementation using BSD find command.
- *
- * @author Jean-Fran√ßois Simon <contact@jfsimon.fr>
- *
- * @deprecated since 2.8, to be removed in 3.0. Use Finder instead.
- */
-class BsdFindAdapter extends AbstractFindAdapter
-{
-    /**
-     * {@inheritdoc}
-     */
-    public function getName()
-    {
-        return 'bsd_find';
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    protected function canBeUsed()
-    {
-        return in_array($this->shell->getType(), array(Shell::TYPE_BSD, Shell::TYPE_DARWIN)) && parent::canBeUsed();
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    protected function buildFormatSorting(Command $command, $sort)
-    {
-        switch ($sort) {
-            case SortableIterator::SORT_BY_NAME:
-                $command->ins('sort')->add('| sort');
-
-                return;
-            case SortableIterator::SORT_BY_TYPE:
-                $format = '%HT';
-                break;
-            case SortableIterator::SORT_BY_ACCESSED_TIME:
-                $format = '%a';
-                break;
-            case SortableIterator::SORT_BY_CHANGED_TIME:
-                $format = '%c';
-                break;
-            case SortableIterator::SORT_BY_MODIFIED_TIME:
-                $format = '%m';
-                break;
-            default:
-                throw new \InvalidArgumentException(sprintf('Unknown sort options: %s.', $sort));
-        }
-
-        $command
-            ->add('-print0 | xargs -0 stat -f')
-            ->arg($format.'%t%N')
-            ->add('| sort | cut -f 2');
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    protected function buildFindCommand(Command $command, $dir)
-    {
-        parent::buildFindCommand($command, $dir)->addAtIndex('-E', 1);
-
-        return $command;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    protected function buildContentFiltering(Command $command, array $contains, $not = false)
-    {
-        foreach ($contains as $contain) {
-            $expr = Expression::create($contain);
-
-            // todo: avoid forking process for each $pattern by using multiple -e options
-            $command
-                ->add('| grep -v \'^$\'')
-                ->add('| xargs -I{} grep -I')
-                ->add($expr->isCaseSensitive() ? null : '-i')
-                ->add($not ? '-L' : '-l')
-                ->add('-Ee')->arg($expr->renderPattern())
-                ->add('{}')
-            ;
-        }
+        ini_set('xdebug.scream', 0);
+        ini_set('xdebug.max_nesting_level', 8192);
+        ini_set('xdebug.show_exception_trace', 0);
+        ini_set('xdebug.show_error_trace', 0);
+
+        xdebug_disable();
     }
 }
 <?php
@@ -5483,9 +4524,10 @@ class Comparator
 namespace Symfony\Component\Finder\Iterator;
 
 /**
- * This iterator just overrides the rewind method in order to correct a PHP bug.
+ * This iterator just overrides the rewind method in order to correct a PHP bug,
+ * which existed before version 5.5.23/5.6.7.
  *
- * @see https://bugs.php.net/bug.php?id=49104
+ * @see https://bugs.php.net/68557
  *
  * @author Alex Bogomazov
  */
@@ -5499,20 +4541,28 @@ abstract class FilterIterator extends \FilterIterator
      */
     public function rewind()
     {
+        if (PHP_VERSION_ID > 50607 || (PHP_VERSION_ID > 50523 && PHP_VERSION_ID < 50600)) {
+            parent::rewind();
+
+            return;
+        }
+
         $iterator = $this;
         while ($iterator instanceof \OuterIterator) {
             $innerIterator = $iterator->getInnerIterator();
 
             if ($innerIterator instanceof RecursiveDirectoryIterator) {
+                // this condition is necessary for iterators to work properly with non-local filesystems like ftp
                 if ($innerIterator->isRewindable()) {
                     $innerIterator->next();
                     $innerIterator->rewind();
                 }
-            } elseif ($iterator->getInnerIterator() instanceof \FilesystemIterator) {
-                $iterator->getInnerIterator()->next();
-                $iterator->getInnerIterator()->rewind();
+            } elseif ($innerIterator instanceof \FilesystemIterator) {
+                $innerIterator->next();
+                $innerIterator->rewind();
             }
-            $iterator = $iterator->getInnerIterator();
+
+            $iterator = $innerIterator;
         }
 
         parent::rewind();
@@ -5686,141 +4736,6 @@ class CustomFilterIterator extends FilterIterator
         }
 
         return true;
-    }
-}
-<?php
-
-/*
- * This file is part of the Symfony package.
- *
- * (c) Fabien Potencier <fabien@symfony.com>
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
-
-namespace Symfony\Component\Finder\Iterator;
-
-@trigger_error('The '.__NAMESPACE__.'\FilePathsIterator class is deprecated since version 2.8 and will be removed in 3.0.', E_USER_DEPRECATED);
-
-use Symfony\Component\Finder\SplFileInfo;
-
-/**
- * Iterate over shell command result.
- *
- * @author Jean-Fran√ßois Simon <contact@jfsimon.fr>
- *
- * @deprecated since 2.8, to be removed in 3.0.
- */
-class FilePathsIterator extends \ArrayIterator
-{
-    /**
-     * @var string
-     */
-    private $baseDir;
-
-    /**
-     * @var int
-     */
-    private $baseDirLength;
-
-    /**
-     * @var string
-     */
-    private $subPath;
-
-    /**
-     * @var string
-     */
-    private $subPathname;
-
-    /**
-     * @var SplFileInfo
-     */
-    private $current;
-
-    /**
-     * @param array  $paths   List of paths returned by shell command
-     * @param string $baseDir Base dir for relative path building
-     */
-    public function __construct(array $paths, $baseDir)
-    {
-        $this->baseDir = $baseDir;
-        $this->baseDirLength = strlen($baseDir);
-
-        parent::__construct($paths);
-    }
-
-    /**
-     * @param string $name
-     * @param array  $arguments
-     *
-     * @return mixed
-     */
-    public function __call($name, array $arguments)
-    {
-        return call_user_func_array(array($this->current(), $name), $arguments);
-    }
-
-    /**
-     * Return an instance of SplFileInfo with support for relative paths.
-     *
-     * @return SplFileInfo File information
-     */
-    public function current()
-    {
-        return $this->current;
-    }
-
-    /**
-     * @return string
-     */
-    public function key()
-    {
-        return $this->current->getPathname();
-    }
-
-    public function next()
-    {
-        parent::next();
-        $this->buildProperties();
-    }
-
-    public function rewind()
-    {
-        parent::rewind();
-        $this->buildProperties();
-    }
-
-    /**
-     * @return string
-     */
-    public function getSubPath()
-    {
-        return $this->subPath;
-    }
-
-    /**
-     * @return string
-     */
-    public function getSubPathname()
-    {
-        return $this->subPathname;
-    }
-
-    private function buildProperties()
-    {
-        $absolutePath = parent::current();
-
-        if ($this->baseDir === substr($absolutePath, 0, $this->baseDirLength)) {
-            $this->subPathname = ltrim(substr($absolutePath, $this->baseDirLength), '/\\');
-            $dir = dirname($this->subPathname);
-            $this->subPath = '.' === $dir ? '' : $dir;
-        } else {
-            $this->subPath = $this->subPathname = '';
-        }
-
-        $this->current = new SplFileInfo(parent::current(), $this->subPath, $this->subPathname);
     }
 }
 <?php
@@ -6183,7 +5098,7 @@ class RecursiveDirectoryIterator extends \RecursiveDirectoryIterator
 
         parent::__construct($path, $flags);
         $this->ignoreUnreadableDirs = $ignoreUnreadableDirs;
-        $this->rootPath = (string) $path;
+        $this->rootPath = $path;
         if ('/' !== DIRECTORY_SEPARATOR && !($flags & self::UNIX_PATHS)) {
             $this->directorySeparator = DIRECTORY_SEPARATOR;
         }
@@ -6248,8 +5163,10 @@ class RecursiveDirectoryIterator extends \RecursiveDirectoryIterator
             return;
         }
 
-        // @see https://bugs.php.net/bug.php?id=49104
-        parent::next();
+        // @see https://bugs.php.net/68557
+        if (PHP_VERSION_ID < 50523 || PHP_VERSION_ID >= 50600 && PHP_VERSION_ID < 50607) {
+            parent::next();
+        }
 
         parent::rewind();
     }
@@ -6596,7 +5513,7 @@ class Glob
                 $firstByte = true;
             }
 
-            if ('.' === $car || '(' === $car || ')' === $car || '|' === $car || '+' === $car || '^' === $car || '$' === $car) {
+            if ($delimiter === $car || '.' === $car || '(' === $car || ')' === $car || '|' === $car || '+' === $car || '^' === $car || '$' === $car) {
                 $regex .= "\\$car";
             } elseif ('*' === $car) {
                 $regex .= $escaping ? '\\*' : ($strictWildcardSlash ? '[^/]*' : '.*');
@@ -6643,650 +5560,6 @@ class Glob
  * file that was distributed with this source code.
  */
 
-namespace Symfony\Component\Finder\Expression;
-
-@trigger_error('The '.__NAMESPACE__.'\Regex class is deprecated since version 2.8 and will be removed in 3.0.', E_USER_DEPRECATED);
-
-/**
- * @author Jean-Fran√ßois Simon <contact@jfsimon.fr>
- */
-class Regex implements ValueInterface
-{
-    const START_FLAG = '^';
-    const END_FLAG = '$';
-    const BOUNDARY = '~';
-    const JOKER = '.*';
-    const ESCAPING = '\\';
-
-    /**
-     * @var string
-     */
-    private $pattern;
-
-    /**
-     * @var array
-     */
-    private $options;
-
-    /**
-     * @var bool
-     */
-    private $startFlag;
-
-    /**
-     * @var bool
-     */
-    private $endFlag;
-
-    /**
-     * @var bool
-     */
-    private $startJoker;
-
-    /**
-     * @var bool
-     */
-    private $endJoker;
-
-    /**
-     * @param string $expr
-     *
-     * @return Regex
-     *
-     * @throws \InvalidArgumentException
-     */
-    public static function create($expr)
-    {
-        if (preg_match('/^(.{3,}?)([imsxuADU]*)$/', $expr, $m)) {
-            $start = substr($m[1], 0, 1);
-            $end = substr($m[1], -1);
-
-            if (
-                ($start === $end && !preg_match('/[*?[:alnum:] \\\\]/', $start))
-                || ($start === '{' && $end === '}')
-                || ($start === '(' && $end === ')')
-            ) {
-                return new self(substr($m[1], 1, -1), $m[2], $end);
-            }
-        }
-
-        throw new \InvalidArgumentException('Given expression is not a regex.');
-    }
-
-    /**
-     * @param string $pattern
-     * @param string $options
-     * @param string $delimiter
-     */
-    public function __construct($pattern, $options = '', $delimiter = null)
-    {
-        if (null !== $delimiter) {
-            // removes delimiter escaping
-            $pattern = str_replace('\\'.$delimiter, $delimiter, $pattern);
-        }
-
-        $this->parsePattern($pattern);
-        $this->options = $options;
-    }
-
-    /**
-     * @return string
-     */
-    public function __toString()
-    {
-        return $this->render();
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function render()
-    {
-        return self::BOUNDARY
-            .$this->renderPattern()
-            .self::BOUNDARY
-            .$this->options;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function renderPattern()
-    {
-        return ($this->startFlag ? self::START_FLAG : '')
-            .($this->startJoker ? self::JOKER : '')
-            .str_replace(self::BOUNDARY, '\\'.self::BOUNDARY, $this->pattern)
-            .($this->endJoker ? self::JOKER : '')
-            .($this->endFlag ? self::END_FLAG : '');
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function isCaseSensitive()
-    {
-        return !$this->hasOption('i');
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getType()
-    {
-        return Expression::TYPE_REGEX;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function prepend($expr)
-    {
-        $this->pattern = $expr.$this->pattern;
-
-        return $this;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function append($expr)
-    {
-        $this->pattern .= $expr;
-
-        return $this;
-    }
-
-    /**
-     * @param string $option
-     *
-     * @return bool
-     */
-    public function hasOption($option)
-    {
-        return false !== strpos($this->options, $option);
-    }
-
-    /**
-     * @param string $option
-     *
-     * @return Regex
-     */
-    public function addOption($option)
-    {
-        if (!$this->hasOption($option)) {
-            $this->options .= $option;
-        }
-
-        return $this;
-    }
-
-    /**
-     * @param string $option
-     *
-     * @return Regex
-     */
-    public function removeOption($option)
-    {
-        $this->options = str_replace($option, '', $this->options);
-
-        return $this;
-    }
-
-    /**
-     * @param bool $startFlag
-     *
-     * @return Regex
-     */
-    public function setStartFlag($startFlag)
-    {
-        $this->startFlag = $startFlag;
-
-        return $this;
-    }
-
-    /**
-     * @return bool
-     */
-    public function hasStartFlag()
-    {
-        return $this->startFlag;
-    }
-
-    /**
-     * @param bool $endFlag
-     *
-     * @return Regex
-     */
-    public function setEndFlag($endFlag)
-    {
-        $this->endFlag = (bool) $endFlag;
-
-        return $this;
-    }
-
-    /**
-     * @return bool
-     */
-    public function hasEndFlag()
-    {
-        return $this->endFlag;
-    }
-
-    /**
-     * @param bool $startJoker
-     *
-     * @return Regex
-     */
-    public function setStartJoker($startJoker)
-    {
-        $this->startJoker = $startJoker;
-
-        return $this;
-    }
-
-    /**
-     * @return bool
-     */
-    public function hasStartJoker()
-    {
-        return $this->startJoker;
-    }
-
-    /**
-     * @param bool $endJoker
-     *
-     * @return Regex
-     */
-    public function setEndJoker($endJoker)
-    {
-        $this->endJoker = (bool) $endJoker;
-
-        return $this;
-    }
-
-    /**
-     * @return bool
-     */
-    public function hasEndJoker()
-    {
-        return $this->endJoker;
-    }
-
-    /**
-     * @param array $replacement
-     *
-     * @return Regex
-     */
-    public function replaceJokers($replacement)
-    {
-        $replace = function ($subject) use ($replacement) {
-            $subject = $subject[0];
-            $replace = 0 === substr_count($subject, '\\') % 2;
-
-            return $replace ? str_replace('.', $replacement, $subject) : $subject;
-        };
-
-        $this->pattern = preg_replace_callback('~[\\\\]*\\.~', $replace, $this->pattern);
-
-        return $this;
-    }
-
-    /**
-     * @param string $pattern
-     */
-    private function parsePattern($pattern)
-    {
-        if ($this->startFlag = self::START_FLAG === substr($pattern, 0, 1)) {
-            $pattern = substr($pattern, 1);
-        }
-
-        if ($this->startJoker = self::JOKER === substr($pattern, 0, 2)) {
-            $pattern = substr($pattern, 2);
-        }
-
-        if ($this->endFlag = (self::END_FLAG === substr($pattern, -1) && self::ESCAPING !== substr($pattern, -2, -1))) {
-            $pattern = substr($pattern, 0, -1);
-        }
-
-        if ($this->endJoker = (self::JOKER === substr($pattern, -2) && self::ESCAPING !== substr($pattern, -3, -2))) {
-            $pattern = substr($pattern, 0, -2);
-        }
-
-        $this->pattern = $pattern;
-    }
-}
-<?php
-
-/*
- * This file is part of the Symfony package.
- *
- * (c) Fabien Potencier <fabien@symfony.com>
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
-
-namespace Symfony\Component\Finder\Expression;
-
-@trigger_error('The '.__NAMESPACE__.'\Glob class is deprecated since version 2.8 and will be removed in 3.0.', E_USER_DEPRECATED);
-
-use Symfony\Component\Finder\Glob as FinderGlob;
-
-/**
- * @author Jean-Fran√ßois Simon <contact@jfsimon.fr>
- */
-class Glob implements ValueInterface
-{
-    /**
-     * @var string
-     */
-    private $pattern;
-
-    /**
-     * @param string $pattern
-     */
-    public function __construct($pattern)
-    {
-        $this->pattern = $pattern;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function render()
-    {
-        return $this->pattern;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function renderPattern()
-    {
-        return $this->pattern;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getType()
-    {
-        return Expression::TYPE_GLOB;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function isCaseSensitive()
-    {
-        return true;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function prepend($expr)
-    {
-        $this->pattern = $expr.$this->pattern;
-
-        return $this;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function append($expr)
-    {
-        $this->pattern .= $expr;
-
-        return $this;
-    }
-
-    /**
-     * Tests if glob is expandable ("*.{a,b}" syntax).
-     *
-     * @return bool
-     */
-    public function isExpandable()
-    {
-        return false !== strpos($this->pattern, '{')
-            && false !== strpos($this->pattern, '}');
-    }
-
-    /**
-     * @param bool $strictLeadingDot
-     * @param bool $strictWildcardSlash
-     *
-     * @return Regex
-     */
-    public function toRegex($strictLeadingDot = true, $strictWildcardSlash = true)
-    {
-        $regex = FinderGlob::toRegex($this->pattern, $strictLeadingDot, $strictWildcardSlash, '');
-
-        return new Regex($regex);
-    }
-}
-<?php
-
-/*
- * This file is part of the Symfony package.
- *
- * (c) Fabien Potencier <fabien@symfony.com>
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
-
-namespace Symfony\Component\Finder\Expression;
-
-@trigger_error('The '.__NAMESPACE__.'\ValueInterface interface is deprecated since version 2.8 and will be removed in 3.0.', E_USER_DEPRECATED);
-
-/**
- * @author Jean-Fran√ßois Simon <contact@jfsimon.fr>
- */
-interface ValueInterface
-{
-    /**
-     * Renders string representation of expression.
-     *
-     * @return string
-     */
-    public function render();
-
-    /**
-     * Renders string representation of pattern.
-     *
-     * @return string
-     */
-    public function renderPattern();
-
-    /**
-     * Returns value case sensitivity.
-     *
-     * @return bool
-     */
-    public function isCaseSensitive();
-
-    /**
-     * Returns expression type.
-     *
-     * @return int
-     */
-    public function getType();
-
-    /**
-     * @param string $expr
-     *
-     * @return ValueInterface
-     */
-    public function prepend($expr);
-
-    /**
-     * @param string $expr
-     *
-     * @return ValueInterface
-     */
-    public function append($expr);
-}
-<?php
-
-/*
- * This file is part of the Symfony package.
- *
- * (c) Fabien Potencier <fabien@symfony.com>
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
-
-namespace Symfony\Component\Finder\Expression;
-
-@trigger_error('The '.__NAMESPACE__.'\Expression class is deprecated since version 2.8 and will be removed in 3.0.', E_USER_DEPRECATED);
-
-/**
- * @author Jean-Fran√ßois Simon <contact@jfsimon.fr>
- */
-class Expression implements ValueInterface
-{
-    const TYPE_REGEX = 1;
-    const TYPE_GLOB = 2;
-
-    /**
-     * @var ValueInterface
-     */
-    private $value;
-
-    /**
-     * @param string $expr
-     *
-     * @return Expression
-     */
-    public static function create($expr)
-    {
-        return new self($expr);
-    }
-
-    /**
-     * @param string $expr
-     */
-    public function __construct($expr)
-    {
-        try {
-            $this->value = Regex::create($expr);
-        } catch (\InvalidArgumentException $e) {
-            $this->value = new Glob($expr);
-        }
-    }
-
-    /**
-     * @return string
-     */
-    public function __toString()
-    {
-        return $this->render();
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function render()
-    {
-        return $this->value->render();
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function renderPattern()
-    {
-        return $this->value->renderPattern();
-    }
-
-    /**
-     * @return bool
-     */
-    public function isCaseSensitive()
-    {
-        return $this->value->isCaseSensitive();
-    }
-
-    /**
-     * @return int
-     */
-    public function getType()
-    {
-        return $this->value->getType();
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function prepend($expr)
-    {
-        $this->value->prepend($expr);
-
-        return $this;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function append($expr)
-    {
-        $this->value->append($expr);
-
-        return $this;
-    }
-
-    /**
-     * @return bool
-     */
-    public function isRegex()
-    {
-        return self::TYPE_REGEX === $this->value->getType();
-    }
-
-    /**
-     * @return bool
-     */
-    public function isGlob()
-    {
-        return self::TYPE_GLOB === $this->value->getType();
-    }
-
-    /**
-     * @throws \LogicException
-     *
-     * @return Glob
-     */
-    public function getGlob()
-    {
-        if (self::TYPE_GLOB !== $this->value->getType()) {
-            throw new \LogicException('Regex can\'t be transformed to glob.');
-        }
-
-        return $this->value;
-    }
-
-    /**
-     * @return Regex
-     */
-    public function getRegex()
-    {
-        return self::TYPE_REGEX === $this->value->getType() ? $this->value : $this->value->toRegex();
-    }
-}
-<?php
-
-/*
- * This file is part of the Symfony package.
- *
- * (c) Fabien Potencier <fabien@symfony.com>
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
-
 namespace Symfony\Component\Finder;
 
 /**
@@ -7316,6 +5589,8 @@ class SplFileInfo extends \SplFileInfo
     /**
      * Returns the relative path.
      *
+     * This path does not contain the file name.
+     *
      * @return string the relative path
      */
     public function getRelativePath()
@@ -7325,6 +5600,8 @@ class SplFileInfo extends \SplFileInfo
 
     /**
      * Returns the relative path name.
+     *
+     * This path contains the file name.
      *
      * @return string the relative path name
      */
@@ -7351,128 +5628,6 @@ class SplFileInfo extends \SplFileInfo
         }
 
         return $content;
-    }
-}
-<?php
-
-/*
- * This file is part of the Symfony package.
- *
- * (c) Fabien Potencier <fabien@symfony.com>
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
-
-namespace Symfony\Component\Finder\Exception;
-
-@trigger_error('The '.__NAMESPACE__.'\OperationNotPermitedException class is deprecated since version 2.8 and will be removed in 3.0.', E_USER_DEPRECATED);
-
-/**
- * @author Jean-Fran√ßois Simon <contact@jfsimon.fr>
- *
- * @deprecated since 2.8, to be removed in 3.0.
- */
-class OperationNotPermitedException extends AdapterFailureException
-{
-}
-<?php
-
-/*
- * This file is part of the Symfony package.
- *
- * (c) Fabien Potencier <fabien@symfony.com>
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
-
-namespace Symfony\Component\Finder\Exception;
-
-@trigger_error('The '.__NAMESPACE__.'\ShellCommandFailureException class is deprecated since version 2.8 and will be removed in 3.0.', E_USER_DEPRECATED);
-
-use Symfony\Component\Finder\Adapter\AdapterInterface;
-use Symfony\Component\Finder\Shell\Command;
-
-/**
- * @author Jean-Fran√ßois Simon <contact@jfsimon.fr>
- *
- * @deprecated since 2.8, to be removed in 3.0.
- */
-class ShellCommandFailureException extends AdapterFailureException
-{
-    /**
-     * @var Command
-     */
-    private $command;
-
-    /**
-     * @param AdapterInterface $adapter
-     * @param Command          $command
-     * @param \Exception|null  $previous
-     */
-    public function __construct(AdapterInterface $adapter, Command $command, \Exception $previous = null)
-    {
-        $this->command = $command;
-        parent::__construct($adapter, 'Shell command failed: "'.$command->join().'".', $previous);
-    }
-
-    /**
-     * @return Command
-     */
-    public function getCommand()
-    {
-        return $this->command;
-    }
-}
-<?php
-
-/*
- * This file is part of the Symfony package.
- *
- * (c) Fabien Potencier <fabien@symfony.com>
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
-
-namespace Symfony\Component\Finder\Exception;
-
-@trigger_error('The '.__NAMESPACE__.'\AdapterFailureException class is deprecated since version 2.8 and will be removed in 3.0.', E_USER_DEPRECATED);
-
-use Symfony\Component\Finder\Adapter\AdapterInterface;
-
-/**
- * Base exception for all adapter failures.
- *
- * @author Jean-Fran√ßois Simon <contact@jfsimon.fr>
- *
- * @deprecated since 2.8, to be removed in 3.0.
- */
-class AdapterFailureException extends \RuntimeException implements ExceptionInterface
-{
-    /**
-     * @var \Symfony\Component\Finder\Adapter\AdapterInterface
-     */
-    private $adapter;
-
-    /**
-     * @param AdapterInterface $adapter
-     * @param string|null      $message
-     * @param \Exception|null  $previous
-     */
-    public function __construct(AdapterInterface $adapter, $message = null, \Exception $previous = null)
-    {
-        $this->adapter = $adapter;
-        parent::__construct($message ?: 'Search failed with "'.$adapter->getName().'" adapter.', $previous);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getAdapter()
-    {
-        return $this->adapter;
     }
 }
 <?php
@@ -7530,13 +5685,8 @@ class AccessDeniedException extends \UnexpectedValueException
 
 namespace Symfony\Component\Finder;
 
-use Symfony\Component\Finder\Adapter\AdapterInterface;
-use Symfony\Component\Finder\Adapter\GnuFindAdapter;
-use Symfony\Component\Finder\Adapter\BsdFindAdapter;
-use Symfony\Component\Finder\Adapter\PhpAdapter;
 use Symfony\Component\Finder\Comparator\DateComparator;
 use Symfony\Component\Finder\Comparator\NumberComparator;
-use Symfony\Component\Finder\Exception\ExceptionInterface;
 use Symfony\Component\Finder\Iterator\CustomFilterIterator;
 use Symfony\Component\Finder\Iterator\DateRangeFilterIterator;
 use Symfony\Component\Finder\Iterator\DepthRangeFilterIterator;
@@ -7579,7 +5729,6 @@ class Finder implements \IteratorAggregate, \Countable
     private $iterators = array();
     private $contains = array();
     private $notContains = array();
-    private $adapters = null;
     private $paths = array();
     private $notPaths = array();
     private $ignoreUnreadableDirs = false;
@@ -7602,110 +5751,6 @@ class Finder implements \IteratorAggregate, \Countable
     public static function create()
     {
         return new static();
-    }
-
-    /**
-     * Registers a finder engine implementation.
-     *
-     * @param AdapterInterface $adapter  An adapter instance
-     * @param int              $priority Highest is selected first
-     *
-     * @return Finder The current Finder instance
-     *
-     * @deprecated since 2.8, to be removed in 3.0.
-     */
-    public function addAdapter(AdapterInterface $adapter, $priority = 0)
-    {
-        @trigger_error('The '.__METHOD__.' method is deprecated since version 2.8 and will be removed in 3.0.', E_USER_DEPRECATED);
-
-        $this->initDefaultAdapters();
-
-        $this->adapters[$adapter->getName()] = array(
-            'adapter' => $adapter,
-            'priority' => $priority,
-            'selected' => false,
-        );
-
-        return $this->sortAdapters();
-    }
-
-    /**
-     * Sets the selected adapter to the best one according to the current platform the code is run on.
-     *
-     * @return Finder The current Finder instance
-     *
-     * @deprecated since 2.8, to be removed in 3.0.
-     */
-    public function useBestAdapter()
-    {
-        @trigger_error('The '.__METHOD__.' method is deprecated since version 2.8 and will be removed in 3.0.', E_USER_DEPRECATED);
-
-        $this->initDefaultAdapters();
-
-        $this->resetAdapterSelection();
-
-        return $this->sortAdapters();
-    }
-
-    /**
-     * Selects the adapter to use.
-     *
-     * @param string $name
-     *
-     * @throws \InvalidArgumentException
-     *
-     * @return Finder The current Finder instance
-     *
-     * @deprecated since 2.8, to be removed in 3.0.
-     */
-    public function setAdapter($name)
-    {
-        @trigger_error('The '.__METHOD__.' method is deprecated since version 2.8 and will be removed in 3.0.', E_USER_DEPRECATED);
-
-        $this->initDefaultAdapters();
-
-        if (!isset($this->adapters[$name])) {
-            throw new \InvalidArgumentException(sprintf('Adapter "%s" does not exist.', $name));
-        }
-
-        $this->resetAdapterSelection();
-        $this->adapters[$name]['selected'] = true;
-
-        return $this->sortAdapters();
-    }
-
-    /**
-     * Removes all adapters registered in the finder.
-     *
-     * @return Finder The current Finder instance
-     *
-     * @deprecated since 2.8, to be removed in 3.0.
-     */
-    public function removeAdapters()
-    {
-        @trigger_error('The '.__METHOD__.' method is deprecated since version 2.8 and will be removed in 3.0.', E_USER_DEPRECATED);
-
-        $this->adapters = array();
-
-        return $this;
-    }
-
-    /**
-     * Returns registered adapters ordered by priority without extra information.
-     *
-     * @return AdapterInterface[]
-     *
-     * @deprecated since 2.8, to be removed in 3.0.
-     */
-    public function getAdapters()
-    {
-        @trigger_error('The '.__METHOD__.' method is deprecated since version 2.8 and will be removed in 3.0.', E_USER_DEPRECATED);
-
-        $this->initDefaultAdapters();
-
-        return array_values(array_map(function (array $adapter) {
-            return $adapter['adapter'];
-        }, $this->adapters));
     }
 
     /**
@@ -8253,22 +6298,6 @@ class Finder implements \IteratorAggregate, \Countable
     }
 
     /**
-     * @return Finder The current Finder instance
-     */
-    private function sortAdapters()
-    {
-        uasort($this->adapters, function (array $a, array $b) {
-            if ($a['selected'] || $b['selected']) {
-                return $a['selected'] ? -1 : 1;
-            }
-
-            return $a['priority'] > $b['priority'] ? -1 : 1;
-        });
-
-        return $this;
-    }
-
-    /**
      * @param $dir
      *
      * @return \Iterator
@@ -8281,19 +6310,6 @@ class Finder implements \IteratorAggregate, \Countable
 
         if (static::IGNORE_DOT_FILES === (static::IGNORE_DOT_FILES & $this->ignore)) {
             $this->notPaths[] = '#(^|/)\..+(/|$)#';
-        }
-
-        if ($this->adapters) {
-            foreach ($this->adapters as $adapter) {
-                if ($adapter['adapter']->isSupported()) {
-                    try {
-                        return $this
-                            ->buildAdapter($adapter['adapter'])
-                            ->searchInDirectory($dir);
-                    } catch (ExceptionInterface $e) {
-                    }
-                }
-            }
         }
 
         $minDepth = 0;
@@ -8371,455 +6387,6 @@ class Finder implements \IteratorAggregate, \Countable
 
         return $iterator;
     }
-
-    /**
-     * @param AdapterInterface $adapter
-     *
-     * @return AdapterInterface
-     */
-    private function buildAdapter(AdapterInterface $adapter)
-    {
-        return $adapter
-            ->setFollowLinks($this->followLinks)
-            ->setDepths($this->depths)
-            ->setMode($this->mode)
-            ->setExclude($this->exclude)
-            ->setNames($this->names)
-            ->setNotNames($this->notNames)
-            ->setContains($this->contains)
-            ->setNotContains($this->notContains)
-            ->setSizes($this->sizes)
-            ->setDates($this->dates)
-            ->setFilters($this->filters)
-            ->setSort($this->sort)
-            ->setPath($this->paths)
-            ->setNotPath($this->notPaths)
-            ->ignoreUnreadableDirs($this->ignoreUnreadableDirs);
-    }
-
-    /**
-     * Unselects all adapters.
-     */
-    private function resetAdapterSelection()
-    {
-        $this->adapters = array_map(function (array $properties) {
-            $properties['selected'] = false;
-
-            return $properties;
-        }, $this->adapters);
-    }
-
-    private function initDefaultAdapters()
-    {
-        if (null === $this->adapters) {
-            $this->adapters = array();
-            $this
-                ->addAdapter(new GnuFindAdapter())
-                ->addAdapter(new BsdFindAdapter())
-                ->addAdapter(new PhpAdapter(), -50)
-                ->setAdapter('php')
-            ;
-        }
-    }
-}
-<?php
-
-/*
- * This file is part of the Symfony package.
- *
- * (c) Fabien Potencier <fabien@symfony.com>
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
-
-namespace Symfony\Component\Finder\Shell;
-
-@trigger_error('The '.__NAMESPACE__.'\Command class is deprecated since version 2.8 and will be removed in 3.0.', E_USER_DEPRECATED);
-
-/**
- * @author Jean-Fran√ßois Simon <contact@jfsimon.fr>
- *
- * @deprecated since 2.8, to be removed in 3.0.
- */
-class Command
-{
-    /**
-     * @var Command|null
-     */
-    private $parent;
-
-    /**
-     * @var array
-     */
-    private $bits = array();
-
-    /**
-     * @var array
-     */
-    private $labels = array();
-
-    /**
-     * @var \Closure|null
-     */
-    private $errorHandler;
-
-    /**
-     * Constructor.
-     *
-     * @param Command|null $parent Parent command
-     */
-    public function __construct(Command $parent = null)
-    {
-        $this->parent = $parent;
-    }
-
-    /**
-     * Returns command as string.
-     *
-     * @return string
-     */
-    public function __toString()
-    {
-        return $this->join();
-    }
-
-    /**
-     * Creates a new Command instance.
-     *
-     * @param Command|null $parent Parent command
-     *
-     * @return Command New Command instance
-     */
-    public static function create(Command $parent = null)
-    {
-        return new self($parent);
-    }
-
-    /**
-     * Escapes special chars from input.
-     *
-     * @param string $input A string to escape
-     *
-     * @return string The escaped string
-     */
-    public static function escape($input)
-    {
-        return escapeshellcmd($input);
-    }
-
-    /**
-     * Quotes input.
-     *
-     * @param string $input An argument string
-     *
-     * @return string The quoted string
-     */
-    public static function quote($input)
-    {
-        return escapeshellarg($input);
-    }
-
-    /**
-     * Appends a string or a Command instance.
-     *
-     * @param string|Command $bit
-     *
-     * @return Command The current Command instance
-     */
-    public function add($bit)
-    {
-        $this->bits[] = $bit;
-
-        return $this;
-    }
-
-    /**
-     * Prepends a string or a command instance.
-     *
-     * @param string|Command $bit
-     *
-     * @return Command The current Command instance
-     */
-    public function top($bit)
-    {
-        array_unshift($this->bits, $bit);
-
-        foreach ($this->labels as $label => $index) {
-            $this->labels[$label] += 1;
-        }
-
-        return $this;
-    }
-
-    /**
-     * Appends an argument, will be quoted.
-     *
-     * @param string $arg
-     *
-     * @return Command The current Command instance
-     */
-    public function arg($arg)
-    {
-        $this->bits[] = self::quote($arg);
-
-        return $this;
-    }
-
-    /**
-     * Appends escaped special command chars.
-     *
-     * @param string $esc
-     *
-     * @return Command The current Command instance
-     */
-    public function cmd($esc)
-    {
-        $this->bits[] = self::escape($esc);
-
-        return $this;
-    }
-
-    /**
-     * Inserts a labeled command to feed later.
-     *
-     * @param string $label The unique label
-     *
-     * @return Command The current Command instance
-     *
-     * @throws \RuntimeException If label already exists
-     */
-    public function ins($label)
-    {
-        if (isset($this->labels[$label])) {
-            throw new \RuntimeException(sprintf('Label "%s" already exists.', $label));
-        }
-
-        $this->bits[] = self::create($this);
-        $this->labels[$label] = count($this->bits) - 1;
-
-        return $this->bits[$this->labels[$label]];
-    }
-
-    /**
-     * Retrieves a previously labeled command.
-     *
-     * @param string $label
-     *
-     * @return Command The labeled command
-     *
-     * @throws \RuntimeException
-     */
-    public function get($label)
-    {
-        if (!isset($this->labels[$label])) {
-            throw new \RuntimeException(sprintf('Label "%s" does not exist.', $label));
-        }
-
-        return $this->bits[$this->labels[$label]];
-    }
-
-    /**
-     * Returns parent command (if any).
-     *
-     * @return Command Parent command
-     *
-     * @throws \RuntimeException If command has no parent
-     */
-    public function end()
-    {
-        if (null === $this->parent) {
-            throw new \RuntimeException('Calling end on root command doesn\'t make sense.');
-        }
-
-        return $this->parent;
-    }
-
-    /**
-     * Counts bits stored in command.
-     *
-     * @return int The bits count
-     */
-    public function length()
-    {
-        return count($this->bits);
-    }
-
-    /**
-     * @param \Closure $errorHandler
-     *
-     * @return Command
-     */
-    public function setErrorHandler(\Closure $errorHandler)
-    {
-        $this->errorHandler = $errorHandler;
-
-        return $this;
-    }
-
-    /**
-     * @return \Closure|null
-     */
-    public function getErrorHandler()
-    {
-        return $this->errorHandler;
-    }
-
-    /**
-     * Executes current command.
-     *
-     * @return array The command result
-     *
-     * @throws \RuntimeException
-     */
-    public function execute()
-    {
-        if (null === $errorHandler = $this->errorHandler) {
-            exec($this->join(), $output);
-        } else {
-            $process = proc_open($this->join(), array(0 => array('pipe', 'r'), 1 => array('pipe', 'w'), 2 => array('pipe', 'w')), $pipes);
-            $output = preg_split('~(\r\n|\r|\n)~', stream_get_contents($pipes[1]), -1, PREG_SPLIT_NO_EMPTY);
-
-            if ($error = stream_get_contents($pipes[2])) {
-                $errorHandler($error);
-            }
-
-            proc_close($process);
-        }
-
-        return $output ?: array();
-    }
-
-    /**
-     * Joins bits.
-     *
-     * @return string
-     */
-    public function join()
-    {
-        return implode(' ', array_filter(
-            array_map(function ($bit) {
-                return $bit instanceof Command ? $bit->join() : ($bit ?: null);
-            }, $this->bits),
-            function ($bit) { return null !== $bit; }
-        ));
-    }
-
-    /**
-     * Insert a string or a Command instance before the bit at given position $index (index starts from 0).
-     *
-     * @param string|Command $bit
-     * @param int            $index
-     *
-     * @return Command The current Command instance
-     */
-    public function addAtIndex($bit, $index)
-    {
-        array_splice($this->bits, $index, 0, $bit instanceof self ? array($bit) : $bit);
-
-        return $this;
-    }
-}
-<?php
-
-/*
- * This file is part of the Symfony package.
- *
- * (c) Fabien Potencier <fabien@symfony.com>
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
-
-namespace Symfony\Component\Finder\Shell;
-
-@trigger_error('The '.__NAMESPACE__.'\Shell class is deprecated since version 2.8 and will be removed in 3.0.', E_USER_DEPRECATED);
-
-/**
- * @author Jean-Fran√ßois Simon <contact@jfsimon.fr>
- *
- * @deprecated since 2.8, to be removed in 3.0.
- */
-class Shell
-{
-    const TYPE_UNIX = 1;
-    const TYPE_DARWIN = 2;
-    const TYPE_CYGWIN = 3;
-    const TYPE_WINDOWS = 4;
-    const TYPE_BSD = 5;
-
-    /**
-     * @var string|null
-     */
-    private $type;
-
-    /**
-     * Returns guessed OS type.
-     *
-     * @return int
-     */
-    public function getType()
-    {
-        if (null === $this->type) {
-            $this->type = $this->guessType();
-        }
-
-        return $this->type;
-    }
-
-    /**
-     * Tests if a command is available.
-     *
-     * @param string $command
-     *
-     * @return bool
-     */
-    public function testCommand($command)
-    {
-        if (!function_exists('exec')) {
-            return false;
-        }
-
-        // todo: find a better way (command could not be available)
-        $testCommand = 'which ';
-        if (self::TYPE_WINDOWS === $this->type) {
-            $testCommand = 'where ';
-        }
-
-        $command = escapeshellcmd($command);
-
-        exec($testCommand.$command, $output, $code);
-
-        return 0 === $code && count($output) > 0;
-    }
-
-    /**
-     * Guesses OS type.
-     *
-     * @return int
-     */
-    private function guessType()
-    {
-        $os = strtolower(PHP_OS);
-
-        if (false !== strpos($os, 'cygwin')) {
-            return self::TYPE_CYGWIN;
-        }
-
-        if (false !== strpos($os, 'darwin')) {
-            return self::TYPE_DARWIN;
-        }
-
-        if (false !== strpos($os, 'bsd')) {
-            return self::TYPE_BSD;
-        }
-
-        if (0 === strpos($os, 'win')) {
-            return self::TYPE_WINDOWS;
-        }
-
-        return self::TYPE_UNIX;
-    }
 }
 <?php
 
@@ -8849,7 +6416,7 @@ class Unescaper
     /**
      * Regex fragment that matches an escaped character in a double quoted string.
      */
-    const REGEX_ESCAPED_CHARACTER = "\\\\(x[0-9a-fA-F]{2}|u[0-9a-fA-F]{4}|U[0-9a-fA-F]{8}|.)";
+    const REGEX_ESCAPED_CHARACTER = '\\\\(x[0-9a-fA-F]{2}|u[0-9a-fA-F]{4}|U[0-9a-fA-F]{8}|.)';
 
     /**
      * Unescapes a single quoted string.
@@ -8986,10 +6553,7 @@ use Symfony\Component\Yaml\Exception\ParseException;
 class Yaml
 {
     /**
-     * Parses YAML into a PHP array.
-     *
-     * The parse method, when supplied with a YAML stream (string or file),
-     * will do its best to convert YAML in a file into a PHP array.
+     * Parses YAML into a PHP value.
      *
      *  Usage:
      *  <code>
@@ -9002,7 +6566,7 @@ class Yaml
      * @param bool   $objectSupport          True if object support is enabled, false otherwise
      * @param bool   $objectForMap           True if maps should return a stdClass instead of array()
      *
-     * @return array The YAML converted to a PHP array
+     * @return mixed The YAML converted to a PHP value
      *
      * @throws ParseException If the YAML is not valid
      */
@@ -9029,6 +6593,10 @@ class Yaml
      */
     public static function dump($array, $inline = 2, $indent = 4, $exceptionOnInvalidType = false, $objectSupport = false)
     {
+        if ($indent < 1) {
+            throw new \InvalidArgumentException('The indentation must be greater than zero.');
+        }
+
         $yaml = new Dumper();
         $yaml->setIndentation($indent);
 
@@ -9274,13 +6842,13 @@ class Escaper
                                      "\x08",  "\x09",  "\x0a",  "\x0b",  "\x0c",  "\x0d",  "\x0e",  "\x0f",
                                      "\x10",  "\x11",  "\x12",  "\x13",  "\x14",  "\x15",  "\x16",  "\x17",
                                      "\x18",  "\x19",  "\x1a",  "\x1b",  "\x1c",  "\x1d",  "\x1e",  "\x1f",
-                                     "\xc2\x85", "\xc2\xa0", "\xe2\x80\xa8", "\xe2\x80\xa9",);
+                                     "\xc2\x85", "\xc2\xa0", "\xe2\x80\xa8", "\xe2\x80\xa9");
     private static $escaped = array('\\\\', '\\"', '\\\\', '\\"',
                                      '\\0',   '\\x01', '\\x02', '\\x03', '\\x04', '\\x05', '\\x06', '\\a',
                                      '\\b',   '\\t',   '\\n',   '\\v',   '\\f',   '\\r',   '\\x0e', '\\x0f',
                                      '\\x10', '\\x11', '\\x12', '\\x13', '\\x14', '\\x15', '\\x16', '\\x17',
                                      '\\x18', '\\x19', '\\x1a', '\\e',   '\\x1c', '\\x1d', '\\x1e', '\\x1f',
-                                     '\\N', '\\_', '\\L', '\\P',);
+                                     '\\N', '\\_', '\\L', '\\P');
 
     /**
      * Determines if a PHP value would require double quoting in YAML.
@@ -9578,10 +7146,6 @@ class Parser
                 if ($isRef) {
                     $this->refs[$isRef] = $data[$key];
                 }
-
-                if ($objectForMap && !is_object($data)) {
-                    $data = (object) $data;
-                }
             } else {
                 // multiple documents are not supported
                 if ('---' === $this->currentLine) {
@@ -9645,6 +7209,16 @@ class Parser
             mb_internal_encoding($mbEncoding);
         }
 
+        if ($objectForMap && !is_object($data) && 'mapping' === $context) {
+            $object = new \stdClass();
+
+            foreach ($data as $key => $value) {
+                $object->$key = $value;
+            }
+
+            $data = $object;
+        }
+
         return empty($data) ? null : $data;
     }
 
@@ -9681,7 +7255,11 @@ class Parser
     private function getNextEmbedBlock($indentation = null, $inSequence = false)
     {
         $oldLineIndentation = $this->getCurrentLineIndentation();
-        $insideBlockScalar = $this->isBlockScalarHeader();
+        $blockScalarIndentations = array();
+
+        if ($this->isBlockScalarHeader()) {
+            $blockScalarIndentations[] = $this->getCurrentLineIndentation();
+        }
 
         if (!$this->moveToNextLine()) {
             return;
@@ -9718,8 +7296,8 @@ class Parser
 
         $isItUnindentedCollection = $this->isStringUnIndentedCollectionItem();
 
-        if (!$insideBlockScalar) {
-            $insideBlockScalar = $this->isBlockScalarHeader();
+        if (empty($blockScalarIndentations) && $this->isBlockScalarHeader()) {
+            $blockScalarIndentations[] = $this->getCurrentLineIndentation();
         }
 
         $previousLineIndentation = $this->getCurrentLineIndentation();
@@ -9727,8 +7305,17 @@ class Parser
         while ($this->moveToNextLine()) {
             $indent = $this->getCurrentLineIndentation();
 
-            if (!$insideBlockScalar && $indent === $previousLineIndentation) {
-                $insideBlockScalar = $this->isBlockScalarHeader();
+            // terminate all block scalars that are more indented than the current line
+            if (!empty($blockScalarIndentations) && $indent < $previousLineIndentation && trim($this->currentLine) !== '') {
+                foreach ($blockScalarIndentations as $key => $blockScalarIndentation) {
+                    if ($blockScalarIndentation >= $this->getCurrentLineIndentation()) {
+                        unset($blockScalarIndentations[$key]);
+                    }
+                }
+            }
+
+            if (empty($blockScalarIndentations) && !$this->isCurrentLineComment() && $this->isBlockScalarHeader()) {
+                $blockScalarIndentations[] = $this->getCurrentLineIndentation();
             }
 
             $previousLineIndentation = $indent;
@@ -9744,7 +7331,7 @@ class Parser
             }
 
             // we ignore "comment" lines only when we are not inside a scalar block
-            if (!$insideBlockScalar && $this->isCurrentLineComment()) {
+            if (empty($blockScalarIndentations) && $this->isCurrentLineComment()) {
                 continue;
             }
 
@@ -9909,7 +7496,7 @@ class Parser
             $previousLineIndented = false;
             $previousLineBlank = false;
 
-            for ($i = 0; $i < count($blockLines); $i++) {
+            for ($i = 0; $i < count($blockLines); ++$i) {
                 if ('' === $blockLines[$i]) {
                     $text .= "\n";
                     $previousLineIndented = false;
@@ -10004,7 +7591,7 @@ class Parser
         //checking explicitly the first char of the trim is faster than loops or strpos
         $ltrimmedLine = ltrim($this->currentLine, ' ');
 
-        return $ltrimmedLine[0] === '#';
+        return '' !== $ltrimmedLine && $ltrimmedLine[0] === '#';
     }
 
     /**
@@ -10204,7 +7791,7 @@ class Inline
                 return 'null';
             case is_object($value):
                 if ($objectSupport) {
-                    return '!!php/object:'.serialize($value);
+                    return '!php/object:'.serialize($value);
                 }
 
                 if ($exceptionOnInvalidType) {
@@ -10575,6 +8162,16 @@ class Inline
                         return (string) substr($scalar, 5);
                     case 0 === strpos($scalar, '! '):
                         return (int) self::parseScalar(substr($scalar, 2));
+                    case 0 === strpos($scalar, '!php/object:'):
+                        if (self::$objectSupport) {
+                            return unserialize(substr($scalar, 12));
+                        }
+
+                        if (self::$exceptionOnInvalidType) {
+                            throw new ParseException('Object support when parsing a YAML file has been disabled.');
+                        }
+
+                        return;
                     case 0 === strpos($scalar, '!!php/object:'):
                         if (self::$objectSupport) {
                             return unserialize(substr($scalar, 13));
@@ -10608,7 +8205,12 @@ class Inline
                     case preg_match('/^(-|\+)?[0-9,]+(\.[0-9]+)?$/', $scalar):
                         return (float) str_replace(',', '', $scalar);
                     case preg_match(self::getTimestampRegex(), $scalar):
-                        return strtotime($scalar);
+                        $timeZone = date_default_timezone_get();
+                        date_default_timezone_set('UTC');
+                        $time = strtotime($scalar);
+                        date_default_timezone_set($timeZone);
+
+                        return $time;
                 }
             default:
                 return (string) $scalar;
@@ -10684,6 +8286,10 @@ class Dumper
      */
     public function setIndentation($num)
     {
+        if ($num < 1) {
+            throw new \InvalidArgumentException('The indentation must be greater than zero.');
+        }
+
         $this->indentation = (int) $num;
     }
 
@@ -12288,7 +9894,7 @@ class ConsoleOutput extends StreamOutput implements ConsoleOutputInterface
             PHP_OS,
         );
 
-        return false !== stristr(implode(';', $checks), 'OS400');
+        return false !== stripos(implode(';', $checks), 'OS400');
     }
 
     /**
@@ -13119,7 +10725,7 @@ class SymfonyStyle extends OutputStyle
 
         $messages = is_array($message) ? array_values($message) : array($message);
         foreach ($messages as $message) {
-             $this->writeln(sprintf(' %s', $message));
+            $this->writeln(sprintf(' %s', $message));
         }
     }
 
@@ -13132,7 +10738,7 @@ class SymfonyStyle extends OutputStyle
 
         $messages = is_array($message) ? array_values($message) : array($message);
         foreach ($messages as $message) {
-             $this->writeln(sprintf(' // %s', $message));
+            $this->writeln(sprintf(' // %s', $message));
         }
     }
 
@@ -13564,7 +11170,15 @@ class OutputFormatter implements OutputFormatterInterface
      */
     public static function escape($text)
     {
-        return preg_replace('/([^\\\\]?)</', '$1\\<', $text);
+        $text = preg_replace('/([^\\\\]?)</', '$1\\<', $text);
+
+        if ('\\' === substr($text, -1)) {
+            $len = strlen($text);
+            $text = rtrim($text, '\\');
+            $text .= str_repeat('<<', $len - strlen($text));
+        }
+
+        return $text;
     }
 
     /**
@@ -13662,7 +11276,7 @@ class OutputFormatter implements OutputFormatterInterface
         $message = (string) $message;
         $offset = 0;
         $output = '';
-        $tagRegex = '[a-z][a-z0-9_=;-]*';
+        $tagRegex = '[a-z][a-z0-9_=;-]*+';
         preg_match_all("#<(($tagRegex) | /($tagRegex)?)>#ix", $message, $matches, PREG_OFFSET_CAPTURE);
         foreach ($matches[0] as $i => $match) {
             $pos = $match[1];
@@ -13696,6 +11310,10 @@ class OutputFormatter implements OutputFormatterInterface
         }
 
         $output .= $this->applyCurrentStyle(substr($message, $offset));
+
+        if (false !== strpos($output, '<<')) {
+            return strtr($output, array('\\<' => '<', '<<' => '\\'));
+        }
 
         return str_replace('\\<', '<', $output);
     }
@@ -14277,7 +11895,7 @@ class HelpCommand extends Command
                 new InputOption('raw', null, InputOption::VALUE_NONE, 'To output raw command help'),
             ))
             ->setDescription('Displays help for a command')
-            ->setHelp(<<<EOF
+            ->setHelp(<<<'EOF'
 The <info>%command.name%</info> command displays help for a given command:
 
   <info>php %command.full_name% list</info>
@@ -14705,7 +12323,7 @@ class Command
      * @param string $shortcut    The shortcut (can be null)
      * @param int    $mode        The option mode: One of the InputOption::VALUE_* constants
      * @param string $description A description text
-     * @param mixed  $default     The default value (must be null for InputOption::VALUE_REQUIRED or InputOption::VALUE_NONE)
+     * @param mixed  $default     The default value (must be null for InputOption::VALUE_NONE)
      *
      * @return Command The current instance
      */
@@ -14982,7 +12600,7 @@ class ListCommand extends Command
             ->setName('list')
             ->setDefinition($this->createDefinition())
             ->setDescription('Lists commands')
-            ->setHelp(<<<EOF
+            ->setHelp(<<<'EOF'
 The <info>%command.name%</info> command lists all commands:
 
   <info>php %command.full_name%</info>
@@ -15344,8 +12962,12 @@ class Application
      */
     public function getLongVersion()
     {
-        if ('UNKNOWN' !== $this->getName() && 'UNKNOWN' !== $this->getVersion()) {
-            return sprintf('<info>%s</info> version <comment>%s</comment>', $this->getName(), $this->getVersion());
+        if ('UNKNOWN' !== $this->getName()) {
+            if ('UNKNOWN' !== $this->getVersion()) {
+                return sprintf('<info>%s</info> version <comment>%s</comment>', $this->getName(), $this->getVersion());
+            }
+
+            return sprintf('<info>%s</info>', $this->getName());
         }
 
         return '<info>Console Tool</info>';
@@ -15458,7 +13080,7 @@ class Application
     public function getNamespaces()
     {
         $namespaces = array();
-        foreach ($this->commands as $command) {
+        foreach ($this->all() as $command) {
             $namespaces = array_merge($namespaces, $this->extractAllNamespaces($command->getName()));
 
             foreach ($command->getAliases() as $alias) {
@@ -16621,7 +14243,7 @@ class TextDescriptor extends Descriptor
             $width = $this->getColumnWidth($description->getCommands());
 
             foreach ($description->getCommands() as $command) {
-                $this->writeText(sprintf("%-${width}s %s", $command->getName(), $command->getDescription()), $options);
+                $this->writeText(sprintf("%-{$width}s %s", $command->getName(), $command->getDescription()), $options);
                 $this->writeText("\n");
             }
         } else {
@@ -19361,7 +16983,11 @@ class QuestionHelper extends Helper
             }
 
             if (false === $ret) {
-                $ret = $this->readFromInput($inputStream);
+                $ret = fgets($inputStream, 4096);
+                if (false === $ret) {
+                    throw new \RuntimeException('Aborted');
+                }
+                $ret = trim($ret);
             }
         } else {
             $ret = trim($this->autocomplete($output, $question, $inputStream));
@@ -19387,11 +17013,12 @@ class QuestionHelper extends Helper
         $message = $question->getQuestion();
 
         if ($question instanceof ChoiceQuestion) {
-            $width = max(array_map('strlen', array_keys($question->getChoices())));
+            $maxWidth = max(array_map(array($this, 'strlen'), array_keys($question->getChoices())));
 
             $messages = (array) $question->getQuestion();
             foreach ($question->getChoices() as $key => $value) {
-                $messages[] = sprintf("  [<info>%-${width}s</info>] %s", $key, $value);
+                $width = $maxWidth - $this->strlen($key);
+                $messages[] = '  [<info>'.$key.str_repeat(' ', $width).'</info>] '.$value;
             }
 
             $output->writeln($messages);
@@ -19651,30 +17278,6 @@ class QuestionHelper extends Helper
         }
 
         return self::$shell;
-    }
-
-    /**
-     * Reads user input.
-     *
-     * @param resource $stream The input stream
-     *
-     * @return string User input
-     *
-     * @throws RuntimeException
-     */
-    private function readFromInput($stream)
-    {
-        if (STDIN === $stream && function_exists('readline')) {
-            $ret = readline();
-        } else {
-            $ret = fgets($stream, 4096);
-        }
-
-        if (false === $ret) {
-            throw new RuntimeException('Aborted');
-        }
-
-        return trim($ret);
     }
 
     /**
@@ -20889,7 +18492,7 @@ class InputOption
      * @param string|array $shortcut    The shortcuts, can be null, a string of shortcuts delimited by | or an array of shortcuts
      * @param int          $mode        The option mode: One of the VALUE_* constants
      * @param string       $description A description text
-     * @param mixed        $default     The default value (must be null for self::VALUE_REQUIRED or self::VALUE_NONE)
+     * @param mixed        $default     The default value (must be null for self::VALUE_NONE)
      *
      * @throws InvalidArgumentException If option mode is invalid or incompatible
      */
@@ -22661,12 +20264,12 @@ class Question
      */
     public function setAutocompleterValues($values)
     {
-        if (is_array($values) && $this->isAssoc($values)) {
-            $values = array_merge(array_keys($values), array_values($values));
+        if (is_array($values)) {
+            $values = $this->isAssoc($values) ? array_merge(array_keys($values), array_values($values)) : array_values($values);
         }
 
         if (null !== $values && !is_array($values)) {
-            if (!$values instanceof \Traversable || $values instanceof \Countable) {
+            if (!$values instanceof \Traversable || !$values instanceof \Countable) {
                 throw new InvalidArgumentException('Autocompleter values can be either an array, `null` or an object implementing both `Countable` and `Traversable` interfaces.');
             }
         }
@@ -23010,151 +20613,47 @@ class ConfirmationQuestion extends Question
     }
 }
 <?php
-/**
- * Git
+/*
+ * This file is part of Git.
  *
- * Copyright (c) 2013-2014, Sebastian Bergmann <sebastian@phpunit.de>.
- * All rights reserved.
+ * (c) Sebastian Bergmann <sebastian@phpunit.de>
  *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions
- * are met:
- *
- *   * Redistributions of source code must retain the above copyright
- *     notice, this list of conditions and the following disclaimer.
- *
- *   * Redistributions in binary form must reproduce the above copyright
- *     notice, this list of conditions and the following disclaimer in
- *     the documentation and/or other materials provided with the
- *     distribution.
- *
- *   * Neither the name of Sebastian Bergmann nor the names of his
- *     contributors may be used to endorse or promote products derived
- *     from this software without specific prior written permission.
- *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
- * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
- * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS
- * FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE
- * COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
- * INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
- * BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
- * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
- * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
- * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
- * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
- *
- * @author     Sebastian Bergmann <sebastian@phpunit.de>
- * @copyright  2013-2014 Sebastian Bergmann <sebastian@phpunit.de>
- * @license    http://www.opensource.org/licenses/BSD-3-Clause  The BSD 3-Clause License
- * @link       http://www.github.com/sebastianbergmann/git
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  */
 
 namespace SebastianBergmann\Git;
 
 /**
- * @author     Sebastian Bergmann <sebastian@phpunit.de>
- * @copyright  2013-2014 Sebastian Bergmann <sebastian@phpunit.de>
- * @license    http://www.opensource.org/licenses/BSD-3-Clause  The BSD 3-Clause License
- * @link       http://www.github.com/sebastianbergmann/git
  */
 class RuntimeException extends \RuntimeException implements Exception
 {
 }
 <?php
-/**
- * Git
+/*
+ * This file is part of Git.
  *
- * Copyright (c) 2013-2014, Sebastian Bergmann <sebastian@phpunit.de>.
- * All rights reserved.
+ * (c) Sebastian Bergmann <sebastian@phpunit.de>
  *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions
- * are met:
- *
- *   * Redistributions of source code must retain the above copyright
- *     notice, this list of conditions and the following disclaimer.
- *
- *   * Redistributions in binary form must reproduce the above copyright
- *     notice, this list of conditions and the following disclaimer in
- *     the documentation and/or other materials provided with the
- *     distribution.
- *
- *   * Neither the name of Sebastian Bergmann nor the names of his
- *     contributors may be used to endorse or promote products derived
- *     from this software without specific prior written permission.
- *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
- * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
- * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS
- * FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE
- * COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
- * INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
- * BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
- * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
- * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
- * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
- * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
- *
- * @author     Sebastian Bergmann <sebastian@phpunit.de>
- * @copyright  2013-2014 Sebastian Bergmann <sebastian@phpunit.de>
- * @license    http://www.opensource.org/licenses/BSD-3-Clause  The BSD 3-Clause License
- * @link       http://www.github.com/sebastianbergmann/git
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  */
 
 namespace SebastianBergmann\Git;
 
 /**
- * @author     Sebastian Bergmann <sebastian@phpunit.de>
- * @copyright  2013-2014 Sebastian Bergmann <sebastian@phpunit.de>
- * @license    http://www.opensource.org/licenses/BSD-3-Clause  The BSD 3-Clause License
- * @link       http://www.github.com/sebastianbergmann/git
  */
 interface Exception
 {
 }
 <?php
-/**
- * Git
+/*
+ * This file is part of Git.
  *
- * Copyright (c) 2013-2014, Sebastian Bergmann <sebastian@phpunit.de>.
- * All rights reserved.
+ * (c) Sebastian Bergmann <sebastian@phpunit.de>
  *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions
- * are met:
- *
- *   * Redistributions of source code must retain the above copyright
- *     notice, this list of conditions and the following disclaimer.
- *
- *   * Redistributions in binary form must reproduce the above copyright
- *     notice, this list of conditions and the following disclaimer in
- *     the documentation and/or other materials provided with the
- *     distribution.
- *
- *   * Neither the name of Sebastian Bergmann nor the names of his
- *     contributors may be used to endorse or promote products derived
- *     from this software without specific prior written permission.
- *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
- * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
- * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS
- * FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE
- * COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
- * INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
- * BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
- * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
- * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
- * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
- * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
- *
- * @author     Sebastian Bergmann <sebastian@phpunit.de>
- * @copyright  2013-2014 Sebastian Bergmann <sebastian@phpunit.de>
- * @license    http://www.opensource.org/licenses/BSD-3-Clause  The BSD 3-Clause License
- * @link       http://www.github.com/sebastianbergmann/git
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  */
 
 namespace SebastianBergmann\Git;
@@ -23162,10 +20661,6 @@ namespace SebastianBergmann\Git;
 use DateTime;
 
 /**
- * @author     Sebastian Bergmann <sebastian@phpunit.de>
- * @copyright  2013-2014 Sebastian Bergmann <sebastian@phpunit.de>
- * @license    http://www.opensource.org/licenses/BSD-3-Clause  The BSD 3-Clause License
- * @link       http://www.github.com/sebastianbergmann/git
  */
 class Git
 {
@@ -23179,6 +20674,15 @@ class Git
      */
     public function __construct($repositoryPath)
     {
+        if (!is_dir($repositoryPath)) {
+            throw new RuntimeException(
+                sprintf(
+                    'Directory "%s" does not exist',
+                    $repositoryPath
+                )
+            );
+        }
+
         $this->repositoryPath = realpath($repositoryPath);
     }
 
@@ -23188,7 +20692,7 @@ class Git
     public function checkout($revision)
     {
         $this->execute(
-            'git checkout --force --quiet ' . $revision . ' 2>&1'
+            'checkout --force --quiet ' . $revision . ' 2>&1'
         );
     }
 
@@ -23197,12 +20701,11 @@ class Git
      */
     public function getCurrentBranch()
     {
-        $output = $this->execute('git status --porcelain --branch');
+        $output = $this->execute('symbolic-ref HEAD');
 
-        $tmp = explode(' ', $output[0]);
-        $tmp = explode('...', $tmp[1]);
+        $tmp = explode('/', $output[0]);
 
-        return $tmp[0];
+        return $tmp[2];
     }
 
     /**
@@ -23213,10 +20716,10 @@ class Git
     public function getDiff($from, $to)
     {
         $output = $this->execute(
-            'git diff --no-ext-diff ' . $from . ' ' . $to
+            'diff --no-ext-diff ' . $from . ' ' . $to
         );
 
-        return join("\n", $output);
+        return implode("\n", $output);
     }
 
     /**
@@ -23225,7 +20728,7 @@ class Git
     public function getRevisions()
     {
         $output = $this->execute(
-            'git log --no-merges --date-order --reverse --format=medium'
+            'log --no-merges --date-order --reverse --format=medium'
         );
 
         $numLines  = count($output);
@@ -23234,20 +20737,23 @@ class Git
         for ($i = 0; $i < $numLines; $i++) {
             $tmp = explode(' ', $output[$i]);
 
-            if (count($tmp) == 2 && $tmp[0] == 'commit') {
+            if ($tmp[0] == 'commit') {
                 $sha1 = $tmp[1];
-            } elseif (count($tmp) == 4 && $tmp[0] == 'Author:') {
-                $author = join(' ', array_slice($tmp, 1));
-            } elseif (count($tmp) == 9 && $tmp[0] == 'Date:') {
+            } elseif ($tmp[0] == 'Author:') {
+                $author = implode(' ', array_slice($tmp, 1));
+            } elseif ($tmp[0] == 'Date:' && isset($author) && isset($sha1)) {
                 $revisions[] = array(
                   'author'  => $author,
                   'date'    => DateTime::createFromFormat(
                       'D M j H:i:s Y O',
-                      join(' ', array_slice($tmp, 3))
+                      implode(' ', array_slice($tmp, 3))
                   ),
                   'sha1'    => $sha1,
                   'message' => isset($output[$i+2]) ? trim($output[$i+2]) : ''
                 );
+
+                unset($author);
+                unset($sha1);
             }
         }
 
@@ -23255,15 +20761,23 @@ class Git
     }
 
     /**
-     * @param  string  $command
+     * @return bool
+     */
+    public function isWorkingCopyClean()
+    {
+        $output = $this->execute('status');
+
+        return $output[count($output)-1] == 'nothing to commit, working directory clean';
+    }
+
+    /**
+     * @param  string           $command
      * @throws RuntimeException
      */
     protected function execute($command)
     {
-        $cwd = getcwd();
-        chdir($this->repositoryPath);
+        $command = 'LC_ALL=en_US.UTF-8 git -C ' . escapeshellarg($this->repositoryPath) . ' ' . $command;
         exec($command, $output, $returnValue);
-        chdir($cwd);
 
         if ($returnValue !== 0) {
             throw new RuntimeException(implode("\r\n", $output));
@@ -23274,7 +20788,7 @@ class Git
 }
 <?php
 /*
- * This file is part of the Comparator package.
+ * This file is part of the Finder Facade package.
  *
  * (c) Sebastian Bergmann <sebastian@phpunit.de>
  *
@@ -23298,11 +20812,7 @@ use TheSeer\fDOM\fDOMDocument;
  * </fileset>
  * </code>
  *
- * @author    Sebastian Bergmann <sebastian@phpunit.de>
- * @copyright Sebastian Bergmann <sebastian@phpunit.de>
- * @license   http://www.opensource.org/licenses/BSD-3-Clause  The BSD 3-Clause License
- * @link      http://github.com/sebastianbergmann/finder-facade/tree
- * @since     Class available since Release 1.0.0
+ * @since Class available since Release 1.0.0
  */
 class Configuration
 {
@@ -23328,7 +20838,8 @@ class Configuration
     }
 
     /**
-     * @param  string $xpath
+     * @param string $xpath
+     *
      * @return array
      */
     public function parse($xpath = '')
@@ -23369,7 +20880,8 @@ class Configuration
     }
 
     /**
-     * @param  string $path
+     * @param string $path
+     *
      * @return string
      */
     protected function toAbsolutePath($path)
@@ -23390,7 +20902,7 @@ class Configuration
 }
 <?php
 /*
- * This file is part of the Comparator package.
+ * This file is part of the Finder Facade package.
  *
  * (c) Sebastian Bergmann <sebastian@phpunit.de>
  *
@@ -23405,10 +20917,6 @@ use Symfony\Component\Finder\Finder;
 /**
  * Convenience wrapper for Symfony's Finder component.
  *
- * @author    Sebastian Bergmann <sebastian@phpunit.de>
- * @copyright Sebastian Bergmann <sebastian@phpunit.de>
- * @license   http://www.opensource.org/licenses/BSD-3-Clause  The BSD 3-Clause License
- * @link      http://github.com/sebastianbergmann/finder-facade/tree
  * @since     Class available since Release 1.0.0
  */
 class FinderFacade
@@ -23427,7 +20935,6 @@ class FinderFacade
      * @var array
      */
     protected $names = array();
-
 
     /**
      * @var array
@@ -23515,5 +21022,4 @@ class FinderFacade
         $this->regularExpressionsExcludes = $configuration['regularExpressionExcludes'];
     }
 }
-QsOTxj÷W|!Q0N≈¢ÕtíœyCâﬁ›avÓπ
-áèhë‘üM2Çõw˝f¨*>ØŸæP¢0√0   GBMB
+≠bHvAÑÇ⁄ÔÄØåÿ[SxGÃ´uìÕæx,8/√ı˜õw„,Ï∏ﬁ8ÇñCı5Nœ–ÄÃ„Ëı¢BÎ†˘   GBMB

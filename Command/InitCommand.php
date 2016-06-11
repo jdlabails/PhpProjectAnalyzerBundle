@@ -7,13 +7,12 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
- * Command d'initialisation des repertoires de rapports d'analyses
+ * Initialization command of analysis directories
  */
 class InitCommand extends ContainerAwareCommand
 {
-
     /**
-     * Configuration de la commande
+     * Configuration
      */
     protected function configure()
     {
@@ -24,7 +23,7 @@ class InitCommand extends ContainerAwareCommand
     }
 
     /**
-     * Execution de la commande
+     * Execution
      *
      * @param InputInterface $input
      * @param OutputInterface $output
@@ -54,11 +53,11 @@ class InitCommand extends ContainerAwareCommand
             'www-data:www-data'
         );
 
-        $output = [];
-        exec($installerPath. ' ' . $webServer . ' ' . $reportPath, $output);
+        $outputExec = [];
+        exec($installerPath. ' ' . $webServer . ' ' . $reportPath, $outputExec);
 
-        $output[] = "\nInstallation done";
+        $outputExec[] = "\nInstallation done";
 
-        $output->writeln($output);
+        $output->writeln($outputExec);
     }
 }

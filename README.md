@@ -39,9 +39,32 @@ And parses their report to give a nice view for rapid analysis of your project.
 
 ### Install
  - composer require jdlabails/php-project-analyzer-bundle
- - php app/console assets:install
- - php app/console assetic:dump
+ - add bundle to kernel
+```php
+/* app/AppKernel.php */
+public function registerBundles()
+    {
+// ...
+        $bundles[] = new JD\PhpProjectAnalyzerBundle\JDPhpProjectAnalyzerBundle();
+// ...
+}
+```
+ - add routing
+```yaml
+# app/config/routing.yml
+ppa:
+    resource: '@JDPhpProjectAnalyzerBundle/Resources/config/routing.yml'
+```
+
+
  - Set your config (see below)
+
+ - set assets
+```bash
+php app/console assets:install
+php app/console assetic:dump
+```
+
  - sudo php app/console ppa:init
 
 ### Use
@@ -51,6 +74,9 @@ And parses their report to give a nice view for rapid analysis of your project.
 ### Config
 
 ```yml
+framework:
+    translator: { fallback: %locale% }
+
 assetic:
     bundles:        
         - JDPhpProjectAnalyzerBundle

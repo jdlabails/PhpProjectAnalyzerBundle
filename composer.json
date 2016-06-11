@@ -11,7 +11,9 @@
     }],
     "require" : {        
         "php": ">=5.4",
-        "symfony/symfony": ">=2.3"
+        "symfony/symfony": ">=2.3",
+        "symfony/assetic-bundle": "dev-master",
+        "symfony/translation": "~3.0"
     },
     "scripts": {
         "post-install-cmd": [

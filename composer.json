@@ -1,7 +1,7 @@
 {
     "name" : "jdlabails/php-project-analyzer-bundle",
     "description" : "Symfony Bundle for PhpProjectAnalyzer",
-    "type" : "symfony-bundle",    
+    "type" : "symfony-bundle",
     "homepage": "https://github.com/jdlabails/PhpProjectAnalyzerBundle",
     "license" : ["MIT"],
     "keywords" : ["Php Project Analyzer Symfony"],
@@ -9,10 +9,9 @@
         "name" : "Jean-David Labails",
         "email" : "jd.labails@gmail.com"
     }],
-    "require" : {        
+    "require" : {
         "php": ">=5.4",
         "symfony/symfony": ">=2.3",
-        "symfony/assetic-bundle": "dev-master",
         "symfony/translation": "~3.0"
     },
     "scripts": {

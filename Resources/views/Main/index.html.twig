@@ -5,30 +5,17 @@
         <meta charset="UTF-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        
-        
-{% block stylesheets %}
-    {% stylesheets
-        '@JDPhpProjectAnalyzerBundle/Resources/public/css/bootstrap.min.css'
-        '@JDPhpProjectAnalyzerBundle/Resources/public/css/pa.css'
-    %}
-    <link href="{{asset_url}}" type="text/css" rel="stylesheet"/>
-    {% endstylesheets %}
-{% endblock %}
 
-{% block javascripts %}
-    {% javascripts
-        '@JDPhpProjectAnalyzerBundle/Resources/public/js/jquery-2.1.0.min.js'
-        '@JDPhpProjectAnalyzerBundle/Resources/public/js/tooltip.js'
-        '@JDPhpProjectAnalyzerBundle/Resources/public/js/bootstrap.min.js'
-        '@JDPhpProjectAnalyzerBundle/Resources/public/js/pa.js'
-    %}
-    <script type="text/javascript" src="{{ asset_url }}"></script>
-    {% endjavascripts %}
-{% endblock %}
+        <link href="{{ asset('bundles/jdphpprojectanalyzer/css/bootstrap.min.css') }}" rel="stylesheet">
+        <link href="{{ asset('bundles/jdphpprojectanalyzer/css/pa.css') }}" rel="stylesheet">
 
-    <link rel="icon" href="assets/img/favicon.ico" />
-        
+        <script src="{{ asset('bundles/jdphpprojectanalyzer/js/jquery-2.1.0.min.js') }}"></script>
+        <script src="{{ asset('bundles/jdphpprojectanalyzer/js/tooltip.js') }}"></script>
+        <script src="{{ asset('bundles/jdphpprojectanalyzer/js/bootstrap.min.js') }}"></script>
+        <script src="{{ asset('bundles/jdphpprojectanalyzer/js/pa.js') }}"></script>
+
+        <link rel="icon" href="assets/img/favicon.ico" />
+
     </head>
     <body>
         <div class="container-fluid">
@@ -54,7 +41,7 @@
         </div>
     </body>
 
-    {% if projectAnalyzer.analyzeInProgress %} 
+    {% if projectAnalyzer.analyzeInProgress %}
         <script>
         var urlLanceur = "{{path('jd_php_project_analyzer_analyze')}}";
         $('document').ready(function () {
@@ -62,7 +49,7 @@
         });
         </script>
     {% endif %}
-    
+
     <script>
         var urlLanceur = "{{path('jd_php_project_analyzer_analyze')}}";
     </script>

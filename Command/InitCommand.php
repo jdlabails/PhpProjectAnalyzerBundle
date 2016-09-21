@@ -47,17 +47,12 @@ class InitCommand extends ContainerAwareCommand
             }
         }
 
-        $webServer = $this->getHelperSet()->get('dialog')->ask(
-            $output,
-            'Please enter your web server user [www-data:www-data] :',
-            'www-data:www-data'
-        );
+        $question = new Question('Please enter your web server user [www-data:www-data] :', 'www-data:www-data');
+        $webServer = $this->getHelperSet()->get('question')->ask($input, $output, $question);
 
         $outputExec = [];
         exec($installerPath. ' ' . $webServer . ' ' . $reportPath, $outputExec);
-
         $outputExec[] = "\nInstallation done";
-
         $output->writeln($outputExec);
     }
 }

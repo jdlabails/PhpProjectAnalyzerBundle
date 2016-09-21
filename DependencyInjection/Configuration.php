@@ -58,8 +58,10 @@ class Configuration implements ConfigurationInterface
                     ->children()
                         ->booleanNode('enable')->defaultTrue()->end()
                         ->scalarNode('lib')->defaultValue('phpunit')->cannotBeEmpty()->end()
-                        ->scalarNode('phpunitTestSuite')->cannotBeEmpty()->end()
-                        ->scalarNode('phpunitTestConfig')->cannotBeEmpty()->end()
+                        ->scalarNode('phpunitTestSuite')->end()
+                        ->scalarNode('phpunitTestConfig')->end()
+                        ->scalarNode('atoumPath')->end()
+                        ->scalarNode('atoumTestDir')->end()
                     ->end()
                 ->end()
 

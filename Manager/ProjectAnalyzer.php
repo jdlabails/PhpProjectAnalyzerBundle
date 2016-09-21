@@ -255,8 +255,9 @@ class ProjectAnalyzer
                 }
             } // phpunit
 
-            if ($this->parameters['test']['lib'] == 'atoum') {
+            if ($this->parameters['test']['lib'] == 'atoum' && count($lines) > 2) {
                 $nbLines = count($lines);
+
                 $res['exeTime'] = explode(':', $lines[$nbLines-2])[1];
 
                 //Success (4 tests, 40/40 methods, 0 void method, 0 skipped method, 265 assertions)!

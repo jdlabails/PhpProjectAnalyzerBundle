@@ -78,13 +78,12 @@ framework:
     translator: { fallback: %locale% }
 
 assetic:
-    bundles:        
+    bundles:
         - JDPhpProjectAnalyzerBundle
 
 jd_php_project_analyzer:
     title:          Php project analyzer
     description:    It's a ouaaaouhh project !
-    lang :          en
 
     gitRepositoryURL:      https://github.com/jdlabails/PhpProjectAnalyzerBundle
 
@@ -139,7 +138,7 @@ jd_php_project_analyzer:
         csWeight:       100     # between 0 and 100, weighting of code sniffer
         testWeight:     100     # between 0 and 100, weighting of testing
         locWeight:      100     # between 0 and 100, weighting of code coverage
-        
+
 ```
 
 

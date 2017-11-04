@@ -35,3 +35,6 @@ wget https://github.com/downloads/Behat/Behat/behat.phar
 
 rm security-checker.phar
 wget http://get.sensiolabs.org/security-checker.phar
+
+rm atoum.phar
+wget https://github.com/atoum/atoum/releases/download/3.2.0/atoum.phar

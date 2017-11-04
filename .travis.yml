@@ -19,9 +19,11 @@ before_install:
 #    - pyrus install pear/PHP_CodeSniffer
 #    - phpenv rehash
 
-script: 
-    - bin/phpunit -c phpunit.xml
-    - bin/phpcs --standard=PSR2 --extensions=php Entities Manager Command Controller DependencyInjection Traits
+script:
+    - ls -la
+    - ls -la bin
+    - php bin/phpunit -c phpunit.xml
+    - php bin/phpcs --standard=PSR2 --extensions=php Entities Manager Command Controller DependencyInjection Traits
 
 notifications:
   email:

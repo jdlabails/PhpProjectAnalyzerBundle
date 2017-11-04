@@ -10,9 +10,9 @@
         "email" : "jd.labails@gmail.com"
     }],
     "require" : {
-        "php": ">=7.0",
-        "symfony/symfony": ">=2.8",
-        "symfony/translation": "~2.8"
+        "php": ">=5.4",
+        "symfony/symfony": ">=2.3",
+        "symfony/translation": ">=2.3"
     },
     "scripts": {
         "post-install-cmd": [

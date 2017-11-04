@@ -20,8 +20,6 @@ before_script:
 #    - phpenv rehash
 
 script:
-    - ls -la
-    - ls -la bin
     - vendor/bin/phpunit -c phpunit.xml
     - vendor/bin/phpcs --standard=PSR2 --extensions=php Entities Manager Command Controller DependencyInjection Traits
 

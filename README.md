@@ -38,7 +38,7 @@ It executes
 And parses their report to give a nice view for rapid analysis of your project.
 
 ### Install
- - composer require jdlabails/php-project-analyzer-bundle
+ - composer require jdlabails/php-project-analyzer-bundle --dev
  - add bundle to kernel
 ```php
 /* app/AppKernel.php */
@@ -55,17 +55,24 @@ public function registerBundles()
 ppa:
     resource: '@JDPhpProjectAnalyzerBundle/Resources/config/routing.yml'
 ```
-
-
+ - add security exception
+ ```yaml
+ access_control:
+         # PPA
+         - { path: "^/ppa/[a-z]*", roles: IS_AUTHENTICATED_ANONYMOUSLY }
+ ```
+ 
  - Set your config (see below)
 
  - set assets
 ```bash
 php app/console assets:install
-php app/console assetic:dump
 ```
 
- - sudo php app/console ppa:init
+ - set right for ppa directory in the web directory
+ ```bash
+ sudo php app/console ppa:init
+```
 
 ### Use
  - Call http://127.0.0.1:8000/en/ppa with your nav.
@@ -145,6 +152,14 @@ jd_php_project_analyzer:
 ### update your phar
 
 ```bash
-chmod +x  Resources/_phar/update.sh
-./Resources/_phar/update.sh
+cd Resources/_phar
+chmod +x  update.sh
+./update.sh
 ```
+
+### Need contributions
+
+ * avoid phar files for dependencies symfony
+ * refacto code
+ * unit test
+ * use nelmio api doc

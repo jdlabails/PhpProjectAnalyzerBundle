@@ -19,10 +19,13 @@
     "php": ">=7.0",
     "symfony/symfony": ">=2.3",
     "symfony/translation": ">=2.3",
-    "sebastian/phpcpd": "^2.0.0",
-    "phploc/phploc": "^4.0.0",
-    "symfony/phpunit-bridge": "^3.3",
-    "squizlabs/php_codesniffer": "*"
+    "sebastian/phpcpd": "*",
+    "phploc/phploc": "*",
+    "symfony/phpunit-bridge": "*",
+    "squizlabs/php_codesniffer": "*",
+    "pdepend/pdepend": "*",
+    "phpdocumentor/phpdocumentor": "*",
+    "phpmd/phpmd" : "*"
   },
   "scripts": {
     "post-install-cmd": [
@@ -46,8 +49,5 @@
   },
   "config": {
     "bin-dir": "bin/"
-  },
-  "require-dev": {
-    "pdepend/pdepend": "^2.5"
   }
 }

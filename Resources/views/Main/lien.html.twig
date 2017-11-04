@@ -16,7 +16,7 @@
         <br>
         {% endif %}
 
-        {% if projectAnalyzer.isEnable('docs') %}
+        {% if projectAnalyzer.isEnable('docs') and false %}
         <a href="{{ app.request.getSchemeAndHttpHost()}}/ppa/reports/DOCS/index.html" target="_blank">
             {% trans %}link.phpDoc{%endtrans%}
         </a>

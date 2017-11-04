@@ -81,8 +81,8 @@ class ScriptManager
 
         // on gere les options
         if (filter_input(INPUT_POST, 'genDoc') == 1) {
-            $cmd .= ' -d ';
-            $txt .= ' avec génération de doc ';
+//            $cmd .= ' -d ';
+//            $txt .= ' avec génération de doc ';
         }
 
         if (filter_input(INPUT_POST, 'genCC') == 1) {

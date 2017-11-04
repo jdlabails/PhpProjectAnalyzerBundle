@@ -24,7 +24,6 @@
     "symfony/phpunit-bridge": "*",
     "squizlabs/php_codesniffer": "*",
     "pdepend/pdepend": "*",
-    "phpdocumentor/phpdocumentor": "*",
     "phpmd/phpmd" : "*"
   },
   "scripts": {

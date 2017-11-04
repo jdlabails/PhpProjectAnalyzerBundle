@@ -33,7 +33,6 @@ It executes
  - Copy-paste detector
  - Php Depend
  - Php Loc
- - Php Docs
 
 And parses their report to give a nice view for rapid analysis of your project.
 
@@ -62,31 +61,11 @@ ppa:
      - { path: "^/ppa/[a-z]*", roles: IS_AUTHENTICATED_ANONYMOUSLY }
  ```
  
- - Set your config (see below)
-
- - set assets
-```bash
-php app/console assets:install
-```
-
- - set right for ppa directory in the web directory
- ```bash
- sudo php app/console ppa:init
-```
-
-### Use
- - Call http://127.0.0.1:8000/en/ppa with your nav.
- - Click on 'Start Scan'
-
-### Config
-
+ - Set your config
+ 
 ```yml
 framework:
     translator: { fallback: %locale% }
-
-assetic:
-    bundles:
-        - JDPhpProjectAnalyzerBundle
 
 jd_php_project_analyzer:
     title:          Php project analyzer
@@ -147,6 +126,21 @@ jd_php_project_analyzer:
         locWeight:      100     # between 0 and 100, weighting of code coverage
 
 ```
+
+
+ - set assets
+```bash
+php app/console assets:install
+```
+
+ - set right for ppa directory in the web directory
+ ```bash
+ sudo php app/console ppa:init
+```
+
+### Use
+ - Call http://127.0.0.1:8000/en/ppa with your nav.
+ - Click on 'Start Scan'
 
 
 ### update your phar

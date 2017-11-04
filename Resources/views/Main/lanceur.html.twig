@@ -11,7 +11,7 @@
     <div class="panel-body">
         <div id="formLanceur" style="display: {% if projectAnalyzer.isAnalyzeInProgress() %}none{% else %} block {%endif%}" >
             <form action="#" onsubmit="return lancerAnalyse();">
-                {% if projectAnalyzer.isEnable('docs') %}
+                {% if projectAnalyzer.isEnable('docs') and false %}
                 <div class="checkbox">
                     <label>
                       <input type="checkbox" name="genDoc" id="genDoc" value="1">

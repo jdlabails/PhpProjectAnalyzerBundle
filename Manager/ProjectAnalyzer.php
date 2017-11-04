@@ -256,7 +256,6 @@ class ProjectAnalyzer
             } // phpunit
 
             if ($this->parameters['test']['lib'] == 'atoum' && count($lines) > 2) {
-
                 $runningDurationLine = self::findAtoumRunningDuration($lines);
 
                 $res['exeTime'] = explode(':', $lines[$runningDurationLine])[1];

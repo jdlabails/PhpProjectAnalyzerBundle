@@ -22,8 +22,8 @@ before_script:
 script:
     - ls -la
     - ls -la bin
-    - php bin/phpunit -c phpunit.xml
-    - php bin/phpcs --standard=PSR2 --extensions=php Entities Manager Command Controller DependencyInjection Traits
+    - vendor/bin/phpunit -c phpunit.xml
+    - vendor/bin/phpcs --standard=PSR2 --extensions=php Entities Manager Command Controller DependencyInjection Traits
 
 notifications:
   email:

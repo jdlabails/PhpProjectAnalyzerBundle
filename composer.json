@@ -13,7 +13,8 @@
         "php": ">=5.4",
         "symfony/symfony": ">=2.3",
         "symfony/translation": ">=2.3",
-        "sebastian/phpcpd": "^2.0.0"
+        "sebastian/phpcpd": "^2.0.0",
+        "phploc/phploc": "^4.0.0"
     },
     "scripts": {
         "post-install-cmd": [

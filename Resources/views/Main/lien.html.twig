@@ -9,10 +9,12 @@
         </div>
     </div>
     <div class="panel-body" style="line-height: 30px">
+        {% if params.test.lib != 'atoum' %}
         <a href="{{ app.request.getSchemeAndHttpHost()}}/ppa/reports/TEST/phpUnitReport/dashboard.html" target="_blank">
             {% trans %}link.coverageReport{%endtrans%}
         </a>
         <br>
+        {% endif %}
 
         {% if projectAnalyzer.isEnable('docs') %}
         <a href="{{ app.request.getSchemeAndHttpHost()}}/ppa/reports/DOCS/index.html" target="_blank">

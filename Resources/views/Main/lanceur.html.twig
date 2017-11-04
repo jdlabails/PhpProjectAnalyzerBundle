@@ -20,12 +20,15 @@
                 </div>
                 {% endif %}
 
+                {% if params.test.lib != 'atoum' %}
                 <div class="checkbox">
                     <label>
                       <input type="checkbox" name="genCC" id="genCC" value="1">
                       {% trans %}launcher.generateCoverage{% endtrans %}
                     </label>
                 </div>
+                {% endif %}
+
                 <button type="submit" class="btn btn-primary">
                     {% trans %}launcher.launch{% endtrans %}
                 </button>

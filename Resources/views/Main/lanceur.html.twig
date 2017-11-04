@@ -10,7 +10,7 @@
     </div>
     <div class="panel-body">
         <div id="formLanceur" style="display: {% if projectAnalyzer.isAnalyzeInProgress() %}none{% else %} block {%endif%}" >
-            <form action="index.php" onsubmit="return lancerAnalyse();">
+            <form action="#" onsubmit="return lancerAnalyse();">
                 {% if projectAnalyzer.isEnable('docs') %}
                 <div class="checkbox">
                     <label>

@@ -58,8 +58,8 @@ ppa:
  - add security exception
  ```yaml
  access_control:
-         # PPA
-         - { path: "^/ppa/[a-z]*", roles: IS_AUTHENTICATED_ANONYMOUSLY }
+     # PPA
+     - { path: "^/ppa/[a-z]*", roles: IS_AUTHENTICATED_ANONYMOUSLY }
  ```
  
  - Set your config (see below)

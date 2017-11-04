@@ -21,11 +21,21 @@ function lancerUneAnalyse(one) {
 function lancerAnalyse() {
     $('#formLanceur').hide();
     $('#refreshLanceur').show();
+
+    var genDoc = false;
+    if (document.getElementById('genCC') && document.getElementById('genDoc').checked) {
+        genDoc = 1;
+    }
+    var genCC = false;
+    if (document.getElementById('genCC') && document.getElementById('genCC').checked) {
+        genCC = 1;
+    }
+
     $.ajax({
         url: urlLanceur,
         data: {
-            genDoc: document.getElementById('genDoc').checked * 1,
-            genCC: document.getElementById('genCC').checked * 1
+            genDoc: genDoc,
+            genCC: genCC
         },
         method: 'post'
     }).done(function (data) {

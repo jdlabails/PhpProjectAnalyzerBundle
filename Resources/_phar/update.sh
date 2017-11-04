@@ -12,9 +12,6 @@ wget http://www.phpdoc.org/phpDocumentor.phar
 rm phpcbf.phar
 wget https://squizlabs.github.io/PHP_CodeSniffer/phpcbf.phar
 
-rm phpcpd.phar
-wget https://phar.phpunit.de/phpcpd.phar
-
 rm phpcs.phar
 wget https://squizlabs.github.io/PHP_CodeSniffer/phpcs.phar
 

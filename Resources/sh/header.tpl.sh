@@ -14,6 +14,7 @@
 #Parametres generaux
 DIR_SRC=%%%dir_src%%%  #Repertoire des sources à analyser
 DIR_PA=%%%dir_pa%%%
+DIR_BIN=%%%dir_bin%%%
 DIR_REPORT=${DIR_PA}/reports
 DIR_PHAR=%%%dir_phar%%%
 DIR_JETON=${DIR_PA}/jetons

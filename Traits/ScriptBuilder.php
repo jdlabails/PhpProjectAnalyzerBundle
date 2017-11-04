@@ -98,6 +98,7 @@ trait ScriptBuilder
             $this->header = file_get_contents($this->tplShDirPath . '/header.tpl.sh');
             $this->header = str_replace('%%%dir_src%%%', $this->parameters['srcPath'], $this->header);
             $this->header = str_replace('%%%dir_pa%%%', $this->dirRoot, $this->header);
+            $this->header = str_replace('%%%dir_bin%%%', $this->dirBin, $this->header);
             $this->header = str_replace('%%%dir_phar%%%', __DIR__ . '/../Resources/_phar', $this->header);
             $this->header = str_replace('%%%lock_path%%%', $this->dirRoot . '/../../composer.lock', $this->header);
         }

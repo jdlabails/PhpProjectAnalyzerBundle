@@ -14,6 +14,7 @@ class ScriptManager
     use Traits\ScriptBuilder, Traits\ParamReader;
 
     protected $dirRoot;
+    protected $dirBin;
     protected $parameters;
     protected $jetonAnalysePath;
     protected $paShPath;
@@ -22,11 +23,13 @@ class ScriptManager
     /**
      * Le constructeur initialise les variables necessaire à la génération du script
      *
-     * @param type $configGlobale
+     * @param array $configGlobale
+     * @param string $rootDir
      */
     public function __construct($configGlobale, $rootDir)
     {
         $this->dirRoot             = $rootDir.'/web/ppa/';
+        $this->dirBin              = $rootDir.'/bin/';
         $this->jetonAnalysePath    = $this->dirRoot.'/jetons/jetonAnalyse';
         $this->shDirPath           = $this->dirRoot.'/sh';
 

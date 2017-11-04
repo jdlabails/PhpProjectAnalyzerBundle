@@ -256,12 +256,13 @@ class ProjectAnalyzer
             } // phpunit
 
             if ($this->parameters['test']['lib'] == 'atoum' && count($lines) > 2) {
-                $nbLines = count($lines);
 
-                $res['exeTime'] = explode(':', $lines[$nbLines-2])[1];
+                $runningDurationLine = self::findAtoumRunningDuration($lines);
+
+                $res['exeTime'] = explode(':', $lines[$runningDurationLine])[1];
 
                 //Success (4 tests, 40/40 methods, 0 void method, 0 skipped method, 265 assertions)!
-                $line = $lines[$nbLines-1];
+                $line = $lines[$runningDurationLine+1];
                 $res['ok'] = strpos($line, 'Success') !== false;
                 if ($res['ok']) {
                     $items = explode(',', $line);
@@ -473,5 +474,16 @@ class ProjectAnalyzer
                 ->setDateTime(filemtime($file))
                 ->setExecTime((int) file_get_contents($file));
         }
+    }
+
+    protected static function findAtoumRunningDuration(array $lines)
+    {
+        foreach ($lines as $index => $line) {
+            if (strpos($line, 'Running duration:')) {
+                return $index;
+            }
+        }
+
+        return false;
     }
 }

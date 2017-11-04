@@ -13,9 +13,9 @@ matrix:
     
 before_install:
     - wget http://getcomposer.org/composer.phar    
-#
-#before_script:
-#    - php composer.phar install --dev
+
+before_script:
+    - php composer.phar install --dev
 #    - pyrus install pear/PHP_CodeSniffer
 #    - phpenv rehash
 

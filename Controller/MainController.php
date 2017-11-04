@@ -3,6 +3,8 @@
 namespace JD\PhpProjectAnalyzerBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * Controller de l'interface principale
@@ -11,7 +13,8 @@ class MainController extends Controller
 {
     /**
      * Index
-     * @return type
+     * @Route("/{_locale]/ppa", requirements={"_locale": "en|fr"})
+     * @return Response
      */
     public function indexAction()
     {
@@ -25,7 +28,8 @@ class MainController extends Controller
 
     /**
      * Display phpinfo
-     * @return type
+     * @Route("/ppa/phpinfo")
+     * @return Response
      */
     public function phpinfoAction()
     {
@@ -34,7 +38,8 @@ class MainController extends Controller
 
     /**
      * Launch analysis
-     * @return type
+     * @Route("/ppa/analyze")
+     * @return Response
      */
     public function analyzeAction()
     {

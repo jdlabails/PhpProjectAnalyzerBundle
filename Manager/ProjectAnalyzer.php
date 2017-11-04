@@ -5,6 +5,7 @@ namespace JD\PhpProjectAnalyzerBundle\Manager;
 use JD\PhpProjectAnalyzerBundle\Entities\Analyze;
 use JD\PhpProjectAnalyzerBundle\Traits;
 use Symfony\Component\Translation\DataCollectorTranslator as Translator;
+use Symfony\Component\Translation\TranslatorInterface;
 
 /**
  * Classe basique regroupant les fonctions utilisées dans l'index
@@ -30,7 +31,7 @@ class ProjectAnalyzer
      * @param type $configGlobale
      * @param Translator $translator
      */
-    public function __construct($configGlobale, Translator $translator, $rootDir)
+    public function __construct($configGlobale, TranslatorInterface $translator, $rootDir)
     {
         // traduction
         $this->translator = $translator;

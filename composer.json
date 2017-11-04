@@ -22,7 +22,7 @@
     "sebastian/phpcpd": "^2.0.0",
     "phploc/phploc": "^4.0.0",
     "symfony/phpunit-bridge": "^3.3",
-    "squizlabs/php_codesniffer": "3.*"
+    "squizlabs/php_codesniffer": "*"
   },
   "scripts": {
     "post-install-cmd": [
@@ -46,5 +46,8 @@
   },
   "config": {
     "bin-dir": "bin/"
+  },
+  "require-dev": {
+    "pdepend/pdepend": "^2.5"
   }
 }

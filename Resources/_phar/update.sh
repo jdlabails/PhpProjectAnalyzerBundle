@@ -1,8 +1,5 @@
 #!/bin/bash
 
-rm pdepend.phar
-wget http://static.pdepend.org/php/latest/pdepend.phar
-
 rm phpDocumentor.phar
 wget http://www.phpdoc.org/phpDocumentor.phar
 

@@ -13,15 +13,15 @@ matrix:
     
 before_install:
     - wget http://getcomposer.org/composer.phar    
-    
-before_script:
-    - php composer.phar install --dev
-    - pyrus install pear/PHP_CodeSniffer
-    - phpenv rehash
+#
+#before_script:
+#    - php composer.phar install --dev
+#    - pyrus install pear/PHP_CodeSniffer
+#    - phpenv rehash
 
 script: 
-    - phpunit -c phpunit.xml
-    - phpcs --standard=PSR2 --extensions=php Entities Manager Command Controller DependencyInjection Traits
+    - bin/phpunit -c phpunit.xml
+    - bin/phpcs --standard=PSR2 --extensions=php Entities Manager Command Controller DependencyInjection Traits
 
 notifications:
   email:

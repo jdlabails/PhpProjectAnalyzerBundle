@@ -79,12 +79,13 @@ class ScriptManager
         // on init la commande
         $cmd = $this->paShPath;
 
-        // on gere les options
+        // l'option de generation de doc est débrailler pour le moment
         if (filter_input(INPUT_POST, 'genDoc') == 1) {
-            $cmd .= '';//' -d ';
-            $txt .= '';//' avec génération de doc ';
+            $cmd .= ' -d ';
+            $txt .= ' avec génération de doc ';
         }
 
+        // on gere l'option du code coverage
         if (filter_input(INPUT_POST, 'genCC') == 1) {
             $cmd .= ' -c ';
             $txt .= 'avec code coverage';

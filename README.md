@@ -170,3 +170,17 @@ bin/phpcs --standard=PSR2 --extensions=php Entities Manager Command Controller D
 ```bash
 bin/simple-phpunit -c phpunit.xml
 ```
+
+##### Tip for local project
+Put in your composer.json
+
+```json
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "repositories": [
+    {
+      "type": "path",
+      "url": "/path/to/your/project/dir/jdlabails-php-project-analyzer-bundle/"
+    }
+  ],
+  ```

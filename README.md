@@ -27,8 +27,8 @@ It give a view like :
 
 It executes
  - Php Mess Detector
- - Php Unit Test
- - Atoum test
+ - Php Unit Tests
+ - Atoum tests
  - Php Code Sniffer ( + reparation tool via phpcbf)
  - Copy-paste detector
  - Php Depend
@@ -48,17 +48,17 @@ public function registerBundles()
 // ...
 }
 ```
- - add routing
+ - Add routing
 ```yaml
 # app/config/routing.yml
 ppa:
     resource: '@JDPhpProjectAnalyzerBundle/Resources/config/routing.yml'
 ```
- - add security exception
+ - Add security exception
  ```yaml
  access_control:
      # PPA
-     - { path: "^/ppa/[a-z]*", roles: IS_AUTHENTICATED_ANONYMOUSLY }
+     - { path: "^(/[a-z]{2})?/ppa(/[a-z]*)?", roles: IS_AUTHENTICATED_ANONYMOUSLY }
  ```
  
  - Set your config
@@ -128,15 +128,17 @@ jd_php_project_analyzer:
 ```
 
 
- - set assets
+ - Set assets
 ```bash
 php app/console assets:install
 ```
 
- - set right for ppa directory in the web directory
+ - Set right for ppa directory in the web directory
  ```bash
  sudo php app/console ppa:init
 ```
+
+ - Add web/ppa in your .gitignore
 
 ### Use
  - Call http://127.0.0.1:8000/en/ppa with your nav.
@@ -158,6 +160,7 @@ Examples :
  * refacto code
  * unit tests
  * download security checker at each scan
+ * behat
  
 Just make a pull request on master
  

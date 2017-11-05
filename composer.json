@@ -15,6 +15,14 @@
       "email": "jd.labails@gmail.com"
     }
   ],
+  "autoload": {
+    "psr-4": {
+      "JD\\PhpProjectAnalyzerBundle\\": ""
+    }
+  },
+  "config": {
+    "bin-dir": "bin/"
+  },
   "require": {
     "php": ">=7.0",
     "symfony/symfony": ">=2.3",
@@ -24,29 +32,6 @@
     "symfony/phpunit-bridge": "*",
     "squizlabs/php_codesniffer": "*",
     "pdepend/pdepend": "*",
-    "phpmd/phpmd" : "*"
-  },
-  "scripts": {
-    "post-install-cmd": [
-      "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
-      "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets"
-    ],
-    "post-update-cmd": [
-      "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
-      "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets"
-    ]
-  },
-  "autoload": {
-    "psr-4": {
-      "JD\\PhpProjectAnalyzerBundle\\": ""
-    }
-  },
-  "extra": {
-    "branch-alias": {
-      "dev-master": "0.x-dev"
-    }
-  },
-  "config": {
-    "bin-dir": "bin/"
+    "phpmd/phpmd": "*"
   }
 }

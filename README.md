@@ -153,7 +153,20 @@ chmod +x  update.sh
 
 ### Need contributions
 
+Examples :
  * avoid phar files for dependencies symfony
  * refacto code
- * unit test
- * use nelmio api doc
+ * unit tests
+ * download security checker at each scan
+ 
+Just make a pull request on master
+ 
+##### Check style
+```bash
+bin/phpcs --standard=PSR2 --extensions=php Entities Manager Command Controller DependencyInjection Traits
+```
+ 
+##### Unit Tests
+```bash
+bin/simple-phpunit -c phpunit.xml
+```

@@ -13,6 +13,8 @@ score.popContent.sizeProject: Taille du projet
 score.popContent.fitWeighting: Vous pouvez adapter la pondération de ces éléments dans le param.yml.
 score.popContent.currentSet: "Vous êtes paramétrés comme suit :"
 score.popContent.csWeight: Pondération de code sniffer
+score.popContent.cpWeight: Pondération de copy paste
+score.popContent.scWeight: Pondération de security checker
 score.popContent.testWeight: Pondération des tests
 score.popContent.sizeWeight: Pondération de la taille
 score.popContent.scale: Echelle du projet

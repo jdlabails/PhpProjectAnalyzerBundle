@@ -14,6 +14,8 @@ score.popContent.fitWeighting: You can adjust the weighting of these elements in
 score.popContent.currentSet: "You are currently set as:"
 score.popContent.weight: weight
 score.popContent.csWeight: Code sniffer weight
+score.popContent.cpWeight: Copy paste weight
+score.popContent.scWeight: Security checker weight
 score.popContent.testWeight: Tests weight
 score.popContent.sizeWeight: Size weight
 score.popContent.scale: Project scale

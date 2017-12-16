@@ -32,6 +32,11 @@ class Analyze
     /**
      * @var boolean
      */
+    private $cpSuccess;
+
+    /**
+     * @var boolean
+     */
     private $securitySuccess;
 
     /**
@@ -221,6 +226,29 @@ class Analyze
     public function getCsSuccess()
     {
         return $this->csSuccess;
+    }
+
+    /**
+     * Set cpSuccess
+     *
+     * @param boolean $cpSuccess
+     * @return analyze
+     */
+    public function setCpSuccess($cpSuccess)
+    {
+        $this->cpSuccess = $cpSuccess;
+
+        return $this;
+    }
+
+    /**
+     * Get cpSuccess
+     *
+     * @return boolean
+     */
+    public function getCpSuccess()
+    {
+        return $this->cpSuccess;
     }
 
     /**

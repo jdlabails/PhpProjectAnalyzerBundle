@@ -69,6 +69,8 @@ class Configuration implements ConfigurationInterface
                     ->children()
                         ->booleanNode('enable')->defaultTrue()->end()
                         ->scalarNode('csWeight')->defaultValue('100')->cannotBeEmpty()->end()
+                        ->scalarNode('cpWeight')->defaultValue('100')->cannotBeEmpty()->end()
+                        ->scalarNode('scWeight')->defaultValue('100')->cannotBeEmpty()->end()
                         ->scalarNode('testWeight')->defaultValue('100')->cannotBeEmpty()->end()
                         ->scalarNode('locWeight')->defaultValue('100')->cannotBeEmpty()->end()
                         ->scalarNode('projectSize')->defaultValue('medium')->cannotBeEmpty()->end()

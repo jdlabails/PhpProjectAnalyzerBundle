@@ -44,17 +44,16 @@ class ScoreCalculatorTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($this->getScoreWeightParam('locWeight'), 100);
     }
 
-    /**
-     * Test du formatage des dates
-     */
     public function testCalculateScore()
     {
         // resultats de l'analyse
         $this->oAnalyze = new Analyze();
         $this->oAnalyze
-            ->setCov('100%')
+            ->setCov(100)
+            ->setCpSuccess(false)
             ->setCsSuccess(true)
-            ->setLoc(10000)
+            ->setSecuritySuccess(false)
+            ->setLoc(8564)
             ->setTuSuccess(true)
             ;
 
@@ -66,12 +65,21 @@ class ScoreCalculatorTest extends \PHPUnit_Framework_TestCase
         // scoring enable
         $this->parameters['score'] = [
             'enable' => true,
-            'testWeight' => '100',
-            'locWeight' => '100',
-            'csWeight' => '100',
+            'testWeight' => '20',
+            'cpWeight' => '30',
+            'scWeight' => '40',
+            'locWeight' => '50',
+            'csWeight' => '60',
         ];
 
+        $note   =
+            60 + // cs
+            20 + // test
+            8564 * 50 / 10000; // loc
+        $divide = (20 + 30 + 40 + 50 + 60) / 20;
+        $score  = round(($note / $divide), 2);
+
         $this->calculateScore();
-        $this->assertEquals($this->oAnalyze->getScore(), 14.67);
+        $this->assertEquals($this->oAnalyze->getScore(), $score);
     }
 }

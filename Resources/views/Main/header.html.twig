@@ -35,7 +35,9 @@
 
                     <ul>
                     <li>Code Sniffer score</li>
-                    <li>Tests status X code coverage</li>
+                    <li>Copy paste score</li>
+                    <li>Security checker score</li>
+                    <li>Tests status x code coverage</li>
                     <li>{% trans %}score.popContent.sizeProject{%endtrans %}</li>
                     </ul>
                     {% trans %}score.popContent.fitWeighting{%endtrans %}
@@ -45,6 +47,14 @@
                         <li>
                             {% trans %}score.popContent.csWeight{%endtrans %} :
                             {{ projectAnalyzer.getScoreWeightParam('csWeight')}}
+                        </li>
+                        <li>
+                            {% trans %}score.popContent.cpWeight{%endtrans %} :
+                            {{ projectAnalyzer.getScoreWeightParam('cpWeight')}}
+                        </li>
+                        <li>
+                            {% trans %}score.popContent.scWeight{%endtrans %} :
+                            {{ projectAnalyzer.getScoreWeightParam('scWeight')}}
                         </li>
                         <li>
                             {% trans %}score.popContent.testWeight{%endtrans %} :

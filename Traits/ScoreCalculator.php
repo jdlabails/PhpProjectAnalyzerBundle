@@ -15,7 +15,7 @@ trait ScoreCalculator
 
     /**
      * Return true if score is enable by the config file
-     * @return type
+     * @return boolean
      */
     public function isScoreEnable()
     {
@@ -35,10 +35,14 @@ trait ScoreCalculator
 
         $loc  = (int) $this->oAnalyze->getLoc();
         $cs   = (int) ($this->oAnalyze->getCsSuccess() === true);
+        $cp = (int) ($this->oAnalyze->getCpSuccess() === true);
+        $sc = (int) ($this->oAnalyze->getSecuritySuccess() === true);
         $test = (int) ($this->oAnalyze->getTuSuccess() === true);
         $cc   = (float) $this->oAnalyze->getCov();
 
         $csWeight = $this->getScoreWeightParam('csWeight');
+        $cpWeight = $this->getScoreWeightParam('cpWeight');
+        $scWeight = $this->getScoreWeightParam('scWeight');
         $testWeight = $this->getScoreWeightParam('testWeight');
         $locWeight = $this->getScoreWeightParam('locWeight');
 
@@ -53,8 +57,13 @@ trait ScoreCalculator
             $maxSize = 100000;
         }
 
-        $note   = $cs * $csWeight + $test * $testWeight * ($cc / 100) + $loc * $locWeight / $maxSize;
-        $divide = ($csWeight + $testWeight + $locWeight) / 20;
+        $note   =
+            $cp * $cpWeight +
+            $sc * $scWeight +
+            $cs * $csWeight +
+            $test * $testWeight * ($cc / 100) +
+            $loc * $locWeight / $maxSize;
+        $divide = ($csWeight + $scWeight + $cpWeight + $testWeight + $locWeight) / 20;
         $score  = round(($note / $divide), 2);
 
         $this->oAnalyze->setScore($score);
@@ -62,13 +71,13 @@ trait ScoreCalculator
 
     /**
      * Return weight of the given parameter
-     * @param type $name
+     * @param string $name
      * @return int
      */
     public function getScoreWeightParam($name)
     {
         $weight = $this->getParam('score', $name);
-        if (!is_int($weight)) {
+        if (!is_numeric($weight)) {
             return 100;
         }
 

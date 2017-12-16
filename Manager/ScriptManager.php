@@ -58,7 +58,7 @@ class ScriptManager
 
         // si on arrive là on doit lancer l'analyse selon la config
         $this->paShPath = $this->shDirPath.'/pa.sh';
-        $this->creerAnalyses();
+        $this->createAnalysis();
 
         // lancement unitaire : le sh à lancer n'est pas la meme
         if (filter_input(INPUT_POST, 'one') != '') {

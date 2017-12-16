@@ -49,6 +49,7 @@ class ProjectAnalyzer
         $this->oAnalyze = new Analyze();
         $this->oAnalyze
             ->setLang($translator->getLocale())
+            ->setSymfonyVersion($this->getSymfonyVersion())
             ->setNbNamespace($this->extractFromLoc('namespaces'))
             ->setNbClasses($this->extractFromLoc('classes'))
             ->setNbMethod($this->extractFromLoc('methods'))
@@ -155,6 +156,14 @@ class ProjectAnalyzer
         $securityAnalyse = $this->analyzeReport('SECURITY', false, '[OK] 0 packages have known vulnerabilities');
 
         $this->oAnalyze->setSecuritySuccess($securityAnalyse['SECURITY']['summary'] === 'ok');
+    }
+
+    protected function getSymfonyVersion()
+    {
+        $reportFilePath = $this->reportPath.'/SYMFONY/report.txt';
+        $report = $this->getReport($reportFilePath);
+
+        return substr($report[0], 8, 5);
     }
 
     /**
@@ -302,12 +311,12 @@ class ProjectAnalyzer
     }
 
     /**
-     * Lit les rapports d'analyse
+     * Read analysis reports
      * @return array
      */
     public function getReportInfo()
     {
-        $tabReports = array('MD', 'CS', 'CPD', 'DEPEND', 'LOC', 'DOCS', 'SECURITY');
+        $tabReports = array('MD', 'CS', 'CPD', 'DEPEND', 'LOC', 'DOCS', 'SECURITY', 'SYMFONY');
 
         foreach ($tabReports as $report) {
             list($reportTxt, $vide) = $this->getReport($this->reportPath.'/'.$report.'/report.txt');

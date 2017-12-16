@@ -47,6 +47,7 @@ createDir4Web ${DIR_REPORT}/LOC
 createDir4Web ${DIR_REPORT}/DEPEND
 createDir4Web ${DIR_REPORT}/DOCS
 createDir4Web ${DIR_REPORT}/MD
+createDir4Web ${DIR_REPORT}/SYMFONY
 createDir4Web ${DIR_REPORT}/TEST
 createDir4Web ${DIR_REPORT}/HISTORIQUE
 createDir4Web ${DIR_REPORT}/SECURITY

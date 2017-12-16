@@ -17,7 +17,7 @@ trait ScriptBuilder
     /**
      * On creer le pa.sh selon les param
      */
-    public function creerAnalyses()
+    public function createAnalysis()
     {
         $contentGlobalSh = $contentCbfSh = $this->getHeader();
 

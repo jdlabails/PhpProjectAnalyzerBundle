@@ -42,3 +42,8 @@ do
             ;;
     esac
 done
+
+
+echo "Lecture de la version de symfony"
+
+${DIR_BIN}/console --version > ${DIR_REPORT}/SYMFONY/report.txt

@@ -124,6 +124,11 @@ class Analyze
      */
     private $lang;
 
+    /**
+     * @var string
+     */
+    private $symfonyVersion;
+
 
     /**
      * Get id
@@ -374,10 +379,10 @@ class Analyze
     public function getReadableExecTime()
     {
         if ($this->execTime > 120) {
-            return round($this->execTime / 60, 0, PHP_ROUND_HALF_DOWN).' min '.($this->execTime%60).' sec ';
+            return round($this->execTime / 60, 0, PHP_ROUND_HALF_DOWN) . ' min ' . ($this->execTime % 60) . ' sec ';
         }
 
-        return $this->execTime.' sec';
+        return $this->execTime . ' sec';
     }
 
     /**
@@ -388,7 +393,7 @@ class Analyze
      */
     public function setNbBundles($nbBundles)
     {
-        $this->nbBundles = (int) $nbBundles;
+        $this->nbBundles = (int)$nbBundles;
 
         return $this;
     }
@@ -411,7 +416,7 @@ class Analyze
      */
     public function setNbDir($nbDir)
     {
-        $this->nbDir = (int) $nbDir;
+        $this->nbDir = (int)$nbDir;
 
         return $this;
     }
@@ -434,7 +439,7 @@ class Analyze
      */
     public function setNbFile($nbFile)
     {
-        $this->nbFile = (int) $nbFile;
+        $this->nbFile = (int)$nbFile;
 
         return $this;
     }
@@ -457,7 +462,7 @@ class Analyze
      */
     public function setNbPhpFile($nbPhpFile)
     {
-        $this->nbPhpFile = (int) $nbPhpFile;
+        $this->nbPhpFile = (int)$nbPhpFile;
 
         return $this;
     }
@@ -480,7 +485,7 @@ class Analyze
      */
     public function setNbCSSFile($nbCSSFile)
     {
-        $this->nbCSSFile = (int) $nbCSSFile;
+        $this->nbCSSFile = (int)$nbCSSFile;
 
         return $this;
     }
@@ -503,7 +508,7 @@ class Analyze
      */
     public function setNbCSSLib($nbCSSLib)
     {
-        $this->nbCSSLib = (int) $nbCSSLib;
+        $this->nbCSSLib = (int)$nbCSSLib;
 
         return $this;
     }
@@ -526,7 +531,7 @@ class Analyze
      */
     public function setNbJSFile($nbJSFile)
     {
-        $this->nbJSFile = (int) $nbJSFile;
+        $this->nbJSFile = (int)$nbJSFile;
 
         return $this;
     }
@@ -549,7 +554,7 @@ class Analyze
      */
     public function setNbJSLib($nbJSLib)
     {
-        $this->nbJSLib = (int) $nbJSLib;
+        $this->nbJSLib = (int)$nbJSLib;
 
         return $this;
     }
@@ -572,7 +577,7 @@ class Analyze
      */
     public function setNbTwig($nbTwig)
     {
-        $this->nbTwig = (int) $nbTwig;
+        $this->nbTwig = (int)$nbTwig;
 
         return $this;
     }
@@ -595,7 +600,7 @@ class Analyze
      */
     public function setNbNamespace($nbNamespace)
     {
-        $this->nbNamespace = (int) $nbNamespace;
+        $this->nbNamespace = (int)$nbNamespace;
 
         return $this;
     }
@@ -618,7 +623,7 @@ class Analyze
      */
     public function setNbClasses($nbClasses)
     {
-        $this->nbClasses = (int) $nbClasses;
+        $this->nbClasses = (int)$nbClasses;
 
         return $this;
     }
@@ -641,7 +646,7 @@ class Analyze
      */
     public function setNbMethod($nbMethod)
     {
-        $this->nbMethod = (int) $nbMethod;
+        $this->nbMethod = (int)$nbMethod;
 
         return $this;
     }
@@ -690,12 +695,30 @@ class Analyze
 
     /**
      * Set an Analyse object from an array
-     * @param type $data
+     * @param array $data
      */
     public function setFromArray($data)
     {
         foreach ($data as $key => $value) {
             $this->{$key} = $value;
         }
+    }
+
+    /**
+     * @return string
+     */
+    public function getSymfonyVersion()
+    {
+        return $this->symfonyVersion;
+    }
+
+    /**
+     * @param string $symfonyVersion
+     * @return Analyze
+     */
+    public function setSymfonyVersion($symfonyVersion)
+    {
+        $this->symfonyVersion = $symfonyVersion;
+        return $this;
     }
 }

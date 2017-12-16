@@ -18,7 +18,7 @@ trait ViewHelper
      *
      * @return string
      */
-    public static function afficheSummary($summary)
+    public static function viewSummary($summary)
     {
         switch ($summary) {
             case 'ok':

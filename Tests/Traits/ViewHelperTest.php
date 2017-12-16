@@ -17,11 +17,11 @@ class ViewHelperTest extends \PHPUnit_Framework_TestCase
     /**
      * Test de l'affichage des résumés html
      */
-    public function testAfficheSummary()
+    public function testViewSummary()
     {
-        $this->assertEquals(self::afficheSummary('ok'), '<span class="badge alert-success value">OK</span>');
-        $this->assertEquals(self::afficheSummary('ko'), '<span class="badge alert-warning value">KO</span>');
-        $this->assertEquals(self::afficheSummary('nimp'), '<span class="badge alert-warning value">NC</span>');
+        $this->assertEquals(self::viewSummary('ok'), '<span class="badge alert-success value">OK</span>');
+        $this->assertEquals(self::viewSummary('ko'), '<span class="badge alert-warning value">KO</span>');
+        $this->assertEquals(self::viewSummary('nimp'), '<span class="badge alert-warning value">NC</span>');
     }
 
     /**

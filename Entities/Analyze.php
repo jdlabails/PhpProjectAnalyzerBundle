@@ -2,130 +2,185 @@
 
 namespace JD\PhpProjectAnalyzerBundle\Entities;
 
+use Doctrine\ORM\Mapping as ORM;
+
 /**
  * La classe Analyze sert à structurer les résultats des analyses
  *
  * @author Jean-David Labails <jd.labails@gmail.com>
+ *
+ * @ORM\Table(name="ppa_analyse")
+ * @ORM\Entity()
  */
 class Analyze
 {
     /**
      * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
 
     /**
      * @var \DateTime
+     *
+     * @ORM\Column(name="analyzed_at", type="datetime")
      */
     private $dateTime;
 
     /**
      * @var boolean
+     *
+     * @ORM\Column(name="tu_success", type="boolean", nullable=true, options={"default":false})
      */
     private $tuSuccess;
 
     /**
      * @var boolean
+     *
+     * @ORM\Column(name="cs_success", type="boolean", nullable=true, options={"default":false})
      */
     private $csSuccess;
 
     /**
      * @var boolean
+     *
+     * @ORM\Column(name="cp_success", type="boolean", nullable=true, options={"default":false})
      */
     private $cpSuccess;
 
     /**
      * @var boolean
+     *
+     * @ORM\Column(name="security_success", type="boolean", nullable=true, options={"default":false})
      */
     private $securitySuccess;
 
     /**
      * @var integer
+     *
+     * @ORM\Column(name="loc", type="integer", nullable=true)
      */
     private $loc;
 
     /**
      * @var integer
+     *
+     * @ORM\Column(name="score", type="integer", nullable=true)
      */
     private $score;
 
     /**
      * @var float
+     *
+     * @ORM\Column(name="cov", type="double(4,2)", nullable=true)
      */
     private $cov;
 
     /**
      * @var integer
+     *
+     * @ORM\Column(name="exec_time", type="integer", nullable=true)
      */
     private $execTime;
 
     /**
      * @var integer
+     *
+     * @ORM\Column(name="nb_bundles", type="integer", nullable=true)
      */
     private $nbBundles;
 
     /**
      * @var integer
+     *
+     * @ORM\Column(name="nb_dir", type="integer", nullable=true)
      */
     private $nbDir;
 
     /**
      * @var integer
+     *
+     * @ORM\Column(name="nb_file", type="integer", nullable=true)
      */
     private $nbFile;
 
     /**
      * @var integer
+     *
+     * @ORM\Column(name="nb_php_file", type="integer", nullable=true)
      */
     private $nbPhpFile;
 
     /**
      * @var integer
+     *
+     * @ORM\Column(name="nb_css_file", type="integer", nullable=true)
      */
     private $nbCSSFile;
 
     /**
      * @var integer
+     *
+     * @ORM\Column(name="nb_css_lib", type="integer", nullable=true)
      */
     private $nbCSSLib;
 
     /**
      * @var integer
+     *
+     * @ORM\Column(name="loc", type="integer", nullable=true)
      */
     private $nbJSFile;
 
     /**
      * @var integer
+     *
+     * @ORM\Column(name="nb_js_lib", type="integer", nullable=true)
      */
     private $nbJSLib;
 
     /**
      * @var integer
+     *
+     * @ORM\Column(name="nb_twig", type="integer", nullable=true)
      */
     private $nbTwig;
 
     /**
      * @var integer
+     *
+     * @ORM\Column(name="nb_namespace", type="integer", nullable=true)
      */
     private $nbNamespace;
 
     /**
      * @var integer
+     *
+     * @ORM\Column(name="nb_classes", type="integer", nullable=true)
      */
     private $nbClasses;
 
     /**
      * @var integer
+     *
+     * @ORM\Column(name="nb_method", type="integer", nullable=true)
      */
     private $nbMethod;
 
     /**
      * @var string
+     *
+     * @ORM\Column(name="lang", type="string", nullable=true)
      */
     private $lang;
 
     /**
      * @var string
+     *
+     * @ORM\Column(name="symfony_version", type="string", nullable=true)
      */
     private $symfonyVersion;
 

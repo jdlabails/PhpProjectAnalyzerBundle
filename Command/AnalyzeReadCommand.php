@@ -35,7 +35,7 @@ class AnalyzeReadCommand extends ContainerAwareCommand
     {
         $projectAnalyzer = $this->getContainer()->get('jd_ppa.projectAnalyzer');
 
-        if($projectAnalyzer->isAnalyzeInProgress()) {
+        if ($projectAnalyzer->isAnalyzeInProgress()) {
             $output->writeln('AIP');
             return;
         }

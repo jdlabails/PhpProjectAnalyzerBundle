@@ -153,6 +153,11 @@ chmod +x  update.sh
 ./update.sh
 ```
 
+### Commands available
+
+ppa:analyse:launch ==> launch analysis without web interface
+ppa:analyse:read ==> read analysis without web interface. The result is in json
+
 ### Need contributions
 
 Examples :
